@@ -1,9 +1,10 @@
 import Logo from "../images/Logo_MyCoffee.png";
 import StyledLogo from "./StyledLogo";
+import "./NaviBar.css";
 
 function NaviBar() {
   return (
-    <div>
+    <div className="nav">
       <div>
         <StyledLogo src={Logo} alt="Logo" />
       </div>
