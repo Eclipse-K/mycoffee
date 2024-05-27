@@ -1,3 +1,49 @@
 .nav {
-  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+
+.nav-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+}
+
+.nav-logo p {
+  margin-left: 10px;
+}
+
+.nav-login {
+  display: flex;
+  justify-content: flex-end;
+  list-style-type: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  width: 100%;
+}
+
+.nav-login li {
+  margin-right: 10px;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: flex-end;
+  list-style-type: none;
+  width: 100%;
+  padding: 0;
+}
+
+.nav-list li {
+  margin-right: 20px;
+}
+
+.nav-list li:last-child {
+  margin-right: 10px;
 }
