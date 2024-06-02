@@ -1,14 +1,16 @@
 import Logo from "../images/Logo_MyCoffee.png";
 import StyledLogo from "./StyledLogo";
 import "./NaviBar.css";
+import { Link } from "react-router-dom";
 
 function NaviBar() {
   return (
     <div className="nav-area">
       <div className="nav-top">
-        <div className="nav-logo-img">
+        <Link className="nav-logo-img" to="/">
           <StyledLogo src={Logo} alt="Logo" />
-        </div>
+        </Link>
+
         <ul className="nav-login">
           <li>로그인</li>
           <li>회원가입</li>
@@ -16,7 +18,9 @@ function NaviBar() {
       </div>
 
       <div className="nav-middle">
-        <h1 className="nav-logo">My Coffee</h1>
+        <Link className="nav-logo" to="/">
+          <h1>My Coffee</h1>
+        </Link>
 
         <div className="nav-item">
           <ul className="nav-list">
