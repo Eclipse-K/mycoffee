@@ -1,47 +1,63 @@
-.nav {
+.nav-top {
   display: flex;
   align-items: center;
-  height: 80px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-logo-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+}
+
+.nav-login {
+  display: flex;
+  justify-content: space-evenly;
+  list-style-type: none;
+  width: 160px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-middle {
+  height: 200px;
 }
 
 .nav-logo {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 150px;
-}
-
-.nav-logo p {
-  margin-left: 10px;
-}
-
-.nav-login {
-  display: flex;
-  justify-content: flex-end;
-  list-style-type: none;
-  width: 100%;
-  padding: 0;
-  margin: 0;
+  font-family: "Danfo", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 70px;
+  font-style: normal;
+  font-variation-settings: "ELSH" 0;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 .nav-item {
   width: 100%;
 }
 
-.nav-login li {
-  margin-right: 10px;
-}
-
 .nav-list {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   list-style-type: none;
   width: 100%;
   padding: 0;
 }
 
 .nav-list li {
-  margin-right: 20px;
+  margin-left: 24px;
+  margin-right: 24px;
+  font-family: "Do Hyeon", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  font-style: normal;
 }
 
 .nav-list li:last-child {
