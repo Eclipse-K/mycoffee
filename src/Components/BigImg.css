@@ -1,3 +1,6 @@
 .BigImg {
   border: 1px solid black;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
 }

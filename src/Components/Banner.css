@@ -4,7 +4,6 @@
   align-items: center;
   grid-template-columns: 10% 80% 10%;
   height: 500px;
-  border: 1px solid black;
 }
 
 .Banner-container button {

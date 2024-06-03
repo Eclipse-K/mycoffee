@@ -64,6 +64,7 @@
   font-weight: 400;
   font-size: 24px;
   font-style: normal;
+  cursor: pointer;
 }
 
 .nav-list li:last-child {
