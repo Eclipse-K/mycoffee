@@ -4,3 +4,13 @@
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
 }
+
+.BigImg-1,
+.BigImg-2 {
+  border: 1px solid black;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
