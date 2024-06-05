@@ -1,3 +1,21 @@
 .BestItem {
   border: 1px solid black;
 }
+
+.item-area {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0 24px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-area li {
+  border: 1px solid black;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
