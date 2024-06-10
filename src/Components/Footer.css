@@ -1,3 +1,38 @@
 .Footer {
   border: 1px solid black;
 }
+
+.Footer-container h1,
+.Copyright {
+  padding-left: 40px;
+}
+
+.Footer-info-1,
+.Footer-info-2,
+.Footer-info-3 {
+  /* border: 1px solid black; */
+  list-style-type: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.Footer-info-1 {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.Footer-info-1 li {
+  display: inline-block;
+  padding: 0 40px;
+  border-right: 2px solid gray;
+}
+
+.Footer-info-2 li,
+.Footer-info-3 li {
+  margin-bottom: 10px;
+}
+
+.Footer-info-2 li:last-child {
+  margin-bottom: 0;
+}
