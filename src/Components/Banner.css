@@ -1,8 +1,15 @@
+.Banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .Banner-container {
   display: grid;
   justify-items: center;
   align-items: center;
   grid-template-columns: 10% 80% 10%;
+  width: 1440px;
   height: 500px;
 }
 

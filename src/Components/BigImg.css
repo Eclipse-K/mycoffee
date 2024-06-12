@@ -1,15 +1,24 @@
 .BigImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 0 0 0;
+  width: 100%;
+}
+
+.BigImg-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
-  margin: 100px 0 0 0;
+  gap: 0 40px;
+  width: 1440px;
 }
 
 .BigImg-1,
 .BigImg-2 {
   border: 1px solid black;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;

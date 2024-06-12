@@ -1,4 +1,8 @@
 .BestItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   margin: 100px 0 100px 0;
 }
 
@@ -7,6 +11,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 0 24px;
   list-style-type: none;
+  width: 1440px;
   padding: 0;
   margin: 0;
 }

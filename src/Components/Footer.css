@@ -1,6 +1,12 @@
-.Footer-container h1,
-.Copyright {
-  padding-left: 40px;
+.Footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.Footer-container {
+  width: 1440px;
 }
 
 .Footer-info-1,
@@ -31,4 +37,8 @@
 
 .Footer-info-2 li:last-child {
   margin-bottom: 0;
+}
+
+.Copyright {
+  padding-left: 40px;
 }
