@@ -1,7 +1,5 @@
 .BigImg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
   margin: 100px 0 0 0;
   width: 100%;
 }
@@ -10,8 +8,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
-  gap: 0 40px;
-  width: 1440px;
 }
 
 .BigImg-1,
