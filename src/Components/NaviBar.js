@@ -24,10 +24,18 @@ function NaviBar() {
 
         <div className="nav-item">
           <ul className="nav-list">
-            <li>홀빈</li>
-            <li>드립백</li>
-            <li>핸드드립</li>
-            <li>제품</li>
+            <Link className="nav-link" to="/WholeBean">
+              <li>홀빈</li>
+            </Link>
+            <Link className="nav-link">
+              <li>드립백</li>
+            </Link>
+            <Link className="nav-link">
+              <li>핸드드립</li>
+            </Link>
+            <Link className="nav-link">
+              <li>제품</li>
+            </Link>
           </ul>
         </div>
       </div>
