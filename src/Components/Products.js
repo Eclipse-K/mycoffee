@@ -1,11 +1,11 @@
 import NaviBar from "./NaviBar";
 
-function WholeBean() {
+function Products() {
   return (
-    <div className="WholeBean">
+    <div className="Products">
       <NaviBar />
-      <h1>WholeBean</h1>
-      <div className="WholeBean-container">
+      <h1>Products</h1>
+      <div className="Products-container">
         <div>img</div>
         <p>title</p>
         <p>price</p>
@@ -15,4 +15,4 @@ function WholeBean() {
   );
 }
 
-export default WholeBean;
+export default Products;

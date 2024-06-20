@@ -1,11 +1,11 @@
 import NaviBar from "./NaviBar";
 
-function WholeBean() {
+function HandDrip() {
   return (
-    <div className="WholeBean">
+    <div className="HandDrip">
       <NaviBar />
-      <h1>WholeBean</h1>
-      <div className="WholeBean-container">
+      <h1>HandDrip</h1>
+      <div className="HandDrip-container">
         <div>img</div>
         <p>title</p>
         <p>price</p>
@@ -15,4 +15,4 @@ function WholeBean() {
   );
 }
 
-export default WholeBean;
+export default HandDrip;
