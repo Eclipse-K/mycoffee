@@ -1,0 +1,14 @@
+.WholeBean-title {
+  text-align: center;
+  font-family: "Do Hyeon", sans-serif;
+}
+
+.WholeBean-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.WholeBean-area {
+  border: 1px solid black;
+  font-family: "Do Hyeon", sans-serif;
+}
