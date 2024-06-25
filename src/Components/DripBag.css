@@ -1,0 +1,14 @@
+.DripBag-title {
+  text-align: center;
+  font-family: "Do Hyeon", sans-serif;
+}
+
+.DripBag-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.DripBag-area {
+  border: 1px solid black;
+  font-family: "Do Hyeon", sans-serif;
+}

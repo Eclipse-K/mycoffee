@@ -27,13 +27,13 @@ function NaviBar() {
             <Link className="nav-link" to="/WholeBean">
               <li>홀빈</li>
             </Link>
-            <Link className="nav-link">
+            <Link className="nav-link" to="/DripBag">
               <li>드립백</li>
             </Link>
-            <Link className="nav-link">
+            <Link className="nav-link" to="/HandDrip">
               <li>핸드드립</li>
             </Link>
-            <Link className="nav-link">
+            <Link className="nav-link" to="/Products">
               <li>제품</li>
             </Link>
           </ul>
