@@ -6,6 +6,7 @@ import WholeBean from "./Components/WholeBean";
 import DripBag from "./Components/DripBag";
 import HandDrip from "./Components/HandDrip";
 import Products from "./Components/Products";
+import SignupForm from "./Components/SignupForm";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/DripBag" element={<DripBag />} />
         <Route path="/HandDrip" element={<HandDrip />} />
         <Route path="/Products" element={<Products />} />
+        <Route path="/SignupForm" element={<SignupForm />} />
       </Routes>
 
       <Footer />

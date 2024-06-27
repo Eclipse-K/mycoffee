@@ -13,7 +13,9 @@ function NaviBar() {
 
         <ul className="nav-login">
           <li>로그인</li>
-          <li>회원가입</li>
+          <Link className="nav-sign" to="/SignupForm">
+            <li>회원가입</li>
+          </Link>
         </ul>
       </div>
 

@@ -26,6 +26,12 @@
   margin: 0;
 }
 
+.nav-sign {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
 .nav-middle {
   display: grid;
   align-items: center;

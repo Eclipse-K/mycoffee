@@ -1,0 +1,50 @@
+.Sign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+  border: 1px solid black;
+}
+
+.Sign-Container {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  border: 1px solid black;
+  width: 400px;
+  height: 350px;
+}
+
+.Sign-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+}
+
+.Sign-label {
+  margin-top: 10px;
+}
+
+.Sign-input {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #61dafb;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #21a1f1;
+}
+
+p {
+  color: red;
+  font-size: 12px;
+}
