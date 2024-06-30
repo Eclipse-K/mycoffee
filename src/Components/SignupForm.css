@@ -3,32 +3,39 @@
   justify-content: center;
   align-items: center;
   height: 700px;
-  border: 1px solid black;
 }
 
 .Sign-Container {
   display: grid;
   justify-items: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  background-color: ghostwhite;
   width: 400px;
-  height: 350px;
 }
 
 .Sign-area {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 300px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .Sign-label {
   margin-top: 10px;
+  font-family: "Do Hyeon", sans-serif;
+}
+
+.Sign-label-2 {
+  margin: 0;
+  font-family: "Do Hyeon", sans-serif;
 }
 
 .Sign-input {
   padding: 5px;
   margin-top: 5px;
+  width: 200px;
 }
 
 button {
@@ -44,7 +51,8 @@ button:hover {
   background-color: #21a1f1;
 }
 
-p {
+.Sign-area p {
   color: red;
   font-size: 12px;
+  font-family: "Do Hyeon", sans-serif;
 }

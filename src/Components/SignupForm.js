@@ -21,11 +21,11 @@ const SignupForm = () => {
 
   const validate = () => {
     let formErrors = {};
-    if (!formData.username) formErrors.username = "Username is required";
-    if (!formData.email) formErrors.email = "Email is required";
-    if (!formData.password) formErrors.password = "Password is required";
+    if (!formData.id) formErrors.username = "아이디를 작성해주세요.";
+    if (!formData.email) formErrors.email = "Email을 작성해주세요.";
+    if (!formData.password) formErrors.password = "비밀번호를 작성해주세요.";
     if (formData.password !== formData.confirmPassword) {
-      formErrors.confirmPassword = "Passwords do not match";
+      formErrors.confirmPassword = "비밀번호가 일치하지 않습니다.";
     }
     return formErrors;
   };
@@ -45,13 +45,13 @@ const SignupForm = () => {
     <div className="Sign">
       <form className="Sign-Container" onSubmit={handleSubmit}>
         <div className="Sign-area">
-          <label className="Sign-label">Username</label>
+          <label className="Sign-label">아이디</label>
           <input
             className="Sign-input"
             type="text"
-            name="username"
-            placeholder="이름"
-            value={formData.username}
+            name="id"
+            placeholder="example@example.com"
+            value={formData.id}
             onChange={handleChange}
           />
           {errors.username && <p>{errors.username}</p>}
@@ -62,14 +62,15 @@ const SignupForm = () => {
             className="Sign-input"
             type="email"
             name="email"
-            placeholder="이메일"
+            placeholder="example@example.com"
             value={formData.email}
             onChange={handleChange}
           />
           {errors.email && <p>{errors.email}</p>}
         </div>
         <div className="Sign-area">
-          <label className="Sign-label">Password</label>
+          <label className="Sign-label">비밀번호</label>
+          <label className="Sign-label-2">(8자 ,특수문자 하나 이상 포함)</label>
           <input
             className="Sign-input"
             type="password"
@@ -81,7 +82,7 @@ const SignupForm = () => {
           {errors.password && <p>{errors.password}</p>}
         </div>
         <div className="Sign-area">
-          <label className="Sign-label">Confirm Password</label>
+          <label className="Sign-label">비밀번호 확인</label>
           <input
             className="Sign-input"
             type="password"
