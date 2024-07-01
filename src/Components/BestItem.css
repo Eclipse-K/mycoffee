@@ -1,7 +1,9 @@
 .BestItem {
-  display: inline-block;
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 100px 0 100px 0;
+  padding: 0 8px;
 }
 
 .BestItem h1 {
@@ -9,6 +11,10 @@
 }
 
 .BestItem-container {
+  width: 1440px;
+}
+
+.BestItem-area {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,6 +36,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   height: 400px;
 }

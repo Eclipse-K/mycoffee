@@ -2,7 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  background-color: black;
+  color: white;
+  padding-left: 8px;
 }
 
 .Footer-container {

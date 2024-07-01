@@ -8,9 +8,7 @@ function Banner() {
         <button>
           <SlArrowLeft />
         </button>
-        <div>
-          <h1>배너영역</h1>
-        </div>
+        <h1>배너영역</h1>
         <button>
           <SlArrowRight />
         </button>
