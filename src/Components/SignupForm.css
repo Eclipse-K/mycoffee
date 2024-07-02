@@ -2,7 +2,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 700px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.Sign-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+}
+
+.Sign-nav-logo-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Sign-nav-logo-img h4 {
+  margin-left: 8px;
+}
+
+.Sign-nav-logo-img,
+.Sign-nav-home {
+  text-decoration: none;
+  color: black;
+}
+
+.Sign-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 40px 0;
 }
 
 .Sign-Container {
@@ -13,6 +46,7 @@
   border-radius: 20px;
   background-color: ghostwhite;
   width: 400px;
+  padding: 80px 0;
 }
 
 .Sign-area {
@@ -35,20 +69,27 @@
 .Sign-input {
   padding: 5px;
   margin-top: 5px;
-  width: 200px;
+  width: 300px;
 }
 
-button {
+.Sign-submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Sign-submit button {
+  width: 312.5px;
+  height: 40px;
   margin-top: 20px;
-  padding: 10px;
-  background-color: #61dafb;
+  background-color: #21a1f1;
   border: none;
   color: white;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #21a1f1;
+.Sign-submit:hover {
+  background-color: #61dafb;
 }
 
 .Sign-area p {
