@@ -54,6 +54,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  width: 300px;
 }
 
 .Sign-label {
@@ -72,10 +73,22 @@
   width: 300px;
 }
 
+.Sign-phone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+}
+
+#phone-input {
+  width: 200px;
+}
+
 .Sign-submit {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 300px;
 }
 
 .Sign-submit button {

@@ -12,6 +12,7 @@ const SignupForm = () => {
     confirmPassword: "",
     username: "",
     year: "",
+    phone: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -34,6 +35,8 @@ const SignupForm = () => {
     }
     if (!formData.username) formErrors.username = "이름을 작성해주세요.";
     if (!formData.year) formErrors.year = "생년월일을 작성해주세요.";
+    if (!formData.phone)
+      formErrors.phone = "휴대폰 번호는 필수 입력 정보입니다.";
     return formErrors;
   };
 
@@ -64,15 +67,17 @@ const SignupForm = () => {
         <form className="Sign-Container" onSubmit={handleSubmit}>
           <div className="Sign-area">
             <label className="Sign-label">아이디</label>
-            <input
-              className="Sign-input"
-              type="id"
-              name="id"
-              placeholder="4~20자리 / 영문, 숫자, 특수문자'_'사용가능"
-              value={formData.id}
-              onChange={handleChange}
-            />
-            {errors.id && <p>{errors.id}</p>}
+            <div className="Sign-phone">
+              <input
+                className="Sign-input"
+                type="id"
+                name="id"
+                placeholder="4~20자리 / 영문, 숫자, 특수문자'_'사용가능"
+                value={formData.id}
+                onChange={handleChange}
+              />
+              {errors.id && <p>{errors.id}</p>}
+            </div>
           </div>
 
           <div className="Sign-area">
@@ -80,63 +85,93 @@ const SignupForm = () => {
             <label className="Sign-label-2">
               (8자 ,특수문자 하나 이상 포함)
             </label>
-            <input
-              className="Sign-input"
-              type="password"
-              name="password"
-              placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            {errors.password && <p>{errors.password}</p>}
+            <div className="Sign-phone">
+              <input
+                className="Sign-input"
+                type="password"
+                name="password"
+                placeholder="8~16자리 / 영문 대소문자, 숫자, 특수문자 조합"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              {errors.password && <p>{errors.password}</p>}
+            </div>
           </div>
           <div className="Sign-area">
             <label className="Sign-label">비밀번호 확인</label>
-            <input
-              className="Sign-input"
-              type="password"
-              name="confirmPassword"
-              placeholder="비밀번호 확인"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
-            {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+            <div className="Sign-phone">
+              <input
+                className="Sign-input"
+                type="password"
+                name="confirmPassword"
+                placeholder="비밀번호 확인"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+              {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+            </div>
           </div>
-          <div className="Sign-area">
-            <label className="Sign-label">Email</label>
-            <input
-              className="Sign-input"
-              type="email"
-              name="email"
-              placeholder="example@example.com"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {errors.email && <p>{errors.email}</p>}
-          </div>
+
           <div className="Sign-area">
             <label className="Sign-label">이름</label>
-            <input
-              className="Sign-input"
-              type="username"
-              name="username"
-              placeholder="이름 입력"
-              value={formData.username}
-              onChange={handleChange}
-            />
-            {errors.username && <p>{errors.username}</p>}
+            <div className="Sign-phone">
+              <input
+                className="Sign-input"
+                type="username"
+                name="username"
+                placeholder="이름 입력"
+                value={formData.username}
+                onChange={handleChange}
+              />
+              {errors.username && <p>{errors.username}</p>}
+            </div>
           </div>
+
           <div className="Sign-area">
             <label className="Sign-label">생년월일</label>
-            <input
-              className="Sign-input"
-              type="year"
-              name="year"
-              placeholder="YYYYMMDD"
-              value={formData.year}
-              onChange={handleChange}
-            />
-            {errors.year && <p>{errors.year}</p>}
+            <div className="Sign-phone">
+              <input
+                className="Sign-input"
+                type="year"
+                name="year"
+                placeholder="YYYYMMDD"
+                value={formData.year}
+                onChange={handleChange}
+              />
+              {errors.year && <p>{errors.year}</p>}
+            </div>
+          </div>
+
+          <div className="Sign-area">
+            <label className="Sign-label">휴대폰</label>
+            <div className="Sign-phone">
+              <input
+                className="Sign-input"
+                id="phone-input"
+                type="phone"
+                name="phone"
+                placeholder="'_'빼고 숫자만 입력"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              {errors.phone && <p>{errors.phone}</p>}
+              <button className="Sign-phone-button">인증요청</button>
+            </div>
+          </div>
+
+          <div className="Sign-area">
+            <label className="Sign-label">Email</label>
+            <div className="Sign-phone">
+              <input
+                className="Sign-input"
+                type="email"
+                name="email"
+                placeholder="example@example.com"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              {errors.email && <p>{errors.email}</p>}
+            </div>
           </div>
           <div className="Sign-submit">
             <button type="submit">회원가입 완료</button>
