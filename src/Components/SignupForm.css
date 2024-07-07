@@ -54,7 +54,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 300px;
+  width: 320px;
 }
 
 .Sign-label {
@@ -69,19 +69,26 @@
 
 .Sign-input {
   padding: 5px;
-  margin-top: 5px;
-  width: 300px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
 }
+/* Sign-area의 가로길이가 300px로 설정했는데 input이 범위를 벗어나는 걸 width:100%와 box-sizing: border-box로 해결함. */
 
-.Sign-phone {
+#Sign-phone {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 300px;
+  width: 320px;
 }
 
 #phone-input {
-  width: 200px;
+  width: 224px;
+}
+
+.Sign-phone-button {
+  color: black;
+  border-radius: 10px;
+  width: 80px;
 }
 
 .Sign-submit {
@@ -101,7 +108,7 @@
   cursor: pointer;
 }
 
-.Sign-submit:hover {
+.Sign-submit button:hover {
   background-color: #61dafb;
 }
 
