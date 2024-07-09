@@ -7,6 +7,7 @@ import DripBag from "./Components/DripBag";
 import HandDrip from "./Components/HandDrip";
 import Products from "./Components/Products";
 import SignupForm from "./Components/SignupForm";
+import LoginForm from "./Components/LoginForm";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/HandDrip" element={<HandDrip />} />
         <Route path="/Products" element={<Products />} />
         <Route path="/SignupForm" element={<SignupForm />} />
+        <Route path="/Login" element={<LoginForm />} />
       </Routes>
 
       <Footer />

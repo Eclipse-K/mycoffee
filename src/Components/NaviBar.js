@@ -12,8 +12,10 @@ function NaviBar() {
             <StyledLogo src={Logo} alt="Logo" />
           </Link>
 
-          <ul className="nav-login">
-            <li>로그인</li>
+          <ul className="nav-guest">
+            <Link className="nav-login" to="/Login">
+              <li>로그인</li>
+            </Link>
             <Link className="nav-sign" to="/SignupForm">
               <li>회원가입</li>
             </Link>
