@@ -1,0 +1,34 @@
+.LoginForm-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.LoginForm-title-1 {
+  margin: 8px 0;
+}
+
+.LoginForm-title-2 {
+  margin: 8px 0;
+}
+
+.LoginForm-form {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}
+
+.LoginForm-input {
+  margin: 8px 0;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.LoginForm-submit {
+  margin: 8px 0;
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
