@@ -6,12 +6,15 @@
   height: 100vh;
 }
 
-.LoginForm-title-1 {
-  margin: 8px 0;
+.LoginForm-logo {
+  width: 200px;
+  height: 200px;
 }
 
-.LoginForm-title-2 {
+.LoginForm-title-1 {
   margin: 8px 0;
+  font-family: "Danfo", serif;
+  font-size: 40px;
 }
 
 .LoginForm-form {
@@ -29,6 +32,27 @@
 .LoginForm-submit {
   margin: 8px 0;
   padding: 8px;
+  font-family: "Do Hyeon", sans-serif;
   font-size: 16px;
+  background-color: black;
+  color: white;
   cursor: pointer;
+}
+
+.LoginForm-Search {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.LoginForm-search-id,
+.LoginForm-search-pw {
+  font-size: 14px;
+  color: black;
+  text-decoration: none;
+}
+
+.LoginForm-search-id:hover,
+.LoginForm-search-pw:hover {
+  text-decoration: underline;
 }
