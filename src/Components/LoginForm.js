@@ -1,16 +1,12 @@
-// import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./LoginForm.css";
 import Logo from "../images/Logo_MyCoffee.png";
 
-// const responseGoogle = (response) => {
-//   console.log(response);
-// };
-
 function Login() {
   const [LoginId, setLoginId] = useState("");
   const [LoginPassword, setLoginPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleIdChange = (e) => {
     setLoginId(e.target.value);
@@ -22,13 +18,18 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 로그인 처리 로직을 여기에 추가합니다.
-    console.log("Email:", LoginId);
-    console.log("Password:", LoginPassword);
+    if (!LoginId) {
+      setErrorMessage("아이디를 적어주세요.");
+    } else if (!LoginPassword) {
+      setErrorMessage("비밀번호를 입력해주세요.");
+    } else {
+      setErrorMessage("");
+      console.log("Email:", LoginId);
+      console.log("Password:", LoginPassword);
+    }
   };
 
   return (
-    // <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
     <div className="LoginForm-container">
       <Link to="/">
         <img className="LoginForm-logo" src={Logo} alt="Logo" />
@@ -49,6 +50,7 @@ function Login() {
           value={LoginPassword}
           onChange={handlePasswordChange}
         />
+        {errorMessage && <div className="LoginForm-error">{errorMessage}</div>}
         <button className="LoginForm-submit" type="submit">
           로그인
         </button>
@@ -57,16 +59,7 @@ function Login() {
           <Link className="LoginForm-search-pw">비밀번호 찾기</Link>
         </div>
       </form>
-      {/* <div style={{ margin: "20px 0" }}>
-          <GoogleLogin
-            onSuccess={responseGoogle}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
-        </div> */}
     </div>
-    // </GoogleOAuthProvider>
   );
 }
 
