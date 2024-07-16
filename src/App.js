@@ -8,6 +8,7 @@ import HandDrip from "./Components/HandDrip";
 import Products from "./Components/Products";
 import SignupForm from "./Components/SignupForm";
 import LoginForm from "./Components/LoginForm";
+import FindIdPage from "./Components/FindIdPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/Products" element={<Products />} />
         <Route path="/SignupForm" element={<SignupForm />} />
         <Route path="/Login" element={<LoginForm />} />
+        <Route path="/Find_id" element={<FindIdPage />} />
       </Routes>
 
       <Footer />

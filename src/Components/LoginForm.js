@@ -55,7 +55,9 @@ function Login() {
           로그인
         </button>
         <div className="LoginForm-Search">
-          <Link className="LoginForm-search-id">아이디 찾기</Link>
+          <Link className="LoginForm-search-id" to="/Find_id">
+            아이디 찾기
+          </Link>
           <Link className="LoginForm-search-pw">비밀번호 찾기</Link>
         </div>
       </form>
