@@ -1,28 +1,51 @@
-// src/FindIdPage.js
 import { useState } from "react";
 import "./FindIdPage.css";
 
 function FindIdPage() {
-  const [findName, setFindName] = useState(""); // 이름 상태 추가
+  const [findName, setFindName] = useState("");
   const [findEmail, setFindEmail] = useState("");
+  const [findPhone, setFindPhone] = useState("");
   const [findMessage, setFindMessage] = useState("");
+  const [memberType, setMemberType] = useState("개인회원");
+  const [contactOption, setContactOption] = useState("email");
 
   const handleFindNameChange = (e) => {
-    setFindName(e.target.value); // 이름 상태 변경 함수 추가
+    setFindName(e.target.value);
   };
 
   const handleFindEmailChange = (e) => {
     setFindEmail(e.target.value);
   };
 
+  const handleFindPhoneChange = (e) => {
+    setFindPhone(e.target.value);
+  };
+
+  const handleMemberTypeChange = (e) => {
+    setMemberType(e.target.value);
+  };
+
+  const handleContactOptionChange = (e) => {
+    setContactOption(e.target.value);
+  };
+
   const handleFindSubmit = (e) => {
     e.preventDefault();
     // 아이디 찾기 로직 (API 호출 등)
-    // 여기서는 예시로 간단한 메시지를 설정
-    if (findEmail === "test@example.com" && findName === "John Doe") {
+    if (
+      contactOption === "email" &&
+      findEmail === "test@example.com" &&
+      findName === "John Doe"
+    ) {
+      setFindMessage("아이디는 user123입니다.");
+    } else if (
+      contactOption === "phone" &&
+      findPhone === "010-1234-5678" &&
+      findName === "John Doe"
+    ) {
       setFindMessage("아이디는 user123입니다.");
     } else {
-      setFindMessage("이메일과 이름을 확인해주세요.");
+      setFindMessage("입력 정보를 확인해주세요.");
     }
   };
 
@@ -30,7 +53,38 @@ function FindIdPage() {
     <div className="find-id-page">
       <h2>아이디 찾기</h2>
       <form onSubmit={handleFindSubmit}>
-        <label htmlFor="name">이름:</label> {/* 이름 필드 추가 */}
+        <label htmlFor="memberType">회원유형:</label>
+        <select
+          id="memberType"
+          value={memberType}
+          onChange={handleMemberTypeChange}
+        >
+          <option value="개인회원">개인회원</option>
+          <option value="기업회원">기업회원</option>
+          <option value="외국인회원">외국인회원</option>
+        </select>
+
+        <div className="contact-option">
+          <input
+            type="radio"
+            id="contact-email"
+            value="email"
+            checked={contactOption === "email"}
+            onChange={handleContactOptionChange}
+          />
+          <label htmlFor="contact-email">이메일</label>
+
+          <input
+            type="radio"
+            id="contact-phone"
+            value="phone"
+            checked={contactOption === "phone"}
+            onChange={handleContactOptionChange}
+          />
+          <label htmlFor="contact-phone">전화번호</label>
+        </div>
+
+        <label htmlFor="name">이름:</label>
         <input
           type="text"
           id="name"
@@ -38,14 +92,33 @@ function FindIdPage() {
           onChange={handleFindNameChange}
           required
         />
-        <label htmlFor="email">이메일:</label>
-        <input
-          type="email"
-          id="email"
-          value={findEmail}
-          onChange={handleFindEmailChange}
-          required
-        />
+
+        {contactOption === "email" && (
+          <>
+            <label htmlFor="email">이메일:</label>
+            <input
+              type="email"
+              id="email"
+              value={findEmail}
+              onChange={handleFindEmailChange}
+              required
+            />
+          </>
+        )}
+
+        {contactOption === "phone" && (
+          <>
+            <label htmlFor="phone">전화번호:</label>
+            <input
+              type="tel"
+              id="phone"
+              value={findPhone}
+              onChange={handleFindPhoneChange}
+              required
+            />
+          </>
+        )}
+
         <button type="submit">아이디 찾기</button>
       </form>
       {findMessage && <p>{findMessage}</p>}
