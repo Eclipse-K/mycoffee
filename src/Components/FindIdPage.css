@@ -1,7 +1,11 @@
-/* src/FindIdPage.css */
+.find-id {
+  width: 100%;
+  height: 600px;
+}
+
 .find-id-page {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
