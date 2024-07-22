@@ -9,6 +9,7 @@ import Products from "./Components/Products";
 import SignupForm from "./Components/SignupForm";
 import LoginForm from "./Components/LoginForm";
 import FindIdPage from "./Components/FindIdPage";
+import FindPwPage from "./Components/FindPwPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/SignupForm" element={<SignupForm />} />
         <Route path="/Login" element={<LoginForm />} />
         <Route path="/Find_id" element={<FindIdPage />} />
+        <Route path="/Find_pw" element={<FindPwPage />} />
       </Routes>
 
       <Footer />
