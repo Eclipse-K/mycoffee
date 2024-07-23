@@ -2,6 +2,7 @@ import Logo from "../images/Logo_MyCoffee.png";
 import StyledLogo from "./StyledLogo";
 import "./NaviBar.css";
 import { Link } from "react-router-dom";
+import { AiOutlineUser } from "react-icons/ai";
 
 function NaviBar() {
   return (
@@ -12,14 +13,11 @@ function NaviBar() {
             <StyledLogo src={Logo} alt="Logo" />
           </Link>
 
-          <ul className="nav-guest">
+          <div className="nav-guest">
             <Link className="nav-login" to="/Login">
-              <li>로그인</li>
+              <AiOutlineUser />
             </Link>
-            <Link className="nav-sign" to="/SignupForm">
-              <li>회원가입</li>
-            </Link>
-          </ul>
+          </div>
         </div>
 
         <div className="nav-middle">
