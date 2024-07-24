@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import StyledLogo from "./StyledLogo";
+import Logo from "../images/Logo_MyCoffee.png";
+import "./FindPwPage.css";
 
 function FindPwPage() {
   const [emailPw, setEmailPw] = useState("");
@@ -18,20 +22,32 @@ function FindPwPage() {
   };
 
   return (
-    <div>
-      <h1>비밀번호 찾기</h1>
-      <form onSubmit={handleFindPwSubmit}>
-        <label>
-          이메일
-          <input
-            type="email"
-            value={emailPw}
-            onChange={(e) => setEmailPw(e.target.value)}
-          />
-        </label>
-        {findPwError && <p>{findPwError}</p>}
-        <button type="submit">비밀번호 찾기</button>
-      </form>
+    <div className="FindPwPage">
+      <nav className="Sign-nav">
+        <Link className="Sign-nav-logo-img" to="/">
+          <StyledLogo src={Logo} alt="Logo" />
+          <h4>비밀번호 찾기</h4>
+        </Link>
+
+        <Link className="Sign-nav-home" to="/">
+          <h4>MyCoffee Home</h4>
+        </Link>
+      </nav>
+      <div className="FindPwPage-container">
+        <h1>비밀번호 찾기</h1>
+        <form onSubmit={handleFindPwSubmit}>
+          <label>
+            이메일
+            <input
+              type="email"
+              value={emailPw}
+              onChange={(e) => setEmailPw(e.target.value)}
+            />
+          </label>
+          {findPwError && <p>{findPwError}</p>}
+          <button type="submit">비밀번호 찾기</button>
+        </form>
+      </div>
     </div>
   );
 }
