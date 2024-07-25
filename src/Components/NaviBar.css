@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 24px;
+  padding-top: 24px;
+  background-color: white;
 }
 
 .nav-area {

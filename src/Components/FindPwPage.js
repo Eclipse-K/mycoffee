@@ -34,18 +34,21 @@ function FindPwPage() {
         </Link>
       </nav>
       <div className="FindPwPage-container">
-        <h1>비밀번호 찾기</h1>
-        <form onSubmit={handleFindPwSubmit}>
-          <label>
-            이메일
+        <h1 className="FindPwPage-title">비밀번호 찾기</h1>
+        <form className="FindPwPage-form" onSubmit={handleFindPwSubmit}>
+          <label className="FindPwPage-label">
+            <p>이메일</p>
             <input
+              className="FindPwPage-input"
               type="email"
               value={emailPw}
               onChange={(e) => setEmailPw(e.target.value)}
             />
           </label>
           {findPwError && <p>{findPwError}</p>}
-          <button type="submit">비밀번호 찾기</button>
+          <button className="FindPwPage-button" type="submit">
+            인증하기
+          </button>
         </form>
       </div>
     </div>
