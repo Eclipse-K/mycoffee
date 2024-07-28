@@ -1,0 +1,23 @@
+.Find-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+}
+
+.Find-nav-logo-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Find-nav-logo-img h4 {
+  margin-left: 8px;
+}
+
+.Find-nav-logo-img,
+.Find-nav-home {
+  text-decoration: none;
+  color: black;
+}
