@@ -67,7 +67,7 @@ function FindIdPage() {
       <div className="find-id-page">
         <h2>아이디 찾기</h2>
         <form onSubmit={handleFindSubmit}>
-          <label htmlFor="memberType">회원유형:</label>
+          <label htmlFor="memberType">회원유형</label>
           <select
             id="memberType"
             value={memberType}
@@ -98,7 +98,7 @@ function FindIdPage() {
             <label htmlFor="contact-phone">전화번호</label>
           </div>
 
-          <label htmlFor="name">이름:</label>
+          <label htmlFor="name">이름</label>
           <input
             type="text"
             id="name"
@@ -109,7 +109,7 @@ function FindIdPage() {
 
           {contactOption === "email" && (
             <>
-              <label htmlFor="email">이메일:</label>
+              <label htmlFor="email">이메일</label>
               <input
                 type="email"
                 id="email"

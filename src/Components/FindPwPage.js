@@ -6,16 +6,20 @@ import "./FindPwPage.css";
 
 function FindPwPage() {
   const [emailPw, setEmailPw] = useState("");
+  const [findPwId, setFindPwId] = useState("");
   const [findPwError, setFindPwError] = useState("");
 
   const handleFindPwSubmit = (e) => {
     e.preventDefault();
 
+    if (!findPwId) {
+      setFindPwId("아이디를 입력해주세요.");
+      return;
+    }
     if (!emailPw) {
       setFindPwError("이메일을 입력해주세요");
       return;
     }
-
     // 이메일 검증 로직
 
     // 비밀번호 찾기 API 호출
@@ -34,17 +38,22 @@ function FindPwPage() {
         </Link>
       </nav>
       <div className="FindPwPage-container">
-        <h1 className="FindPwPage-title">비밀번호 찾기</h1>
+        <h2 className="FindPwPage-title">비밀번호 찾기</h2>
         <form className="FindPwPage-form" onSubmit={handleFindPwSubmit}>
-          <label className="FindPwPage-label">
-            <p>이메일</p>
-            <input
-              className="FindPwPage-input"
-              type="email"
-              value={emailPw}
-              onChange={(e) => setEmailPw(e.target.value)}
-            />
-          </label>
+          <label className="FindPwPage-label">아이디</label>
+          <input
+            className="FindPwPage-input"
+            type="id"
+            value={findPwId}
+            onChange={(e) => setFindPwId(e.target.value)}
+          />
+          <label className="FindPwPage-label">이메일</label>
+          <input
+            className="FindPwPage-input"
+            type="email"
+            value={emailPw}
+            onChange={(e) => setEmailPw(e.target.value)}
+          />
           {findPwError && <p>{findPwError}</p>}
           <button className="FindPwPage-button" type="submit">
             인증하기

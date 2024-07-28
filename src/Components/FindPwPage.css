@@ -1,5 +1,5 @@
 .FindPwPage {
-  height: 560px;
+  height: 640px;
   background-color: white;
 }
 
@@ -9,7 +9,7 @@
   align-items: center;
   flex-direction: column;
   max-width: 400px;
-  margin: 152px auto;
+  margin: 10% auto;
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -19,6 +19,7 @@
 
 .FindPwPage-title {
   margin: 0;
+  font-family: "Do Hyeon", sans-serif;
 }
 
 .FindPwPage-form {
@@ -31,25 +32,29 @@
 
 .FindPwPage-label {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 0;
-  width: 60%;
-}
-
-.FindPwPage-label p {
-  margin: 0 24px 0 0;
-  font-size: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 24px 0 8px 0;
+  width: 100%;
 }
 
 .FindPwPage-input {
+  width: 100%;
   height: 32px;
   box-sizing: border-box;
 }
 
+.FindPwPage-input:nth-child(4) {
+  margin-bottom: 24px;
+}
+
 .FindPwPage-button {
   padding: 8px 0;
-  width: 60%;
+  width: 100%;
   height: 40px;
   font-size: 16px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
 }
