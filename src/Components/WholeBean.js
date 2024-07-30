@@ -1,5 +1,6 @@
 import NaviBar from "./NaviBar";
 import "./WholeBean.css";
+import WholeBeanBag from "../images/WholeBean.png";
 
 function WholeBean() {
   return (
@@ -8,7 +9,11 @@ function WholeBean() {
       <h1 className="WholeBean-title">- WholeBean -</h1>
       <div className="WholeBean-container">
         <div className="WholeBean-area">
-          <div>img</div>
+          <img
+            className="WholeBean-img"
+            src={WholeBeanBag}
+            alt={WholeBeanBag}
+          />
           <p>title</p>
           <p>price</p>
           <p>description</p>
