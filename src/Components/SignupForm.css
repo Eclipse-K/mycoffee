@@ -72,7 +72,6 @@
   padding: 5px;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 10px;
 }
 /* Sign-area의 가로길이가 300px로 설정했는데 input이 범위를 벗어나는 걸 width:100%와 box-sizing: border-box로 해결함. */
 
@@ -88,7 +87,6 @@
 
 .Sign-phone-button {
   color: black;
-  border-radius: 10px;
   width: 80px;
 }
 
