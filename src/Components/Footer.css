@@ -44,3 +44,37 @@
 .Copyright {
   padding-left: 40px;
 }
+
+@media all and (min-width: 281px) and (max-width: 432px) {
+  .Footer-container {
+    width: 100%;
+  }
+
+  .Footer-container h1 {
+    margin: 16px 0;
+    font-size: 24px;
+  }
+
+  .Footer-info-1 li {
+    font-size: 10px;
+    padding: 0 16px;
+  }
+
+  .Footer-info-2,
+  .Footer-info-3 {
+    padding-left: 16px;
+  }
+
+  .Footer-info-2 li {
+    font-size: 10px;
+  }
+
+  .Footer-info-3 li {
+    font-size: 10px;
+  }
+
+  .Copyright {
+    font-size: 10px;
+    padding-left: 16px;
+  }
+}
