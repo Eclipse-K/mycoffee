@@ -1,8 +1,26 @@
 [
   {
     "id": 1,
-    "img": "https://files.oaiusercontent.com/file-kFXxVzmSWVt90jfwHVbBWq2c?se=2024-08-18T07%3A16%3A13Z&sp=r&sv=2023-11-03&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D57b5d71f-8ddb-4fdc-bf20-c0838c0fdc2e.webp&sig=YTBeJ1xN7sXIICc0MBLCkiRtw9d7BAPQ41DunervCGM%3D",
+    "img": "../Images/Ethiopia.png",
     "title": "에티오피아 홀빈 500g",
-    "price": 22000
+    "price": 22000,
+    "flavor_note": "꽃 향, 베리류, 시트러스",
+    "content": "가벼운 바디감, 티같은 부드러운 마무리"
+  },
+  {
+    "id": 2,
+    "img": "../Images/Colombia.png",
+    "title": "콜롬비아 홀빈 500g",
+    "price": 20000,
+    "flavor_note": "초콜릿, 카라멜, 견과류",
+    "content": "중간 바디감, 균형 잡힌 맛, 달콤한 여운"
+  },
+  {
+    "id": 3,
+    "img": "../Images/Brazil.png",
+    "title": "브라질 홀빈 500g",
+    "price": 18000,
+    "flavor_note": "초콜릿, 견과류, 스파이시",
+    "content": "묵직한 바디감, 낮은 산미, 부드럽고 진한 맛"
   }
 ]

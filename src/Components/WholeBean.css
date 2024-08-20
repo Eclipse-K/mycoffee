@@ -9,15 +9,33 @@
 
 .WholeBean-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  width: 100%;
+  padding-bottom: 24px;
 }
 
 .WholeBean-area {
   border: 1px solid black;
   font-family: "Do Hyeon", sans-serif;
+  margin-bottom: 24px;
 }
 
 .WholeBean-img {
   width: 300px;
   height: 300px;
+}
+
+.WholeBean-content {
+  padding: 0 8px;
+}
+
+@media all and (min-width: 281px) and (max-width: 432px) {
+  .WholeBean-title {
+    margin: 24px 0;
+  }
+
+  .WholeBean-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
