@@ -9,10 +9,33 @@
 
 .DripBag-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  width: 100%;
+  padding-bottom: 24px;
 }
 
 .DripBag-area {
   border: 1px solid black;
   font-family: "Do Hyeon", sans-serif;
+  margin-bottom: 24px;
+}
+
+.DripBag-img {
+  width: 300px;
+  height: 300px;
+}
+
+.DripBag-content {
+  padding: 0 8px;
+}
+
+@media all and (min-width: 281px) and (max-width: 432px) {
+  .DripBag-title {
+    margin: 24px 0;
+  }
+
+  .DripBag-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

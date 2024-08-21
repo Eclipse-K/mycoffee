@@ -4,7 +4,7 @@ import "./WholeBean.css";
 import CoffeeJson from "../Coffee.json";
 
 function WholeBean() {
-  const [wholeBean, setWholeBean] = useState(CoffeeJson);
+  const [wholeBean, setWholeBean] = useState(CoffeeJson.WholeBean);
 
   // 가격에 따라 오름차순으로 정렬하는 함수
   const sortByPrice = () => {
