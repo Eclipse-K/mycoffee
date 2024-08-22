@@ -18,7 +18,6 @@ function DripBag() {
             <div className="DripBag-content">
               <h3>{drip.title}</h3>
               <p>{drip.price}</p>
-              <p>{drip.flavor_note}</p>
               <p>{drip.content}</p>
             </div>
           </div>

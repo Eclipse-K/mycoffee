@@ -1,21 +1,27 @@
 import NaviBar from "./NaviBar";
 import "./HandDrip.css";
+import { useState } from "react";
+import CoffeeJson from "../Coffee.json";
 
 function HandDrip() {
+  // eslint-disable-next-line
+  const [handDrip, setHandDrip] = useState(CoffeeJson.HandDrip);
+
   return (
     <div className="HandDrip">
       <NaviBar />
       <h1 className="HandDrip-title">- HandDrip -</h1>
       <div className="HandDrip-container">
-        <div className="HandDrip-area">
-          <img className="HandDrip-img" src="" alt="" />
-          <div className="HandDrip-content">
-            <h3>title</h3>
-            <p>price</p>
-            <p>flavor_note</p>
-            <p>content</p>
+        {handDrip.map((hand) => (
+          <div className="HandDrip-area" key={hand.id}>
+            <img className="HandDrip-img" src={hand.img} alt={hand.title} />
+            <div className="HandDrip-content">
+              <h3>{hand.title}</h3>
+              <p>가격 : {hand.price}</p>
+              <p>특징 : {hand.content}</p>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

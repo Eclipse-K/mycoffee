@@ -4,7 +4,7 @@
       "id": 1,
       "img": "../Images/Ethiopia.png",
       "title": "에티오피아 홀빈 500g",
-      "price": 22000,
+      "price": "22,000",
       "flavor_note": "꽃 향, 베리류, 시트러스",
       "content": "가벼운 바디감, 티같은 부드러운 마무리"
     },
@@ -12,7 +12,7 @@
       "id": 2,
       "img": "../Images/Colombia.png",
       "title": "콜롬비아 홀빈 500g",
-      "price": 20000,
+      "price": "20,000",
       "flavor_note": "초콜릿, 카라멜, 견과류",
       "content": "중간 바디감, 균형 잡힌 맛, 달콤한 여운"
     },
@@ -20,7 +20,7 @@
       "id": 3,
       "img": "../Images/Brazil.png",
       "title": "브라질 홀빈 500g",
-      "price": 18000,
+      "price": "18,000",
       "flavor_note": "초콜릿, 견과류, 스파이시",
       "content": "묵직한 바디감, 낮은 산미, 부드럽고 진한 맛"
     }
@@ -31,7 +31,7 @@
       "id": 1,
       "img": "../Images/EthiopiaDripBag.png",
       "title": "에티오피아 드립백 10개입",
-      "price": 10000,
+      "price": "10,000",
       "flavor_note": "꽃 향, 베리류, 시트러스",
       "content": "가벼운 바디감, 티같은 부드러운 마무리"
     },
@@ -39,7 +39,7 @@
       "id": 2,
       "img": "../Images/ColombiaDripBag.png",
       "title": "콜롬비아 드립백 10개입",
-      "price": 9000,
+      "price": "9,000",
       "flavor_note": "초콜릿, 카라멜, 견과류",
       "content": "중간 바디감, 균형 잡힌 맛, 달콤한 여운"
     },
@@ -47,9 +47,33 @@
       "id": 3,
       "img": "../Images/BrazilDripBag.png",
       "title": "브라질 드립백 10개입",
-      "price": 8000,
+      "price": "8,000",
       "flavor_note": "초콜릿, 견과류, 스파이시",
       "content": "묵직한 바디감, 낮은 산미, 부드럽고 진한 맛"
+    }
+  ],
+
+  "HandDrip": [
+    {
+      "id": 1,
+      "img": "../Images/Grinder.png",
+      "title": "그라인더",
+      "price": "100,000",
+      "content": "고강도 스테인리스\n정밀하고 균일한 분쇄\n깔끔하고 모던한 디자인"
+    },
+    {
+      "id": 2,
+      "img": "../Images/KalitaWave.png",
+      "title": "칼리타 웨이브 드리퍼",
+      "price": "15,000",
+      "content": "평평한 바닥에 3개의 추출구멍\n균일하고 일관된 추출"
+    },
+    {
+      "id": 3,
+      "img": "../Images/V60.png",
+      "title": "V60 드리퍼",
+      "price": "15,000",
+      "content": "원뿔형 드리퍼\n60도 각도로 내려가는 타입\n큰 추출 구멍과 나선형 리브"
     }
   ]
 }
