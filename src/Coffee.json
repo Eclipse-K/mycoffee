@@ -75,5 +75,22 @@
       "price": "15,000",
       "content": "원뿔형 드리퍼\n60도 각도로 내려가는 타입\n큰 추출 구멍과 나선형 리브"
     }
+  ],
+
+  "Products": [
+    {
+      "id": 1,
+      "img": "../Images/MilkMixCoffee.png",
+      "title": "믹스커피 10개입",
+      "price": "5,000",
+      "content": "부드럽고 달콤한 맛"
+    },
+    {
+      "id": 2,
+      "img": "../Images/DarkMixCoffee.png",
+      "title": "다크 믹스커피 10개입",
+      "price": "5,000",
+      "content": "진하고 씁쓸한 맛"
+    }
   ]
 }
