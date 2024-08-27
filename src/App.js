@@ -10,6 +10,7 @@ import SignupForm from "./Components/SignupForm";
 import LoginForm from "./Components/LoginForm";
 import FindIdPage from "./Components/FindIdPage";
 import FindPwPage from "./Components/FindPwPage";
+import PrivacyPolicy from "./Components/PrivacyPolicy";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/DripBag" element={<DripBag />} />
         <Route path="/HandDrip" element={<HandDrip />} />
         <Route path="/Products" element={<Products />} />
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/SignupForm" element={<SignupForm />} />
         <Route path="/Login" element={<LoginForm />} />
         <Route path="/Find_id" element={<FindIdPage />} />

@@ -1,0 +1,44 @@
+.PrivacyPolicy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  padding-bottom: 24px;
+  width: 100%;
+}
+
+.Privacy-Container {
+  border: 2px solid black;
+  margin: 8px 0;
+  padding: 0 16px;
+  width: 92%;
+  height: 500px;
+  overflow: auto;
+}
+
+.Privacy-Container li {
+  list-style-type: upper-roman;
+}
+
+.Privacy-CheckBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.Privacy-CheckBox input {
+  margin-right: 8px;
+}
+
+.Privacy-Next-Button {
+  text-decoration: none;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  width: 8%;
+  margin-top: 8px;
+  padding: 8px 16px;
+  text-align: center;
+}

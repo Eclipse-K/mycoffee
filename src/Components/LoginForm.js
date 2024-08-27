@@ -58,7 +58,7 @@ function Login() {
           <Link className="LoginForm-search-id" to="/Find_id">
             아이디 찾기
           </Link>
-          <Link className="LoginForm-sign" to="/SignupForm">
+          <Link className="LoginForm-sign" to="/PrivacyPolicy">
             회원가입
           </Link>
           <Link className="LoginForm-search-pw" to="/Find_pw">
