@@ -28,6 +28,7 @@ function WholeBean() {
               <p>가격 : {whole.price}</p>
               <p>아로마노트 : {whole.flavor_note}</p>
               <p>특징 : {whole.content}</p>
+              <div className="Basket-Button">장바구니 담기</div>
             </div>
           </div>
         ))}

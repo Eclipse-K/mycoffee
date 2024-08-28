@@ -28,6 +28,25 @@
 
 .WholeBean-content {
   padding: 0 8px;
+  margin-bottom: 8px;
+}
+
+.WholeBean-content h3 {
+  margin: 8px 0;
+}
+
+.WholeBean-content p {
+  margin: 8px 0;
+}
+
+.Basket-Button {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  cursor: pointer;
 }
 
 @media all and (min-width: 281px) and (max-width: 432px) {
