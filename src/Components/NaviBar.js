@@ -2,7 +2,7 @@ import Logo from "../images/Logo_MyCoffee.png";
 import StyledLogo from "./StyledLogo";
 import "./NaviBar.css";
 import { Link } from "react-router-dom";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 
 function NaviBar() {
   return (
@@ -14,6 +14,9 @@ function NaviBar() {
           </Link>
 
           <div className="nav-guest">
+            <Link className="Shopping-cart">
+              <AiOutlineShoppingCart />
+            </Link>
             <Link className="nav-login" to="/Login">
               <AiOutlineUser />
             </Link>
