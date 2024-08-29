@@ -19,6 +19,7 @@ function DripBag() {
               <h3>{drip.title}</h3>
               <p>{drip.price}</p>
               <p>{drip.content}</p>
+              <div className="Basket-Button">장바구니 담기</div>
             </div>
           </div>
         ))}

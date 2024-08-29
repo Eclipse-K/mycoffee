@@ -31,10 +31,7 @@
   margin-bottom: 8px;
 }
 
-.WholeBean-content h3 {
-  margin: 8px 0;
-}
-
+.WholeBean-content h3,
 .WholeBean-content p {
   margin: 8px 0;
 }

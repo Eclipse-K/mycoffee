@@ -28,6 +28,12 @@
 
 .DripBag-content {
   padding: 0 8px;
+  margin-bottom: 8px;
+}
+
+.DripBag-content h3,
+.DripBag-content p {
+  margin: 8px 0;
 }
 
 @media all and (min-width: 281px) and (max-width: 432px) {
