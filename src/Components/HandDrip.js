@@ -18,7 +18,8 @@ function HandDrip() {
             <div className="HandDrip-content">
               <h3>{hand.title}</h3>
               <p>가격 : {hand.price}</p>
-              <p>특징 : {hand.content}</p>
+              <div className="Basket-Button">장바구니 담기</div>
+              <p className="HandDrip-p-content">특징 : {hand.content}</p>
             </div>
           </div>
         ))}

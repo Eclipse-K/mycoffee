@@ -17,9 +17,9 @@ function DripBag() {
             <img className="DripBag-img" src={drip.img} alt={drip.title} />
             <div className="DripBag-content">
               <h3>{drip.title}</h3>
-              <p>{drip.price}</p>
-              <p>{drip.content}</p>
+              <p>가격 : {drip.price}</p>
               <div className="Basket-Button">장바구니 담기</div>
+              <p>특징 : {drip.content}</p>
             </div>
           </div>
         ))}

@@ -28,7 +28,13 @@
 
 .HandDrip-content {
   padding: 0 8px;
+  margin-bottom: 8px;
   white-space: pre-line;
+}
+
+.HandDrip-content h3,
+.HandDrip-content p {
+  margin: 8px 0;
 }
 
 @media all and (min-width: 281px) and (max-width: 432px) {
