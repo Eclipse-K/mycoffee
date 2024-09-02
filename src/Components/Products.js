@@ -17,6 +17,7 @@ function Products() {
             <div className="Products-content">
               <p>{pro.title}</p>
               <p>가격 : {pro.price}</p>
+              <div className="Basket-Button">장바구니 담기</div>
               <p>특징 : {pro.content}</p>
             </div>
           </div>
