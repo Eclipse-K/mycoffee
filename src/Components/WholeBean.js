@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import NaviBar from "./NaviBar";
 import "./WholeBean.css";
 import CoffeeJson from "../Coffee.json";
+import { CartContext } from "./CartContext";
 
 function WholeBean() {
   const [wholeBean, setWholeBean] = useState(CoffeeJson.WholeBean);
+  const { addToCart } = useContext(CartContext);
 
   // 가격에 따라 오름차순으로 정렬하는 함수
   const sortByPrice = () => {
@@ -27,7 +29,9 @@ function WholeBean() {
               <h3>{whole.title}</h3>
               <p>가격 : {whole.price}</p>
               <p>아로마노트 : {whole.flavor_note}</p>
-              <div className="Basket-Button">장바구니 담기</div>
+              <div className="Basket-Button" onClick={() => addToCart(whole)}>
+                장바구니 담기
+              </div>
               <p>특징 : {whole.content}</p>
             </div>
           </div>

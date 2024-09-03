@@ -51,6 +51,25 @@
   height: 40px;
 }
 
+.Shopping-cart {
+  display: flex;
+}
+
+.Shopping-cart-length {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 900;
+  width: 24px;
+  height: 24px;
+  top: 1.3rem;
+}
+
 .nav-middle {
   display: grid;
   align-items: center;
