@@ -11,12 +11,16 @@ function Cart() {
     cartItems.map((_, index) => index)
   );
 
+  // 전체 선택 체크박스 클릭 핸들러
   const handleAllCheckboxClick = () => {
-    const newCheckedItemIndexes = isAllChecked
-      ? cartItems.map((_, index) => index)
-      : [];
+    if (isAllChecked) {
+      // 전체 선택 해제 시, 개별 체크박스도 모두 해제
+      setCheckedItemIndexes([]);
+    } else {
+      // 전체 선택 시, 모든 항목 선택
+      setCheckedItemIndexes(cartItems.map((_, index) => index));
+    }
     setIsAllChecked(!isAllChecked);
-    setCheckedItemIndexes(newCheckedItemIndexes);
   };
 
   const handleItemCheckboxClick = (index) => {
@@ -46,7 +50,7 @@ function Cart() {
             checked={
               isAllChecked && checkedItemIndexes.length === cartItems.length
             }
-            onClick={handleAllCheckboxClick}
+            onChange={handleAllCheckboxClick}
           />
           <label>전체 선택</label>
           {cartItems.map((item, index) => (
@@ -55,19 +59,13 @@ function Cart() {
                 className="Cart-area-input"
                 type="checkbox"
                 checked={checkedItemIndexes.includes(index)}
-                onClick={() => handleItemCheckboxClick(index)}
+                onChange={() => handleItemCheckboxClick(index)}
               />
               <img className="Cart-img" src={item.img} alt={item.title} />
               <div className="Cart-area-second">
                 <p className="Cart-area-title">{item.title}</p>
                 <p className="Cart-area-price">가격: {item.price}</p>
-                {/* 삭제 버튼 추가 */}
-                <button
-                  className="Cart-remove-button"
-                  onClick={() => removeFromCart(index)}
-                >
-                  삭제
-                </button>
+                <button onClick={() => removeFromCart(index)}>삭제</button>
               </div>
             </div>
           ))}

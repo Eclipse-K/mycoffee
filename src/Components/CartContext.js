@@ -4,15 +4,11 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
-
-  // localStorage에서 장바구니 항목 불러오기
-  useEffect(() => {
+  const [cartItems, setCartItems] = useState(() => {
+    // localStorage에서 장바구니 항목 불러오기
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems"));
-    if (storedCartItems) {
-      setCartItems(storedCartItems);
-    }
-  }, []);
+    return storedCartItems ? storedCartItems : [];
+  });
 
   // 장바구니 항목이 변경될 때마다 localStorage에 저장
   useEffect(() => {
