@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import NaviBar from "./NaviBar";
 import "./Products.css";
 import CoffeeJson from "../Coffee.json";
+import { CartContext } from "./CartContext";
 
 function Products() {
   // eslint-disable-next-line
   const [products, SetProducts] = useState(CoffeeJson.Products);
+  const { addToCart } = useContext(CartContext);
   return (
     <div className="Products">
       <NaviBar />
@@ -17,7 +19,9 @@ function Products() {
             <div className="Products-content">
               <p>{pro.title}</p>
               <p>가격 : {pro.price}</p>
-              <div className="Basket-Button">장바구니 담기</div>
+              <div className="Basket-Button" onClick={() => addToCart(pro)}>
+                장바구니 담기
+              </div>
               <p>특징 : {pro.content}</p>
             </div>
           </div>
