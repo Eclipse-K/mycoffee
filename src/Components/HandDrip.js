@@ -1,11 +1,13 @@
 import NaviBar from "./NaviBar";
 import "./HandDrip.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CoffeeJson from "../Coffee.json";
+import { CartContext } from "./CartContext";
 
 function HandDrip() {
   // eslint-disable-next-line
   const [handDrip, setHandDrip] = useState(CoffeeJson.HandDrip);
+  const { addToCart } = useContext(CartContext);
 
   return (
     <div className="HandDrip">
@@ -18,7 +20,9 @@ function HandDrip() {
             <div className="HandDrip-content">
               <h3>{hand.title}</h3>
               <p>가격 : {hand.price}</p>
-              <div className="Basket-Button">장바구니 담기</div>
+              <div className="Basket-Button" onClick={() => addToCart(hand)}>
+                장바구니 담기
+              </div>
               <p className="HandDrip-p-content">특징 : {hand.content}</p>
             </div>
           </div>
