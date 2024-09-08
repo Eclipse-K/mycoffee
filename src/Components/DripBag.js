@@ -1,11 +1,13 @@
 import NaviBar from "./NaviBar";
 import "./DripBag.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CoffeeJson from "../Coffee.json";
+import { CartContext } from "./CartContext";
 
 function DripBag() {
   // eslint-disable-next-line
   const [dripBag, setDripBag] = useState(CoffeeJson.DripBag);
+  const { addToCart } = useContext(CartContext);
 
   return (
     <div className="DripBag">
@@ -18,7 +20,9 @@ function DripBag() {
             <div className="DripBag-content">
               <h3>{drip.title}</h3>
               <p>가격 : {drip.price}</p>
-              <div className="Basket-Button">장바구니 담기</div>
+              <div className="Basket-Button" onClick={() => addToCart(drip)}>
+                장바구니 담기
+              </div>
               <p>특징 : {drip.content}</p>
             </div>
           </div>
