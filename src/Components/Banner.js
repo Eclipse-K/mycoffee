@@ -1,7 +1,7 @@
 import "./Banner.css";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
-import Banner_1 from "../images/Banner_1.jpg";
-import Banner_2 from "../images/Banner_2.jpg";
+import Banner_1 from "../images/Banner1.png";
+import Banner_2 from "../images/Banner2.png";
 import { useCallback, useEffect, useState } from "react";
 
 function Banner() {
