@@ -13,7 +13,7 @@ function Banner() {
           <SlArrowRight />
         </button>
       </div>
-    </div>
+    </div> //이동
   );
 }
 
