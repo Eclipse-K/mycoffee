@@ -1,19 +1,50 @@
 import "./Banner.css";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import Banner_1 from "../images/Banner_1.jpg";
+import Banner_2 from "../images/Banner_2.jpg";
+import { useCallback, useEffect, useState } from "react";
 
 function Banner() {
+  const BannerImg = [Banner_1, Banner_2];
+
+  const [slideBanner, setSlideBanner] = useState(0);
+
+  const PreviousButton = () => {
+    setSlideBanner((prevIndex) =>
+      prevIndex === 0 ? BannerImg.length - 1 : prevIndex - 1
+    );
+  };
+
+  const NextButton = useCallback(() => {
+    setSlideBanner((prevIndex) =>
+      prevIndex === BannerImg.length - 1 ? 0 : prevIndex + 1
+    );
+  }, [BannerImg.length]);
+
+  useEffect(() => {
+    const BannerTimer = setInterval(() => {
+      NextButton(); //5초마다 이동
+    }, 5000);
+
+    return () => clearInterval(BannerTimer);
+  }, [NextButton]); //NextButton 의존성 배열
+
   return (
     <div className="Banner">
       <div className="Banner-container">
-        <button>
+        <button className="Banner-prev" onClick={PreviousButton}>
           <SlArrowLeft />
         </button>
-        <h1>배너영역</h1>
-        <button>
+        <img
+          className="Banner-img"
+          src={BannerImg[slideBanner]}
+          alt={`${slideBanner}`}
+        />
+        <button className="Banner-next" onClick={NextButton}>
           <SlArrowRight />
         </button>
       </div>
-    </div> //이동
+    </div>
   );
 }
 
