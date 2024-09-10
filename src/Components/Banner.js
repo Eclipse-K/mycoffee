@@ -25,8 +25,8 @@ function Banner() {
 
   useEffect(() => {
     const BannerTimer = setInterval(() => {
-      NextButton(); //5초마다 이동
-    }, 5000);
+      NextButton(); //7초마다 이동
+    }, 7000);
 
     return () => clearInterval(BannerTimer);
   }, [NextButton]); //NextButton 의존성 배열

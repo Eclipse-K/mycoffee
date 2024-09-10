@@ -12,18 +12,22 @@
   justify-items: center;
   align-items: center;
   width: 1440px;
-  gap: 0 80px;
+  gap: 0 32px;
 }
 
 .BigImg-1,
 .BigImg-2 {
-  border: 1px solid black;
-  border-radius: 50px;
-  width: 100%;
-  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.BigImg-1 img,
+.BigImg-2 img {
+  width: 480px;
+  height: 480px;
+  border-radius: 10px;
 }
 
 @media all and (min-width: 281px) and (max-width: 432px) {
@@ -33,12 +37,12 @@
 
   .BigImg-container {
     width: 100%;
-    height: 320px;
     gap: 0 16px;
   }
 
-  .BigImg-1,
-  .BigImg-2 {
-    height: 240px;
+  .BigImg-1 img,
+  .BigImg-2 img {
+    width: 160px;
+    height: 160px;
   }
 }
