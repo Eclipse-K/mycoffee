@@ -2,10 +2,12 @@ import "./Banner.css";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import Banner_1 from "../images/Banner1.png";
 import Banner_2 from "../images/Banner2.png";
+import Banner_3 from "../images/Banner3.png";
+import Banner_4 from "../images/Banner4.png";
 import { useCallback, useEffect, useState } from "react";
 
 function Banner() {
-  const BannerImg = [Banner_1, Banner_2];
+  const BannerImg = [Banner_1, Banner_2, Banner_3, Banner_4];
 
   const [slideBanner, setSlideBanner] = useState(0);
 
