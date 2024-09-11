@@ -2,8 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px 8px 0 8px;
+  padding: 16px 0 0 0;
   background-color: white;
+  width: 100%;
 }
 
 .nav-area {
@@ -11,7 +12,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 1440px;
+  width: 95%;
 }
 
 .nav-top {
@@ -102,7 +103,7 @@
 
 .nav-list {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   list-style-type: none;
   width: 100%;
   padding: 0;
@@ -127,7 +128,7 @@
   font-family: "Do Hyeon", sans-serif;
   font-weight: 400;
   font-size: 32px;
-  width: 112px;
+  /* width: 112px; */
   font-style: normal;
   cursor: pointer;
 }
@@ -138,7 +139,7 @@
 
 @media all and (min-width: 281px) and (max-width: 432px) {
   .nav-area {
-    width: 100%;
+    padding: 0 8px;
   }
 
   .nav-middle {
@@ -155,7 +156,7 @@
   }
 
   .nav-list li {
-    width: 80px;
+    /* width: 80px; */
     font-size: 24px;
   }
 }

@@ -4,12 +4,12 @@
   align-items: center;
   background-color: black;
   color: white;
-  padding-left: 16px;
+  width: 100%;
   font-family: "Do Hyeon", sans-serif;
 }
 
 .Footer-container {
-  width: 1440px;
+  width: 95%;
 }
 
 .Footer-container h1 {
@@ -53,10 +53,6 @@
 }
 
 @media all and (min-width: 281px) and (max-width: 432px) {
-  .Footer-container {
-    width: 100%;
-  }
-
   .Footer-container h1 {
     font-size: 24px;
   }
