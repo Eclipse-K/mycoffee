@@ -18,24 +18,29 @@ function WholeBean() {
     <div className="WholeBean">
       <NaviBar />
       <h1 className="WholeBean-title">- WholeBean -</h1>
-
       <button onClick={sortByPrice}>오름차순</button>
 
-      <div className="WholeBean-container">
-        {wholeBean.map((whole) => (
-          <div className="WholeBean-area" key={whole.id}>
-            <img className="WholeBean-img" src={whole.img} alt={whole.title} />
-            <div className="WholeBean-content">
-              <h3>{whole.title}</h3>
-              <p>가격 : {whole.price}</p>
-              <p>아로마노트 : {whole.flavor_note}</p>
-              <div className="Basket-Button" onClick={() => addToCart(whole)}>
-                장바구니 담기
+      <div className="WholeBean-box">
+        <div className="WholeBean-container">
+          {wholeBean.map((whole) => (
+            <div className="WholeBean-area" key={whole.id}>
+              <img
+                className="WholeBean-img"
+                src={whole.img}
+                alt={whole.title}
+              />
+              <div className="WholeBean-content">
+                <h3>{whole.title}</h3>
+                <p>가격 : {whole.price}</p>
+                <p>아로마노트 : {whole.flavor_note}</p>
+                <div className="Basket-Button" onClick={() => addToCart(whole)}>
+                  장바구니 담기
+                </div>
+                <p>특징 : {whole.content}</p>
               </div>
-              <p>특징 : {whole.content}</p>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

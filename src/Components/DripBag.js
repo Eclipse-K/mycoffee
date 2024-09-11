@@ -13,20 +13,22 @@ function DripBag() {
     <div className="DripBag">
       <NaviBar />
       <h1 className="DripBag-title">- DripBag -</h1>
-      <div className="DripBag-container">
-        {dripBag.map((drip) => (
-          <div className="DripBag-area" key={drip.id}>
-            <img className="DripBag-img" src={drip.img} alt={drip.title} />
-            <div className="DripBag-content">
-              <h3>{drip.title}</h3>
-              <p>가격 : {drip.price}</p>
-              <div className="Basket-Button" onClick={() => addToCart(drip)}>
-                장바구니 담기
+      <div className="DripBag-box">
+        <div className="DripBag-container">
+          {dripBag.map((drip) => (
+            <div className="DripBag-area" key={drip.id}>
+              <img className="DripBag-img" src={drip.img} alt={drip.title} />
+              <div className="DripBag-content">
+                <h3>{drip.title}</h3>
+                <p>가격 : {drip.price}</p>
+                <div className="Basket-Button" onClick={() => addToCart(drip)}>
+                  장바구니 담기
+                </div>
+                <p>특징 : {drip.content}</p>
               </div>
-              <p>특징 : {drip.content}</p>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

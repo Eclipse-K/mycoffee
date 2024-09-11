@@ -20,9 +20,11 @@
   cursor: pointer;
 }
 
-.Banner-container svg {
+.Banner-prev svg,
+.Banner-next svg {
   width: 48px;
   height: 48px;
+  color: black;
 }
 
 .Banner-img {
