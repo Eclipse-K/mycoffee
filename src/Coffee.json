@@ -23,6 +23,14 @@
       "price": "18,000",
       "flavor_note": "초콜릿, 견과류, 스파이시",
       "content": "묵직한 바디감, 낮은 산미, 부드럽고 진한 맛"
+    },
+    {
+      "id": 4,
+      "img": "../Images/GuatemalaAntigua.png",
+      "title": "과테말라 안티구아 500g",
+      "price": "18,000",
+      "flavor_note": "초콜릿, 견과류, 은은한 과일향",
+      "content": "약간 무거운 바디감, 시트러스 산미, 마일드한 균형잡힌 맛"
     }
   ],
 

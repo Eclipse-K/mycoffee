@@ -18,11 +18,11 @@ function Products() {
             <div className="Products-area" key={pro.id}>
               <img className="Products-img" src={pro.img} alt={pro.title} />
               <div className="Products-content">
-                <p>{pro.title}</p>
-                <p>가격 : {pro.price}</p>
                 <div className="Basket-Button" onClick={() => addToCart(pro)}>
                   장바구니 담기
                 </div>
+                <h3>{pro.title}</h3>
+                <p>가격 : {pro.price}</p>
                 <p>특징 : {pro.content}</p>
               </div>
             </div>

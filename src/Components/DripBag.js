@@ -19,11 +19,11 @@ function DripBag() {
             <div className="DripBag-area" key={drip.id}>
               <img className="DripBag-img" src={drip.img} alt={drip.title} />
               <div className="DripBag-content">
-                <h3>{drip.title}</h3>
-                <p>가격 : {drip.price}</p>
                 <div className="Basket-Button" onClick={() => addToCart(drip)}>
                   장바구니 담기
                 </div>
+                <h3>{drip.title}</h3>
+                <p>가격 : {drip.price}</p>
                 <p>특징 : {drip.content}</p>
               </div>
             </div>

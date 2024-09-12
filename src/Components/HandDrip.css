@@ -31,16 +31,16 @@
 }
 
 .HandDrip-area {
+  display: flex;
+  flex-direction: column;
   border: 1px solid black;
   font-family: "Do Hyeon", sans-serif;
   margin-bottom: 24px;
   width: 100%;
-  min-height: 400px;
 }
 
 .HandDrip-img {
   width: 100%;
-  height: 60%;
 }
 
 .HandDrip-content {
@@ -64,13 +64,12 @@
   }
 
   .HandDrip-container {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px 0;
   }
 
   .HandDrip-area {
     width: 95%;
-    min-height: 300px;
     padding-bottom: 8px;
   }
 }

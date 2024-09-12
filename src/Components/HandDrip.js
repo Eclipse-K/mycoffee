@@ -19,11 +19,11 @@ function HandDrip() {
             <div className="HandDrip-area" key={hand.id}>
               <img className="HandDrip-img" src={hand.img} alt={hand.title} />
               <div className="HandDrip-content">
-                <h3>{hand.title}</h3>
-                <p>가격 : {hand.price}</p>
                 <div className="Basket-Button" onClick={() => addToCart(hand)}>
                   장바구니 담기
                 </div>
+                <h3>{hand.title}</h3>
+                <p>가격 : {hand.price}</p>
                 <p className="HandDrip-p-content">특징 : {hand.content}</p>
               </div>
             </div>
