@@ -4,6 +4,7 @@ import Logo from "../images/Logo_MyCoffee.png";
 import "./Cart.css";
 import { Link } from "react-router-dom";
 import { MdCancelPresentation } from "react-icons/md";
+import CoffeeJson from "../Coffee.json";
 
 function Cart() {
   const { cartItems, removeFromCart } = useContext(CartContext);
@@ -30,6 +31,52 @@ function Cart() {
       : [...checkedItemIndexes, index];
     setCheckedItemIndexes(newCheckedItemIndexes);
     setIsAllChecked(newCheckedItemIndexes.length === cartItems.length);
+  };
+
+  // API 호출하여 count 업데이트
+  const updateCount = (id, category) => {
+    fetch("/api/update-count", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, category }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log("Updated item:", data.updatedItem);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating count:", error);
+      });
+  };
+
+  // 전체 구매 핸들러
+  const handleBuyAll = () => {
+    cartItems.forEach((item) => {
+      const category = determineCategory(item.id); // 상품의 카테고리를 확인
+      updateCount(item.id, category); // count 업데이트
+    });
+  };
+
+  // 선택 구매 핸들러
+  const handleBuySelected = () => {
+    checkedItemIndexes.forEach((index) => {
+      const item = cartItems[index];
+      const category = determineCategory(item.id);
+      updateCount(item.id, category);
+    });
+  };
+
+  // 카테고리 확인 함수
+  const determineCategory = (id) => {
+    if (CoffeeJson.WholeBean.some((item) => item.id === id)) return "WholeBean";
+    if (CoffeeJson.DripBag.some((item) => item.id === id)) return "DripBag";
+    if (CoffeeJson.HandDrip.some((item) => item.id === id)) return "HandDrip";
+    if (CoffeeJson.Products.some((item) => item.id === id)) return "Products";
+    return null;
   };
 
   return (
@@ -80,9 +127,11 @@ function Cart() {
           ))}
         </div>
       )}
-      <div style={{ "padding-left": "16px" }}>
-        <button style={{ "margin-right": "8px" }}>전체구매</button>
-        <button>선택구매</button>
+      <div style={{ paddingLeft: "16px" }}>
+        <button style={{ marginRight: "8px" }} onClick={handleBuyAll}>
+          전체구매
+        </button>
+        <button onClick={handleBuySelected}>선택구매</button>
       </div>
     </div>
   );

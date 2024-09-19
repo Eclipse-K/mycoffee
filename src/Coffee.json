@@ -2,6 +2,7 @@
   "WholeBean": [
     {
       "id": 1,
+      "count": 1,
       "img": "../Images/Ethiopia.png",
       "title": "에티오피아 홀빈 500g",
       "price": "22,000",
@@ -10,6 +11,7 @@
     },
     {
       "id": 2,
+      "count": 1,
       "img": "../Images/Colombia.png",
       "title": "콜롬비아 홀빈 500g",
       "price": "20,000",
@@ -18,6 +20,7 @@
     },
     {
       "id": 3,
+      "count": 0,
       "img": "../Images/Brazil.png",
       "title": "브라질 홀빈 500g",
       "price": "18,000",
@@ -26,6 +29,7 @@
     },
     {
       "id": 4,
+      "count": 0,
       "img": "../Images/GuatemalaAntigua.png",
       "title": "과테말라 안티구아 500g",
       "price": "18,000",
@@ -33,10 +37,10 @@
       "content": "약간 무거운 바디감, 시트러스 산미, 마일드한 균형잡힌 맛"
     }
   ],
-
   "DripBag": [
     {
       "id": 1,
+      "count": 0,
       "img": "../Images/EthiopiaDripBag.png",
       "title": "에티오피아 드립백 10개입",
       "price": "10,000",
@@ -45,6 +49,7 @@
     },
     {
       "id": 2,
+      "count": 0,
       "img": "../Images/ColombiaDripBag.png",
       "title": "콜롬비아 드립백 10개입",
       "price": "9,000",
@@ -53,6 +58,7 @@
     },
     {
       "id": 3,
+      "count": 0,
       "img": "../Images/BrazilDripBag.png",
       "title": "브라질 드립백 10개입",
       "price": "8,000",
@@ -60,10 +66,10 @@
       "content": "묵직한 바디감, 낮은 산미, 부드럽고 진한 맛"
     }
   ],
-
   "HandDrip": [
     {
       "id": 1,
+      "count": 0,
       "img": "../Images/Grinder.png",
       "title": "그라인더",
       "price": "100,000",
@@ -71,6 +77,7 @@
     },
     {
       "id": 2,
+      "count": 0,
       "img": "../Images/KalitaWave.png",
       "title": "칼리타 웨이브 드리퍼",
       "price": "15,000",
@@ -78,16 +85,17 @@
     },
     {
       "id": 3,
+      "count": 0,
       "img": "../Images/V60.png",
       "title": "V60 드리퍼",
       "price": "15,000",
       "content": "원뿔형 드리퍼\n60도 각도로 내려가는 타입\n큰 추출 구멍과 나선형 리브"
     }
   ],
-
   "Products": [
     {
       "id": 1,
+      "count": 0,
       "img": "../Images/MilkMixCoffee.png",
       "title": "믹스커피 10개입",
       "price": "5,000",
@@ -95,6 +103,7 @@
     },
     {
       "id": 2,
+      "count": 0,
       "img": "../Images/DarkMixCoffee.png",
       "title": "다크 믹스커피 10개입",
       "price": "5,000",
@@ -102,6 +111,7 @@
     },
     {
       "id": 3,
+      "count": 0,
       "img": "../Images/FrenchPress.png",
       "title": "프렌치프레스",
       "price": "15,000",
@@ -109,6 +119,7 @@
     },
     {
       "id": 4,
+      "count": 0,
       "img": "../Images/MokaPot.png",
       "title": "모카포트",
       "price": "50,000",
