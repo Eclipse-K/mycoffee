@@ -2,7 +2,7 @@
   "WholeBean": [
     {
       "id": 1,
-      "count": 1,
+      "count": 26,
       "img": "../Images/Ethiopia.png",
       "title": "에티오피아 홀빈 500g",
       "price": "22,000",
@@ -11,7 +11,7 @@
     },
     {
       "id": 2,
-      "count": 1,
+      "count": 11,
       "img": "../Images/Colombia.png",
       "title": "콜롬비아 홀빈 500g",
       "price": "20,000",
@@ -20,7 +20,7 @@
     },
     {
       "id": 3,
-      "count": 0,
+      "count": 10,
       "img": "../Images/Brazil.png",
       "title": "브라질 홀빈 500g",
       "price": "18,000",
@@ -39,7 +39,7 @@
   ],
   "DripBag": [
     {
-      "id": 1,
+      "id": 5,
       "count": 0,
       "img": "../Images/EthiopiaDripBag.png",
       "title": "에티오피아 드립백 10개입",
@@ -48,7 +48,7 @@
       "content": "가벼운 바디감, 티같은 부드러운 마무리"
     },
     {
-      "id": 2,
+      "id": 6,
       "count": 0,
       "img": "../Images/ColombiaDripBag.png",
       "title": "콜롬비아 드립백 10개입",
@@ -57,7 +57,7 @@
       "content": "중간 바디감, 균형 잡힌 맛, 달콤한 여운"
     },
     {
-      "id": 3,
+      "id": 7,
       "count": 0,
       "img": "../Images/BrazilDripBag.png",
       "title": "브라질 드립백 10개입",
@@ -68,7 +68,7 @@
   ],
   "HandDrip": [
     {
-      "id": 1,
+      "id": 8,
       "count": 0,
       "img": "../Images/Grinder.png",
       "title": "그라인더",
@@ -76,7 +76,7 @@
       "content": "고강도 스테인리스\n정밀하고 균일한 분쇄\n깔끔하고 모던한 디자인"
     },
     {
-      "id": 2,
+      "id": 9,
       "count": 0,
       "img": "../Images/KalitaWave.png",
       "title": "칼리타 웨이브 드리퍼",
@@ -84,7 +84,7 @@
       "content": "평평한 바닥에 3개의 추출구멍\n균일하고 일관된 추출"
     },
     {
-      "id": 3,
+      "id": 10,
       "count": 0,
       "img": "../Images/V60.png",
       "title": "V60 드리퍼",
@@ -94,15 +94,15 @@
   ],
   "Products": [
     {
-      "id": 1,
-      "count": 0,
+      "id": 11,
+      "count": 9,
       "img": "../Images/MilkMixCoffee.png",
       "title": "믹스커피 10개입",
       "price": "5,000",
       "content": "부드럽고 달콤한 맛"
     },
     {
-      "id": 2,
+      "id": 12,
       "count": 0,
       "img": "../Images/DarkMixCoffee.png",
       "title": "다크 믹스커피 10개입",
@@ -110,7 +110,7 @@
       "content": "진하고 씁쓸한 맛"
     },
     {
-      "id": 3,
+      "id": 13,
       "count": 0,
       "img": "../Images/FrenchPress.png",
       "title": "프렌치프레스",
@@ -118,7 +118,7 @@
       "content": "주전자에 뜨거운 물과 커피가루를 함께 \n담아 커피를 우려낸 뒤, 프레스기기를 이용해 \n커피 가루를 아래로 밀어내는 방식이다."
     },
     {
-      "id": 4,
+      "id": 14,
       "count": 0,
       "img": "../Images/MokaPot.png",
       "title": "모카포트",
