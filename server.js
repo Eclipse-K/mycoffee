@@ -10,7 +10,7 @@ const cors = require("cors");
 app.use(cors()); // 모든 요청에 대해 CORS 허용
 
 // Coffee JSON 파일 경로
-const coffeeFilePath = path.join(__dirname, "./Coffee.json");
+const coffeeFilePath = path.join(__dirname, "./src/Coffee.json");
 
 // JSON 파일 읽기 함수
 const readCoffeeData = () => {
