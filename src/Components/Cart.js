@@ -5,13 +5,16 @@ import "./Cart.css";
 import { Link } from "react-router-dom";
 import { MdCancelPresentation } from "react-icons/md";
 import CoffeeJson from "../Coffee.json";
+import PurchasePage from "./PurchasePage";
 
 function Cart() {
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, setCartItems, removeFromCart } = useContext(CartContext);
   const [isAllChecked, setIsAllChecked] = useState(true);
   const [checkedItemIndexes, setCheckedItemIndexes] = useState(
     cartItems.map((_, index) => index)
   );
+  const [loadingTime, setLoadingTime] = useState(false);
+  const [showPurchasePage, setShowPurchasePage] = useState(false);
 
   // 전체 선택 체크박스 클릭 핸들러
   const handleAllCheckboxClick = () => {
@@ -45,6 +48,11 @@ function Cart() {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
+          setCartItems((prevItems) =>
+            prevItems.map((item) =>
+              item.id === id ? { ...item, count: data.updatedItem.count } : item
+            )
+          );
           console.log("Updated item:", data.updatedItem);
         }
       })
@@ -55,20 +63,57 @@ function Cart() {
 
   // 전체 구매 핸들러
   const handleBuyAll = () => {
+    if (cartItems.length === 0) {
+      // 목록이 없으면 팝업창을 띄운다.
+      alert("목록이 존재하지 않습니다.");
+      return;
+    }
+
     cartItems.forEach((item) => {
       const category = determineCategory(item.id); // 상품의 카테고리를 확인
       updateCount(item.id, category); // count 업데이트
     });
+
+    setLoadingTime(true);
+    setCheckedItemIndexes(cartItems);
+    setTimeout(() => {
+      setLoadingTime(false);
+      setShowPurchasePage(true);
+    }, 2000);
   };
 
   // 선택 구매 핸들러
   const handleBuySelected = () => {
+    if (checkedItemIndexes.length === 0) {
+      // 선택한 항목이 없을 때 팝업창을 띄운다.
+      alert("목록이 존재하지 않습니다.");
+      return;
+    }
+
     checkedItemIndexes.forEach((index) => {
       const item = cartItems[index];
       const category = determineCategory(item.id);
       updateCount(item.id, category);
     });
+
+    setLoadingTime(true);
+    setTimeout(() => {
+      setLoadingTime(false);
+      setShowPurchasePage(true);
+    }, 2000);
   };
+
+  const handleGoBack = () => {
+    setShowPurchasePage(false);
+  };
+
+  if (loadingTime) {
+    return (
+      <div>
+        <p>로딩중</p>
+      </div>
+    );
+  }
 
   // 카테고리 확인 함수
   const determineCategory = (id) => {
@@ -81,58 +126,69 @@ function Cart() {
 
   return (
     <div className="Cart">
-      <div className="Cart-nav">
-        <Link to="/">
-          <img className="Cart-Logo" src={Logo} alt="Cart-Logo" />
-        </Link>
-        <div className="Cart-Logo-title">My Coffee</div>
-      </div>
-      <h1 className="Cart-title">장바구니</h1>
-      <form className="Cart-form">
-        <input
-          className="Cart-all-input"
-          type="checkbox"
-          id="AllCheck"
-          name="전체선택"
-          checked={
-            isAllChecked && checkedItemIndexes.length === cartItems.length
-          }
-          onChange={handleAllCheckboxClick}
+      {showPurchasePage ? (
+        <PurchasePage
+          checkedItemIndexes={checkedItemIndexes}
+          onGoBack={handleGoBack}
         />
-        <label htmlFor="AllCheck">전체 선택</label>
-      </form>
-      {cartItems.length === 0 ? (
-        <p className="Cart-empty">장바구니가 비었습니다.</p>
       ) : (
-        <div className="Cart-container">
-          {cartItems.map((item, index) => (
-            <div className="Cart-area" key={index}>
-              <input
-                className="Cart-area-input"
-                type="checkbox"
-                id={index}
-                name={index}
-                checked={checkedItemIndexes.includes(index)}
-                onChange={() => handleItemCheckboxClick(index)}
-              />
-              <img className="Cart-img" src={item.img} alt={item.title} />
-              <div className="Cart-area-second">
-                <p className="Cart-area-title">{item.title}</p>
-                <p className="Cart-area-price">{item.price}</p>
-              </div>
-              <div className="Cart-remove">
-                <MdCancelPresentation onClick={() => removeFromCart(index)} />
-              </div>
+        <>
+          <div className="Cart-nav">
+            <Link to="/">
+              <img className="Cart-Logo" src={Logo} alt="Cart-Logo" />
+            </Link>
+            <div className="Cart-Logo-title">My Coffee</div>
+          </div>
+          <h1 className="Cart-title">장바구니</h1>
+          <form className="Cart-form">
+            <input
+              className="Cart-all-input"
+              type="checkbox"
+              id="AllCheck"
+              name="전체선택"
+              checked={
+                isAllChecked && checkedItemIndexes.length === cartItems.length
+              }
+              onChange={handleAllCheckboxClick}
+            />
+            <label htmlFor="AllCheck">전체 선택</label>
+          </form>
+          {cartItems.length === 0 ? (
+            <p className="Cart-empty">장바구니가 비었습니다.</p>
+          ) : (
+            <div className="Cart-container">
+              {cartItems.map((item, index) => (
+                <div className="Cart-area" key={index}>
+                  <input
+                    className="Cart-area-input"
+                    type="checkbox"
+                    id={index}
+                    name={index}
+                    checked={checkedItemIndexes.includes(index)}
+                    onChange={() => handleItemCheckboxClick(index)}
+                  />
+                  <img className="Cart-img" src={item.img} alt={item.title} />
+                  <div className="Cart-area-second">
+                    <p className="Cart-area-title">{item.title}</p>
+                    <p className="Cart-area-price">{item.price}</p>
+                  </div>
+                  <div className="Cart-remove">
+                    <MdCancelPresentation
+                      onClick={() => removeFromCart(index)}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          )}
+          <div style={{ paddingLeft: "16px" }}>
+            <button style={{ marginRight: "8px" }} onClick={handleBuyAll}>
+              전체구매
+            </button>
+            <button onClick={handleBuySelected}>선택구매</button>
+          </div>
+        </>
       )}
-      <div style={{ paddingLeft: "16px" }}>
-        <button style={{ marginRight: "8px" }} onClick={handleBuyAll}>
-          전체구매
-        </button>
-        <button onClick={handleBuySelected}>선택구매</button>
-      </div>
     </div>
   );
 }

@@ -40,7 +40,7 @@
   "DripBag": [
     {
       "id": 101,
-      "count": 11,
+      "count": 15,
       "img": "../Images/EthiopiaDripBag.png",
       "title": "에티오피아 드립백 10개입",
       "price": "10,000",
@@ -69,7 +69,7 @@
   "HandDrip": [
     {
       "id": 201,
-      "count": 0,
+      "count": 1,
       "img": "../Images/Grinder.png",
       "title": "그라인더",
       "price": "100,000",
@@ -95,7 +95,7 @@
   "Products": [
     {
       "id": 301,
-      "count": 20,
+      "count": 23,
       "img": "../Images/MilkMixCoffee.png",
       "title": "믹스커피 10개입",
       "price": "5,000",
@@ -103,7 +103,7 @@
     },
     {
       "id": 302,
-      "count": 11,
+      "count": 14,
       "img": "../Images/DarkMixCoffee.png",
       "title": "다크 믹스커피 10개입",
       "price": "5,000",
