@@ -16,6 +16,7 @@ function Cart() {
   );
   const [loadingTime, setLoadingTime] = useState(false);
   const [showPurchasePage, setShowPurchasePage] = useState(false);
+  const [quantities, setQuantities] = useState(cartItems.map(() => 1));
 
   // 전체 선택 체크박스 클릭 핸들러
   const handleAllCheckboxClick = () => {
@@ -116,6 +117,22 @@ function Cart() {
     );
   }
 
+  //선택 수량에 따라 가격 업데이트
+  const handleQuantityChange = (index, quantity) => {
+    const updatedQuantities = [...quantities];
+    updatedQuantities[index] = quantity;
+    setQuantities(updatedQuantities);
+  };
+
+  //총 가격 계산
+  const calculateTotalPrice = () => {
+    return cartItems.reduce((total, item, index) => {
+      const price = parseFloat(item.price.replace(/,/g, "")); // 콤마 제거 후 숫자로 변환
+      const quantity = quantities[index] || 1; // 수량이 없다면 기본값 1
+      return total + price * quantity;
+    }, 0);
+  };
+
   // 카테고리 확인 함수
   const determineCategory = (id) => {
     if (CoffeeJson.WholeBean.some((item) => item.id === id)) return "WholeBean";
@@ -173,8 +190,17 @@ function Cart() {
                     <div className="Cart-area-second">
                       <p className="Cart-area-title">{item.title}</p>
                       <div className="Cart-area-third">
-                        <p className="Cart-area-price">{item.price}</p>
-                        <QuantityDropdown />
+                        <p className="Cart-area-price">
+                          {(
+                            parseInt(item.price.replace(/,/g, ""), 10) *
+                            quantities[index]
+                          ).toString()}{" "}
+                        </p>
+                        <QuantityDropdown
+                          onQuantityChange={(quantity) =>
+                            handleQuantityChange(index, quantity)
+                          }
+                        />
                       </div>
                     </div>
                     <div className="Cart-remove">
@@ -188,6 +214,7 @@ function Cart() {
             </div>
           )}
           <div style={{ paddingLeft: "16px" }}>
+            <p>총 가격: {calculateTotalPrice()} 원</p>
             <button style={{ marginRight: "8px" }} onClick={handleBuyAll}>
               전체구매
             </button>

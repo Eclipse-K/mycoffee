@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./QuantityDropdown.css";
 
-function QuantityDropdown() {
+function QuantityDropdown({ onQuantityChange }) {
   const [quantity, setQuantity] = useState(1);
   const [showDrop, setShowDrop] = useState(false);
   const quantities = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -13,6 +13,7 @@ function QuantityDropdown() {
   const handleSelectQuantity = (value) => {
     setQuantity(value);
     setShowDrop(false);
+    onQuantityChange(value);
   };
 
   return (
