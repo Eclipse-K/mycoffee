@@ -1,0 +1,53 @@
+.Quantity {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 80%;
+}
+
+.Quantity-display {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Quantity-button {
+  border: none;
+  background: none;
+  font-size: 16px;
+  padding: 0;
+}
+
+.Quantity-num-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 60px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+}
+
+.Quantity-number {
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.Quantity-number:hover {
+  background-color: #f0f0f0;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .Quantity-num-list {
+    width: 100%;
+  }
+}

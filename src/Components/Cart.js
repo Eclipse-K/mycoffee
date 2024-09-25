@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { MdCancelPresentation } from "react-icons/md";
 import CoffeeJson from "../Coffee.json";
 import PurchasePage from "./PurchasePage";
+import QuantityDropdown from "./QuantityDropdown";
 
 function Cart() {
   const { cartItems, setCartItems, removeFromCart } = useContext(CartContext);
@@ -168,14 +169,19 @@ function Cart() {
                     onChange={() => handleItemCheckboxClick(index)}
                   />
                   <img className="Cart-img" src={item.img} alt={item.title} />
-                  <div className="Cart-area-second">
-                    <p className="Cart-area-title">{item.title}</p>
-                    <p className="Cart-area-price">{item.price}</p>
-                  </div>
-                  <div className="Cart-remove">
-                    <MdCancelPresentation
-                      onClick={() => removeFromCart(index)}
-                    />
+                  <div className="Cart-area-first">
+                    <div className="Cart-area-second">
+                      <p className="Cart-area-title">{item.title}</p>
+                      <div className="Cart-area-third">
+                        <p className="Cart-area-price">{item.price}</p>
+                        <QuantityDropdown />
+                      </div>
+                    </div>
+                    <div className="Cart-remove">
+                      <MdCancelPresentation
+                        onClick={() => removeFromCart(index)}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
