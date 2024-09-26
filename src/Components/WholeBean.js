@@ -24,12 +24,12 @@ function WholeBean() {
         <div className="WholeBean-container">
           {wholeBean.map((whole) => (
             <div className="WholeBean-area" key={whole.id}>
-              <img
-                className="WholeBean-img"
-                src={whole.img}
-                alt={whole.title}
-              />
               <div className="WholeBean-content">
+                <img
+                  className="WholeBean-img"
+                  src={whole.img}
+                  alt={whole.title}
+                />
                 <div className="Basket-Button" onClick={() => addToCart(whole)}>
                   장바구니 담기
                 </div>

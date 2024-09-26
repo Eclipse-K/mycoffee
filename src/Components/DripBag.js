@@ -17,8 +17,8 @@ function DripBag() {
         <div className="DripBag-container">
           {dripBag.map((drip) => (
             <div className="DripBag-area" key={drip.id}>
-              <img className="DripBag-img" src={drip.img} alt={drip.title} />
               <div className="DripBag-content">
+                <img className="DripBag-img" src={drip.img} alt={drip.title} />
                 <div className="Basket-Button" onClick={() => addToCart(drip)}>
                   장바구니 담기
                 </div>

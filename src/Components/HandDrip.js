@@ -17,8 +17,8 @@ function HandDrip() {
         <div className="HandDrip-container">
           {handDrip.map((hand) => (
             <div className="HandDrip-area" key={hand.id}>
-              <img className="HandDrip-img" src={hand.img} alt={hand.title} />
               <div className="HandDrip-content">
+                <img className="HandDrip-img" src={hand.img} alt={hand.title} />
                 <div className="Basket-Button" onClick={() => addToCart(hand)}>
                   장바구니 담기
                 </div>

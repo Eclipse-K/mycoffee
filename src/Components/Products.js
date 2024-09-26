@@ -16,8 +16,8 @@ function Products() {
         <div className="Products-container">
           {products.map((pro) => (
             <div className="Products-area" key={pro.id}>
-              <img className="Products-img" src={pro.img} alt={pro.title} />
               <div className="Products-content">
+                <img className="Products-img" src={pro.img} alt={pro.title} />
                 <div className="Basket-Button" onClick={() => addToCart(pro)}>
                   장바구니 담기
                 </div>
