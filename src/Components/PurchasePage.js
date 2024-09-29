@@ -3,7 +3,7 @@ import "./PurchasePage.css"; // 스타일링을 위한 CSS 파일
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 
-function PurchasePage({ checkedItemIndexes, onGoBack }) {
+function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
   const { cartItems } = useContext(CartContext);
   const selectedItems = checkedItemIndexes.map((index) => cartItems[index]);
   const [shippingInfo, setShippingInfo] = useState({
@@ -65,7 +65,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack }) {
             <tr key={index}>
               <td>{item.title}</td>
               <td>{item.price}</td>
-              <td>{item.count}</td>
+              <td>{quantities[checkedItemIndexes[index]]}</td>
             </tr>
           ))}
         </tbody>

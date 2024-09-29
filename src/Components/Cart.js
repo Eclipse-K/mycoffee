@@ -77,10 +77,14 @@ function Cart() {
     });
 
     setLoadingTime(true);
-    setCheckedItemIndexes(cartItems);
+    setCheckedItemIndexes(cartItems.map((_, index) => index));
     setTimeout(() => {
       setLoadingTime(false);
-      setShowPurchasePage(true);
+      setShowPurchasePage({
+        show: true,
+        checkedItemIndexes: cartItems.map((_, index) => index),
+        quantities,
+      });
     }, 2000);
   };
 
@@ -101,7 +105,7 @@ function Cart() {
     setLoadingTime(true);
     setTimeout(() => {
       setLoadingTime(false);
-      setShowPurchasePage(true);
+      setShowPurchasePage({ show: true, checkedItemIndexes, quantities });
     }, 2000);
   };
 
@@ -146,7 +150,8 @@ function Cart() {
     <div className="Cart">
       {showPurchasePage ? (
         <PurchasePage
-          checkedItemIndexes={checkedItemIndexes}
+          checkedItemIndexes={showPurchasePage.checkedItemIndexes}
+          quantities={showPurchasePage.quantities}
           onGoBack={handleGoBack}
         />
       ) : (
