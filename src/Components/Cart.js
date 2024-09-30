@@ -7,6 +7,7 @@ import { MdCancelPresentation } from "react-icons/md";
 import CoffeeJson from "../Coffee.json";
 import PurchasePage from "./PurchasePage";
 import QuantityDropdown from "./QuantityDropdown";
+import LoadingSpinner from "./LoadingSpinner";
 
 function Cart() {
   const { cartItems, setCartItems, removeFromCart } = useContext(CartContext);
@@ -115,9 +116,9 @@ function Cart() {
 
   if (loadingTime) {
     return (
-      <div>
-        <p>로딩중</p>
-      </div>
+      <>
+        <LoadingSpinner />
+      </>
     );
   }
 
