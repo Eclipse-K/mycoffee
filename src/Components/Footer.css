@@ -9,7 +9,7 @@
 }
 
 .Footer-container {
-  width: 95%;
+  width: 1440px;
 }
 
 .Footer-container h1 {
@@ -53,6 +53,10 @@
 }
 
 @media all and (min-width: 281px) and (max-width: 432px) {
+  .Footer-container {
+    width: 96%;
+  }
+
   .Footer-container h1 {
     font-size: 24px;
   }
@@ -72,5 +76,11 @@
 
   .Copyright {
     font-size: 10px;
+  }
+}
+
+@media all and (min-width: 650px) and (max-width: 1200px) {
+  .Footer-container {
+    width: 95%;
   }
 }

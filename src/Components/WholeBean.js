@@ -5,20 +5,21 @@ import CoffeeJson from "../Coffee.json";
 import { CartContext } from "./CartContext";
 
 function WholeBean() {
+  // eslint-disable-next-line
   const [wholeBean, setWholeBean] = useState(CoffeeJson.WholeBean);
   const { addToCart } = useContext(CartContext);
 
   // 가격에 따라 오름차순으로 정렬하는 함수
-  const sortByPrice = () => {
-    const sortedBeans = [...wholeBean].sort((a, b) => a.price - b.price);
-    setWholeBean(sortedBeans);
-  };
+  // const sortByPrice = () => {
+  //   const sortedBeans = [...wholeBean].sort((a, b) => a.price - b.price);
+  //   setWholeBean(sortedBeans);
+  // };
 
   return (
     <div className="WholeBean">
       <NaviBar />
       <h1 className="WholeBean-title">- WholeBean -</h1>
-      <button onClick={sortByPrice}>오름차순</button>
+      {/* <button onClick={sortByPrice}>오름차순</button> */}
 
       <div className="WholeBean-box">
         <div className="WholeBean-container">

@@ -66,3 +66,9 @@
 .LoginForm-sign:hover {
   text-decoration: underline;
 }
+
+@media all and (min-width: 280px) and (max-width: 432px) {
+  .LoginForm-form {
+    width: 60%;
+  }
+}
