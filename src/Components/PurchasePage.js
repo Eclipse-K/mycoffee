@@ -76,30 +76,38 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
       <h2>배송지 정보</h2>
       <form className="shipping-form">
         <div>
-          <label>이름:</label>
+          <label htmlFor="shippingName" className="shipping-label">
+            이름:
+          </label>
           <input
+            id="shippingName"
             type="text"
             name="name"
             value={shippingInfo.name}
             onChange={handleShippingChange}
+            autoComplete="name"
           />
         </div>
         <div>
-          <label>주소:</label>
+          <label htmlFor="shippingAddress">주소:</label>
           <input
+            id="shippingAddress"
             type="text"
             name="address"
             value={shippingInfo.address}
             onChange={handleShippingChange}
+            autoComplete="street-address"
           />
         </div>
         <div>
-          <label>연락처:</label>
+          <label htmlFor="shippingPhone">연락처:</label>
           <input
+            id="shippingPhone"
             type="text"
             name="phone"
             value={shippingInfo.phone}
             onChange={handleShippingChange}
+            autoComplete="tel"
           />
         </div>
       </form>
@@ -109,8 +117,9 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
       <h2>결제 정보</h2>
       <form className="payment-form">
         <div>
-          <label>카드 번호:</label>
+          <label htmlFor="cardNumber">카드 번호:</label>
           <input
+            id="cardNumber"
             type="text"
             name="cardNumber"
             value={paymentInfo.cardNumber}
@@ -118,8 +127,9 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
           />
         </div>
         <div>
-          <label>유효 기간:</label>
+          <label htmlFor="expirationDate">유효 기간:</label>
           <input
+            id="expirationDate"
             type="text"
             name="expirationDate"
             placeholder="MM/YY"
@@ -128,8 +138,9 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
           />
         </div>
         <div>
-          <label>CVC:</label>
+          <label htmlFor="cvc">CVC:</label>
           <input
+            id="cvc"
             type="text"
             name="cvc"
             value={paymentInfo.cvc}
