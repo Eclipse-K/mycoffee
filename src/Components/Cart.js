@@ -219,12 +219,14 @@ function Cart() {
               ))}
             </div>
           )}
-          <div style={{ paddingLeft: "16px" }}>
-            <p>총 가격: {calculateTotalPrice()} 원</p>
-            <button style={{ marginRight: "8px" }} onClick={handleBuyAll}>
+          <p className="Cart-All-Price">총 가격: {calculateTotalPrice()} 원</p>
+          <div className="Cart-button-container">
+            <button className="Cart-All-button" onClick={handleBuyAll}>
               전체구매
             </button>
-            <button onClick={handleBuySelected}>선택구매</button>
+            <button className="Cart-Select-button" onClick={handleBuySelected}>
+              선택구매
+            </button>
           </div>
         </>
       )}

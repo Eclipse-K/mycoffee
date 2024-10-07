@@ -115,6 +115,37 @@
   width: 24px;
   height: 24px;
 }
+.Cart-All-Price,
+.Cart-button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.Cart-All-Price {
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+.Cart-button-container {
+  gap: 8px;
+}
+
+.Cart-All-button,
+.Cart-Select-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  font-family: "Do Hyeon", sans-serif;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.Cart-All-button:hover,
+.Cart-Select-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
 
 @media all and (min-width: 281px) and (max-width: 432px) {
   .Cart-img {
