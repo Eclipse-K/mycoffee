@@ -77,7 +77,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
       <form className="shipping-form">
         <div>
           <label htmlFor="shippingName" className="shipping-label">
-            이름:
+            이 름:
           </label>
           <input
             id="shippingName"
@@ -89,7 +89,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
           />
         </div>
         <div>
-          <label htmlFor="shippingAddress">주소:</label>
+          <label htmlFor="shippingAddress">주 소:</label>
           <input
             id="shippingAddress"
             type="text"
