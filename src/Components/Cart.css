@@ -2,6 +2,13 @@
   background-color: white;
   font-family: "Do Hyeon", sans-serif;
   min-height: 800px;
+  width: 100%;
+}
+
+.Cart-container {
+  width: 1440px;
+  min-height: 200px;
+  margin: 0 auto 24px auto;
 }
 
 .Cart-nav {
@@ -24,8 +31,7 @@
 }
 
 .Cart-title {
-  border-bottom: 2px solid gray;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid black;
   margin: 0 0 16px 0;
   padding-left: 16px;
   padding-bottom: 16px;
@@ -45,12 +51,6 @@
 .Cart-empty {
   padding-left: 16px;
   padding-bottom: 16px;
-}
-
-.Cart-container {
-  display: grid;
-  gap: 16px;
-  padding: 16px 16px;
 }
 
 .Cart-area {
@@ -120,12 +120,11 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 0 16px;
 }
 
 .Cart-All-Price {
   font-size: 18px;
-  margin: 8px 0;
+  padding: 0;
 }
 
 .Cart-button-container {
@@ -148,6 +147,10 @@
 }
 
 @media all and (min-width: 281px) and (max-width: 432px) {
+  .Cart-container {
+    width: 96%;
+  }
+
   .Cart-img {
     width: 64px;
     height: 64px;

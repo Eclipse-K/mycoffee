@@ -149,87 +149,94 @@ function Cart() {
 
   return (
     <div className="Cart">
-      {showPurchasePage ? (
-        <PurchasePage
-          checkedItemIndexes={showPurchasePage.checkedItemIndexes}
-          quantities={showPurchasePage.quantities}
-          onGoBack={handleGoBack}
-        />
-      ) : (
-        <>
-          <div className="Cart-nav">
-            <Link to="/">
-              <img className="Cart-Logo" src={Logo} alt="Cart-Logo" />
-            </Link>
-            <div className="Cart-Logo-title">My Coffee</div>
-          </div>
-          <h1 className="Cart-title">장바구니</h1>
-          <form className="Cart-form">
-            <input
-              className="Cart-all-input"
-              type="checkbox"
-              id="AllCheck"
-              name="전체선택"
-              checked={
-                isAllChecked && checkedItemIndexes.length === cartItems.length
-              }
-              onChange={handleAllCheckboxClick}
-            />
-            <label htmlFor="AllCheck">전체 선택</label>
-          </form>
-          {cartItems.length === 0 ? (
-            <p className="Cart-empty">장바구니가 비었습니다.</p>
-          ) : (
-            <div className="Cart-container">
-              {cartItems.map((item, index) => (
-                <div className="Cart-area" key={index}>
-                  <input
-                    className="Cart-area-input"
-                    type="checkbox"
-                    id={index}
-                    name={index}
-                    checked={checkedItemIndexes.includes(index)}
-                    onChange={() => handleItemCheckboxClick(index)}
-                  />
-                  <img className="Cart-img" src={item.img} alt={item.title} />
-                  <div className="Cart-area-first">
-                    <div className="Cart-area-second">
-                      <p className="Cart-area-title">{item.title}</p>
-                      <div className="Cart-area-third">
-                        <p className="Cart-area-price">
-                          {(
-                            parseInt(item.price.replace(/,/g, ""), 10) *
-                            quantities[index]
-                          ).toString()}{" "}
-                        </p>
-                        <QuantityDropdown
-                          onQuantityChange={(quantity) =>
-                            handleQuantityChange(index, quantity)
-                          }
+      <div className="Cart-container">
+        {showPurchasePage ? (
+          <PurchasePage
+            checkedItemIndexes={showPurchasePage.checkedItemIndexes}
+            quantities={showPurchasePage.quantities}
+            onGoBack={handleGoBack}
+          />
+        ) : (
+          <>
+            <div className="Cart-nav">
+              <Link to="/">
+                <img className="Cart-Logo" src={Logo} alt="Cart-Logo" />
+              </Link>
+              <div className="Cart-Logo-title">My Coffee</div>
+            </div>
+            <h1 className="Cart-title">장바구니</h1>
+            <form className="Cart-form">
+              <input
+                className="Cart-all-input"
+                type="checkbox"
+                id="AllCheck"
+                name="전체선택"
+                checked={
+                  isAllChecked && checkedItemIndexes.length === cartItems.length
+                }
+                onChange={handleAllCheckboxClick}
+              />
+              <label htmlFor="AllCheck">전체 선택</label>
+            </form>
+            {cartItems.length === 0 ? (
+              <p className="Cart-empty">장바구니가 비었습니다.</p>
+            ) : (
+              <div className="Cart-container">
+                {cartItems.map((item, index) => (
+                  <div className="Cart-area" key={index}>
+                    <input
+                      className="Cart-area-input"
+                      type="checkbox"
+                      id={index}
+                      name={index}
+                      checked={checkedItemIndexes.includes(index)}
+                      onChange={() => handleItemCheckboxClick(index)}
+                    />
+                    <img className="Cart-img" src={item.img} alt={item.title} />
+                    <div className="Cart-area-first">
+                      <div className="Cart-area-second">
+                        <p className="Cart-area-title">{item.title}</p>
+                        <div className="Cart-area-third">
+                          <p className="Cart-area-price">
+                            {(
+                              parseInt(item.price.replace(/,/g, ""), 10) *
+                              quantities[index]
+                            ).toString()}{" "}
+                          </p>
+                          <QuantityDropdown
+                            onQuantityChange={(quantity) =>
+                              handleQuantityChange(index, quantity)
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className="Cart-remove">
+                        <MdCancelPresentation
+                          onClick={() => removeFromCart(index)}
                         />
                       </div>
                     </div>
-                    <div className="Cart-remove">
-                      <MdCancelPresentation
-                        onClick={() => removeFromCart(index)}
-                      />
-                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            )}
+            <p className="Cart-All-Price">
+              총 가격: {calculateTotalPrice()} 원
+            </p>
+            <div className="Cart-button-container">
+              <button className="Cart-All-button" onClick={handleBuyAll}>
+                전체구매
+              </button>
+              <button
+                className="Cart-Select-button"
+                onClick={handleBuySelected}
+              >
+                선택구매
+              </button>
             </div>
-          )}
-          <p className="Cart-All-Price">총 가격: {calculateTotalPrice()} 원</p>
-          <div className="Cart-button-container">
-            <button className="Cart-All-button" onClick={handleBuyAll}>
-              전체구매
-            </button>
-            <button className="Cart-Select-button" onClick={handleBuySelected}>
-              선택구매
-            </button>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
