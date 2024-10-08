@@ -1,8 +1,11 @@
 .Purchase {
-  width: 80%;
+  width: 100%;
+}
+
+.Purchase-container {
+  width: 1440px;
   margin: 0 auto;
   padding: 20px;
-  /* background-color: #f9f9f9; */
 }
 
 .Purchase h1,
@@ -29,30 +32,59 @@
   color: white;
 }
 
+.member-form,
 .shipping-form,
 .payment-form {
   display: flex;
   flex-direction: column;
 }
 
+.member-form div,
 .shipping-form div,
 .payment-form div {
   margin-bottom: 10px;
 }
 
+.member-form label,
 .shipping-form label,
 .payment-form label {
   margin-bottom: 5px;
   font-weight: bold;
 }
 
+.member-form input,
 .shipping-form input,
-.payment-form input {
+.payment-form input,
+.shipping-form select {
   padding: 8px;
   margin-left: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.tab-content select {
+  width: 15%;
+  padding: 10px;
+  margin-left: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.tabs button {
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.tabs .active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.tab-content {
+  margin-top: 20px;
 }
 
 .Purchase-actions {
@@ -77,4 +109,16 @@
 .Purchase-button {
   background-color: #4caf50;
   color: white;
+}
+
+@media all and (max-width: 432px) {
+  .Purchase-container {
+    width: 96%;
+    margin: 0 8px;
+    padding: 0;
+  }
+
+  .tab-content select {
+    width: 50%;
+  }
 }
