@@ -32,30 +32,22 @@
   color: white;
 }
 
-.member-form,
-.shipping-form,
-.payment-form {
+.Shipping-form {
   display: flex;
   flex-direction: column;
 }
 
-.member-form div,
-.shipping-form div,
-.payment-form div {
+.Shipping-form div {
   margin-bottom: 10px;
 }
 
-.member-form label,
-.shipping-form label,
-.payment-form label {
+.Shipping-form label {
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.member-form input,
-.shipping-form input,
-.payment-form input,
-.shipping-form select {
+.Shipping-form input,
+.Shipping-form select {
   padding: 8px;
   margin-left: 8px;
   font-size: 16px;
@@ -63,28 +55,45 @@
   border-radius: 4px;
 }
 
-.tab-content select {
-  width: 15%;
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0 8px;
+}
+
+.tabs button {
+  padding: 10px;
+  color: black;
+  cursor: pointer;
+  border: 1px solid gray;
+}
+
+.tabs .active {
+  background-color: black;
+  color: white;
+}
+
+.tab-content {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.tab-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px 0;
+  width: 100%;
+}
+
+.tab-area select {
+  width: 18%;
   padding: 10px;
   margin-left: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-.tabs button {
-  padding: 10px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.tabs .active {
-  background-color: #4caf50;
-  color: white;
-}
-
-.tab-content {
-  margin-top: 20px;
+  color: black;
 }
 
 .Purchase-actions {
@@ -104,10 +113,11 @@
 
 .back-button {
   background-color: #f2f2f2;
+  color: black;
 }
 
 .Purchase-button {
-  background-color: #4caf50;
+  background-color: black;
   color: white;
 }
 
@@ -118,7 +128,19 @@
     padding: 0;
   }
 
-  .tab-content select {
+  .tabs {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .tab-area select {
     width: 50%;
+  }
+}
+
+@media all and (min-width: 440px) and (max-width: 1400px) {
+  .Purchase-container {
+    width: 96%;
   }
 }

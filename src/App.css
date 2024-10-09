@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Danfo&family=Do+Hyeon&display=swap");
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   background-color: black;
@@ -9,5 +14,6 @@ body {
 
 .App {
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
 }

@@ -1,7 +1,7 @@
 .Cart {
   background-color: white;
   font-family: "Do Hyeon", sans-serif;
-  min-height: 800px;
+  min-height: calc(100vh - 300px);
   width: 100%;
 }
 
@@ -158,5 +158,11 @@
 
   .Cart-area-title {
     width: 55%;
+  }
+}
+
+@media all and (min-width: 440px) and (max-width: 1400px) {
+  .Cart-container {
+    width: 96%;
   }
 }

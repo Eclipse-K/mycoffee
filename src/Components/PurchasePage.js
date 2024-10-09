@@ -74,11 +74,9 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
         <hr />
 
         <h2>배송지 정보</h2>
-        <form className="shipping-form">
+        <form className="Shipping-form">
           <div>
-            <label htmlFor="shippingName" className="shipping-label">
-              이 름:
-            </label>
+            <label htmlFor="shippingName">이 름:</label>
             <input
               id="shippingName"
               type="text"
@@ -145,7 +143,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
 
         <div className="tab-content">
           {activeTab === "신용카드" && (
-            <div>
+            <div className="tab-area">
               <div>
                 <label htmlFor="cardType">카드 선택:</label>
                 <select

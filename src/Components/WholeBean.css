@@ -1,11 +1,10 @@
 .WholeBean {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: white;
   width: 100%;
-  min-height: 500px;
+  min-height: calc(100vh - 389px);
 }
 
 .WholeBean-title {

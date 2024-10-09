@@ -1,4 +1,7 @@
 .Home {
+  display: flex;
+  flex-direction: column;
   background-color: white;
   width: 100%;
+  min-height: calc(100vh - 389px);
 }
