@@ -17,7 +17,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 95%;
+  width: 1440px;
 }
 
 .DripBag-container {
@@ -73,5 +73,11 @@
     width: 95%;
     padding-bottom: 8px;
     margin: 0;
+  }
+}
+
+@media all and (min-width: 700px) and (max-width: 1400px) {
+  .DripBag-box {
+    width: 95%;
   }
 }
