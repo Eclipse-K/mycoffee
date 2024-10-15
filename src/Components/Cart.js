@@ -164,24 +164,30 @@ function Cart() {
               </Link>
               <div className="Cart-Logo-title">My Coffee</div>
             </div>
-            <h1 className="Cart-title">장바구니</h1>
-            <form className="Cart-form">
-              <input
-                className="Cart-all-input"
-                type="checkbox"
-                id="AllCheck"
-                name="전체선택"
-                checked={
-                  isAllChecked && checkedItemIndexes.length === cartItems.length
-                }
-                onChange={handleAllCheckboxClick}
-              />
-              <label htmlFor="AllCheck">전체 선택</label>
-            </form>
+            <h1 className="Cart-title">
+              장바구니
+              <hr />
+            </h1>
+
             {cartItems.length === 0 ? (
               <p className="Cart-empty">장바구니가 비었습니다.</p>
             ) : (
-              <div className="Cart-container">
+              <div className="Cart-list">
+                <form className="Cart-form">
+                  <input
+                    className="Cart-all-input"
+                    type="checkbox"
+                    id="AllCheck"
+                    name="전체선택"
+                    checked={
+                      isAllChecked &&
+                      checkedItemIndexes.length === cartItems.length
+                    }
+                    onChange={handleAllCheckboxClick}
+                  />
+                  <label htmlFor="AllCheck">전체 선택</label>
+                </form>
+
                 {cartItems.map((item, index) => (
                   <div className="Cart-area" key={index}>
                     <input

@@ -15,33 +15,32 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding: 16px 0;
+  /* width: 100%; */
 }
 
 .Cart-Logo {
   width: 40px;
   height: 40px;
-  padding-left: 16px;
 }
 
 .Cart-Logo-title {
-  padding-right: 16px;
   font-size: 1rem;
 }
 
 .Cart-title {
-  border-bottom: 1px solid black;
-  margin: 0 0 16px 0;
-  padding-left: 16px;
-  padding-bottom: 16px;
+  margin: 0;
+
   font-size: 300%;
 }
+
+/* .Cart-list {
+  padding: 0 24px;
+} */
 
 .Cart-form {
   display: flex;
   align-items: stretch;
-  padding-left: 16px;
+  margin-bottom: 16px;
 }
 
 .Cart-form label {
@@ -120,11 +119,11 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  /* padding: 0 24px; */
 }
 
 .Cart-All-Price {
   font-size: 18px;
-  padding: 0;
 }
 
 .Cart-button-container {
@@ -149,7 +148,19 @@
 
 @media all and (min-width: 281px) and (max-width: 432px) {
   .Cart-container {
-    width: 96%;
+    width: 100%;
+  }
+
+  .Cart-nav {
+    padding: 8px 8px;
+  }
+
+  .Cart-title {
+    padding: 0 8px;
+  }
+
+  .Cart-list {
+    padding: 0 8px;
   }
 
   .Cart-img {
@@ -160,10 +171,23 @@
   .Cart-area-title {
     width: 55%;
   }
+
+  .Cart-All-Price,
+  .Cart-button-container {
+    padding: 0 8px;
+  }
 }
 
 @media all and (min-width: 440px) and (max-width: 1400px) {
   .Cart-container {
-    width: 96%;
+    width: 100%;
+  }
+
+  .Cart-nav,
+  .Cart-title,
+  .Cart-list,
+  .Cart-All-Price,
+  .Cart-button-container {
+    padding: 0 24px;
   }
 }

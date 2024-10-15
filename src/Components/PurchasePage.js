@@ -31,7 +31,6 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
   };
 
   const handlePurchase = () => {
-    // 배송지 정보 유효성 검사
     if (
       !shippingInfo.name ||
       !shippingInfo.address ||
@@ -41,10 +40,16 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
       return;
     }
 
-    // 구매 로직 처리
     console.log("구매 완료:", selectedItems, shippingInfo, cardInfo);
     alert("구매가 완료되었습니다!");
   };
+
+  // 총 가격 계산
+  const totalPrice = selectedItems.reduce((total, item, index) => {
+    const quantity = quantities[checkedItemIndexes[index]];
+    const itemPrice = Number(item.price.replace(/,/g, ""));
+    return total + (itemPrice || 0) * (quantity || 0);
+  }, 0);
 
   return (
     <div className="Purchase">
@@ -64,12 +69,16 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
             {selectedItems.map((item, index) => (
               <tr key={index}>
                 <td>{item.title}</td>
-                <td>{item.price}</td>
+                <td>{item.price.toLocaleString()}원</td>
                 <td>{quantities[checkedItemIndexes[index]]}</td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        <div className="Total-price">
+          <h3>총 가격: {totalPrice.toLocaleString()}원</h3>
+        </div>
 
         <hr />
 
