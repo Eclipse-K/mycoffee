@@ -10,6 +10,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
     name: "",
     address: "",
     phone: "",
+    request: "",
   });
 
   const [activeTab, setActiveTab] = useState("신용카드");
@@ -85,7 +86,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
         <h2>배송지 정보</h2>
         <form className="Shipping-form">
           <div>
-            <label htmlFor="shippingName">이 름:</label>
+            <label htmlFor="shippingName">이 름</label>
             <input
               id="shippingName"
               type="text"
@@ -96,7 +97,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
             />
           </div>
           <div>
-            <label htmlFor="shippingAddress">주 소:</label>
+            <label htmlFor="shippingAddress">주 소</label>
             <input
               id="shippingAddress"
               type="text"
@@ -107,7 +108,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
             />
           </div>
           <div>
-            <label htmlFor="shippingPhone">연락처:</label>
+            <label htmlFor="shippingPhone">연락처</label>
             <input
               id="shippingPhone"
               type="text"
@@ -116,6 +117,18 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
               value={shippingInfo.phone}
               onChange={handleShippingChange}
               autoComplete="tel"
+            />
+          </div>
+          <div>
+            <label htmlFor="shippingRequest">요청사항</label>
+            <input
+              id="shippingRequest"
+              type="text"
+              name="request"
+              placeholder="요청사항을 입력하세요."
+              value={shippingInfo.request}
+              onChange={handleShippingChange}
+              autoComplete="request"
             />
           </div>
         </form>
