@@ -55,7 +55,8 @@
   margin: 8px 0;
 }
 
-.Basket-Button {
+.Basket-Button,
+.Detail-Button {
   border: 1px solid black;
   border-radius: 10px;
   background-color: black;
@@ -64,6 +65,11 @@
   padding: 8px 16px;
   margin-top: 8px;
   cursor: pointer;
+}
+
+.Detail-Button a {
+  color: white;
+  text-decoration: none;
 }
 
 @media all and (min-width: 281px) and (max-width: 432px) {

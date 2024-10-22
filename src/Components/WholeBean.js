@@ -3,23 +3,31 @@ import NaviBar from "./NaviBar";
 import "./WholeBean.css";
 import CoffeeJson from "../Coffee.json";
 import { CartContext } from "./CartContext";
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 
 function WholeBean() {
   // eslint-disable-next-line
   const [wholeBean, setWholeBean] = useState(CoffeeJson.WholeBean);
   const { addToCart } = useContext(CartContext);
+  const [wholeLoading, setWholeLoading] = useState(false);
+  const navigate = useNavigate();
 
-  // 가격에 따라 오름차순으로 정렬하는 함수
-  // const sortByPrice = () => {
-  //   const sortedBeans = [...wholeBean].sort((a, b) => a.price - b.price);
-  //   setWholeBean(sortedBeans);
-  // };
+  const handleViewDetail = (id) => {
+    setWholeLoading(true); // 로딩 시작
+    setTimeout(() => {
+      setWholeLoading(false); // 로딩 끝
+      navigate(`/wholebean/${id}`); // 2초 후 해당 URL로 이동
+    }, 2000); // 2초 후 실행
+  };
 
   return (
     <div className="WholeBean">
       <NaviBar />
+
+      {wholeLoading && <LoadingSpinner />}
+
       <h1 className="WholeBean-title">- WholeBean -</h1>
-      {/* <button onClick={sortByPrice}>오름차순</button> */}
 
       <div className="WholeBean-box">
         <div className="WholeBean-container">
@@ -31,13 +39,17 @@ function WholeBean() {
                   src={whole.img}
                   alt={whole.title}
                 />
+                <h3>{whole.title}</h3>
+                <p>가격 : {whole.price}</p>
                 <div className="Basket-Button" onClick={() => addToCart(whole)}>
                   장바구니 담기
                 </div>
-                <h3>{whole.title}</h3>
-                <p>가격 : {whole.price}</p>
-                <p>아로마노트 : {whole.flavor_note}</p>
-                <p>특징 : {whole.content}</p>
+                <div
+                  className="Detail-Button"
+                  onClick={() => handleViewDetail(whole.id)}
+                >
+                  상세보기
+                </div>
               </div>
             </div>
           ))}

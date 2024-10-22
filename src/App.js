@@ -13,6 +13,7 @@ import FindPwPage from "./Components/FindPwPage";
 import PrivacyPolicy from "./Components/PrivacyPolicy";
 import Cart from "./Components/Cart";
 import { CartProvider } from "./Components/CartContext";
+import WholeBeanDetail from "./Components/WholeBeanDetail";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/WholeBean" element={<WholeBean />} />
+          <Route path="/WholeBean/:id" element={<WholeBeanDetail />} />
           <Route path="/DripBag" element={<DripBag />} />
           <Route path="/HandDrip" element={<HandDrip />} />
           <Route path="/Products" element={<Products />} />
