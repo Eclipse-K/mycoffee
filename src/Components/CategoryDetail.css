@@ -1,4 +1,4 @@
-.WholeBeanDetail {
+.CategoryDetail {
   text-align: center;
   padding: 20px;
   position: relative;
@@ -15,7 +15,7 @@
   cursor: pointer;
 }
 
-.WholeBeanDetail-img {
+.CategoryDetail-img {
   width: 300px;
   height: auto;
   margin-bottom: 20px;
@@ -29,13 +29,13 @@
   background-color: #f9f9f9;
 }
 
-.Tabs {
+.DetailPage-Tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-.Tabs button {
+.DetailPage-Tabs button {
   padding: 10px 20px;
   margin: 0 5px;
   border: 1px solid #ccc;
@@ -43,12 +43,12 @@
   cursor: pointer;
 }
 
-.Tabs button.active {
+.DetailPage-Tabs button.active {
   background-color: #ddd;
   font-weight: bold;
 }
 
-.TabContent {
+.DetailPage-TabContent {
   text-align: left;
   margin-top: 20px;
 }

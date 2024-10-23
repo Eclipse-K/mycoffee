@@ -1,4 +1,4 @@
-.Products {
+.CategoryPage {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,12 +7,12 @@
   min-height: calc(100vh - 389px);
 }
 
-.Products-title {
+.CategoryPage-title {
   text-align: center;
   font-family: "Do Hyeon", sans-serif;
 }
 
-.Products-box {
+.CategoryPage-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +20,7 @@
   width: 1440px;
 }
 
-.Products-container {
+.CategoryPage-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
@@ -29,10 +29,9 @@
   padding-bottom: 24px;
 }
 
-.Products-area {
+.CategoryPage-area {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
   font-family: "Do Hyeon", sans-serif;
   margin-bottom: 24px;
   padding-top: 8px;
@@ -40,46 +39,72 @@
   min-height: 400px;
 }
 
-.Products-img {
+.CategoryPage-img {
   width: 100%;
   border-radius: 10px;
 }
 
-.Products-content {
+.CategoryPage-content {
   padding: 0 8px;
   margin-bottom: 8px;
-  white-space: pre-line;
 }
 
-.Products-content h3,
-.Products-content p {
+.CategoryPage-content h3,
+.CategoryPage-content p {
   margin: 8px 0;
 }
 
+.Basket-Button {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.Detail-Button {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: white;
+  text-align: center;
+  padding: 8px 16px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.Detail-Button a {
+  color: black;
+  text-decoration: none;
+}
+
 @media all and (min-width: 281px) and (max-width: 432px) {
-  .Products-title {
+  .CategoryPage-title {
     margin: 24px 0;
   }
 
-  .Products-box {
+  .CategoryPage-box {
     width: 100%;
   }
 
-  .Products-container {
+  .CategoryPage-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px 0;
     margin: 0 8px;
   }
 
-  .Products-area {
+  .CategoryPage-area {
     width: 95%;
+    min-height: 300px;
     padding-bottom: 8px;
     margin: 0;
   }
 }
 
 @media all and (min-width: 700px) and (max-width: 1400px) {
-  .Products-box {
+  .CategoryPage-box {
     width: 95%;
   }
 }
