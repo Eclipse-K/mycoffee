@@ -2,8 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 96px 0 0 0;
-  padding: 0 8px 96px 8px;
+  margin: 48px 0 24px 0;
 }
 
 .BestItem h1 {
@@ -12,6 +11,7 @@
 
 .BestItem-container {
   width: 1440px;
+  padding: 0 24px;
 }
 
 .BestItem-container h1 {
