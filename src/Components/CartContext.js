@@ -15,9 +15,24 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // 장바구니에 항목 추가
-  const addToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
+  // 장바구니에 추가하는 함수
+  const addToCart = (newItem) => {
+    setCartItems((prevItems) => {
+      const existingItemIndex = prevItems.findIndex(
+        (item) => item.id === newItem.id
+      );
+
+      if (existingItemIndex !== -1) {
+        // 이미 장바구니에 있는 경우, 수량만 증가
+        const updatedItems = [...prevItems];
+        updatedItems[existingItemIndex].count += 1;
+
+        return updatedItems;
+      } else {
+        // 장바구니에 없는 경우, 새로 추가
+        return [...prevItems, { ...newItem, count: 1 }];
+      }
+    });
   };
 
   // 장바구니에서 항목 제거

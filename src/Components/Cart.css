@@ -29,13 +29,12 @@
 
 .Cart-title {
   margin: 0;
-
   font-size: 300%;
 }
 
-/* .Cart-list {
+.Cart-list {
   padding: 0 24px;
-} */
+}
 
 .Cart-form {
   display: flex;
@@ -56,6 +55,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  margin: 8px 0;
 }
 
 .Cart-all-input,

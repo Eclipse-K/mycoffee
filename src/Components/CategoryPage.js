@@ -43,8 +43,6 @@ function CategoryPage() {
     }, 2000); // 2초 후 실행
   };
 
-  console.log(category);
-
   return (
     <div className="CategoryPage">
       <NaviBar />

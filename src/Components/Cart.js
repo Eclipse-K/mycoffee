@@ -210,6 +210,7 @@ function Cart() {
                             ).toString()}{" "}
                           </p>
                           <QuantityDropdown
+                            initialQuantity={item.count} // 장바구니 항목의 count를 초기값으로 넘김
                             onQuantityChange={(quantity) =>
                               handleQuantityChange(index, quantity)
                             }
