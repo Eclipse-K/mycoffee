@@ -5,6 +5,16 @@ import { CartContext } from "./CartContext";
 function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
   const { cartItems } = useContext(CartContext);
   const selectedItems = checkedItemIndexes.map((index) => cartItems[index]);
+  const [customRequest, setCustomRequest] = useState("");
+
+  //요청사항 작동 함수
+  const handleCustomRequest = (e) => {
+    const { value } = e.target;
+    setShippingInfo({ ...shippingInfo, request: value });
+    if (value !== "직접 입력") {
+      setCustomRequest("");
+    }
+  };
 
   const [shippingInfo, setShippingInfo] = useState({
     name: "",
@@ -121,15 +131,36 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
           </div>
           <div>
             <label htmlFor="shippingRequest">요청사항</label>
-            <input
+            <select
               id="shippingRequest"
-              type="text"
               name="request"
-              placeholder="요청사항을 입력하세요."
               value={shippingInfo.request}
-              onChange={handleShippingChange}
-              autoComplete="request"
-            />
+              onChange={handleCustomRequest}
+            >
+              <option value="">배송시 요청사항을 선택해주세요</option>
+              <option value="문앞에 놓아주세요">
+                부재시 문앞에 놓아주세요
+              </option>
+              <option value="경비실에 맡겨 주세요">
+                부재시 경비실에 맡겨 주세요
+              </option>
+              <option value="전화 또는 문자 주세요">
+                부재시 전화 또는 문자 주세요
+              </option>
+              <option value="택배함에 넣어주세요">택배함에 넣어주세요</option>
+              <option value="배송전에 연락주세요">배송전에 연락주세요</option>
+              <option value="직접 입력">직접 입력</option>
+            </select>
+
+            {shippingInfo.request === "직접 입력" && (
+              <input
+                type="text"
+                maxLength="50"
+                placeholder="배송 요청사항을 입력해주세요 (최대 50자)"
+                value={customRequest}
+                onChange={(e) => setCustomRequest(e.target.value)}
+              />
+            )}
           </div>
         </form>
 
