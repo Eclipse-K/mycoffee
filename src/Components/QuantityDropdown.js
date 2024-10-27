@@ -4,9 +4,8 @@ import "./QuantityDropdown.css";
 function QuantityDropdown({ initialQuantity, onQuantityChange }) {
   const [quantity, setQuantity] = useState(initialQuantity);
   const [showDrop, setShowDrop] = useState(false);
-  const quantities = Array.from({ length: 10 }, (_, i) => i + 1);
+  const quantities = Array.from({ length: 10 }, (_, i) => i + 1); // 1부터 10까지 생성
 
-  // 장바구니의 count가 업데이트될 때 dropdown의 수량도 업데이트
   useEffect(() => {
     setQuantity(initialQuantity);
   }, [initialQuantity]);
@@ -18,7 +17,7 @@ function QuantityDropdown({ initialQuantity, onQuantityChange }) {
   const handleSelectQuantity = (value) => {
     setQuantity(value);
     setShowDrop(false);
-    onQuantityChange(value); // 부모 컴포넌트에 선택된 수량을 알림
+    onQuantityChange(value); // 부모 컴포넌트로 선택한 수량 전달
   };
 
   return (
