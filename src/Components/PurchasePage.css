@@ -75,7 +75,20 @@
 .tab-content {
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 16px;
+}
+
+.tabs-naverpay,
+.tabs-kakaopay,
+.tabs-account-transfer {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.tabs-naverpay h3,
+.tabs-kakaopay h3,
+.tabs-account-transfer h3 {
+  margin: 8px 0;
 }
 
 .tab-area {
