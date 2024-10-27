@@ -131,10 +131,8 @@ function Cart() {
 
   //총 가격 계산
   const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item, index) => {
-      const price = parseFloat(item.price.replace(/,/g, "")); // 콤마 제거 후 숫자로 변환
-      const quantity = quantities[index] || 1; // 수량이 없다면 기본값 1
-      return total + price * quantity;
+    return cartItems.reduce((total, item) => {
+      return total + parseFloat(item.totalPrice);
     }, 0);
   };
 

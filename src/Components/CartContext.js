@@ -15,23 +15,34 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // 장바구니에 추가하는 함수
+  // 장바구니 항목 추가 함수
   const addToCart = (newItem) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.id === newItem.id);
       if (existingItem) {
-        // 수량이 10개 이상이면 추가하지 않음
-        if (existingItem.count >= 10) {
-          alert("해당 상품은 최대 10개까지 구매할 수 있습니다.");
-          return prevItems;
-        }
-        // 이미 존재하면 수량 증가
+        // 이미 존재하는 경우 수량 증가 및 가격 업데이트
         return prevItems.map((item) =>
-          item.id === newItem.id ? { ...item, count: item.count + 1 } : item
+          item.id === newItem.id
+            ? {
+                ...item,
+                count: item.count + 1,
+                totalPrice: (
+                  parseFloat(item.price.replace(/,/g, "")) *
+                  (item.count + 1)
+                ).toFixed(2),
+              }
+            : item
         );
       }
-      // 새롭게 추가 (count 기본값 1)
-      return [...prevItems, { ...newItem, count: 1 }];
+      // 새롭게 추가할 경우 초기 수량과 가격 설정
+      return [
+        ...prevItems,
+        {
+          ...newItem,
+          count: 1,
+          totalPrice: parseFloat(newItem.price.replace(/,/g, "")).toFixed(2),
+        },
+      ];
     });
   };
 
