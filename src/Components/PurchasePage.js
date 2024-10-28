@@ -64,7 +64,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
 
   // 할부 옵션을 조건부로 설정하는 함수
   const getInstallmentOptions = () => {
-    const baseOptions = [
+    const monthlyOptions = [
       { label: "일시불", value: "" },
       { label: "1개월", value: "1개월" },
       { label: "2개월", value: "2개월" },
@@ -85,14 +85,14 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
       cardInfo.cardType === "SamsungCard" ||
       cardInfo.cardType === "HyundaiCard"
     ) {
-      return baseOptions.map((option) => {
+      return monthlyOptions.map((option) => {
         if (["1개월", "2개월", "3개월"].includes(option.label)) {
           return { ...option, label: `${option.label} (무이자)` };
         }
         return option;
       });
     }
-    return baseOptions;
+    return monthlyOptions;
   };
 
   return (
@@ -164,36 +164,38 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
           </div>
           <div>
             <label htmlFor="shippingRequest">요청사항</label>
-            <select
-              id="shippingRequest"
-              name="request"
-              value={shippingInfo.request}
-              onChange={handleCustomRequest}
-            >
-              <option value="">배송시 요청사항을 선택해주세요</option>
-              <option value="문앞에 놓아주세요">
-                부재시 문앞에 놓아주세요
-              </option>
-              <option value="경비실에 맡겨 주세요">
-                부재시 경비실에 맡겨 주세요
-              </option>
-              <option value="전화 또는 문자 주세요">
-                부재시 전화 또는 문자 주세요
-              </option>
-              <option value="택배함에 넣어주세요">택배함에 넣어주세요</option>
-              <option value="배송전에 연락주세요">배송전에 연락주세요</option>
-              <option value="직접 입력">직접 입력</option>
-            </select>
+            <div className="Sipping-Request-box">
+              <select
+                id="shippingRequest"
+                name="request"
+                value={shippingInfo.request}
+                onChange={handleCustomRequest}
+              >
+                <option value="">배송시 요청사항을 선택해주세요</option>
+                <option value="문앞에 놓아주세요">
+                  부재시 문앞에 놓아주세요
+                </option>
+                <option value="경비실에 맡겨 주세요">
+                  부재시 경비실에 맡겨 주세요
+                </option>
+                <option value="전화 또는 문자 주세요">
+                  부재시 전화 또는 문자 주세요
+                </option>
+                <option value="택배함에 넣어주세요">택배함에 넣어주세요</option>
+                <option value="배송전에 연락주세요">배송전에 연락주세요</option>
+                <option value="직접 입력">직접 입력</option>
+              </select>
 
-            {shippingInfo.request === "직접 입력" && (
-              <input
-                type="text"
-                maxLength="50"
-                placeholder="배송 요청사항을 입력해주세요 (최대 50자)"
-                value={customRequest}
-                onChange={(e) => setCustomRequest(e.target.value)}
-              />
-            )}
+              {shippingInfo.request === "직접 입력" && (
+                <textarea
+                  type="text"
+                  maxLength="50"
+                  placeholder="배송 요청사항을 입력해주세요 (최대 50자)"
+                  value={customRequest}
+                  onChange={(e) => setCustomRequest(e.target.value)}
+                />
+              )}
+            </div>
           </div>
         </form>
 

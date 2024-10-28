@@ -40,13 +40,28 @@
   margin-bottom: 10px;
 }
 
+.Sipping-Request-box {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+  width: 40%;
+}
+
+.Sipping-Request-box textarea {
+  height: 100px;
+  margin-top: 8px;
+  resize: none;
+  overflow: auto;
+}
+
 .Shipping-form label {
   margin-bottom: 5px;
   font-weight: bold;
 }
 
 .Shipping-form input,
-.Shipping-form select {
+.Shipping-form select,
+.Shipping-form textarea {
   padding: 8px;
   margin-left: 8px;
   font-size: 16px;
