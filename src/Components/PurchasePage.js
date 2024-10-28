@@ -62,6 +62,39 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
     return total + (itemPrice || 0) * (quantity || 0);
   }, 0);
 
+  // 할부 옵션을 조건부로 설정하는 함수
+  const getInstallmentOptions = () => {
+    const baseOptions = [
+      { label: "일시불", value: "" },
+      { label: "1개월", value: "1개월" },
+      { label: "2개월", value: "2개월" },
+      { label: "3개월", value: "3개월" },
+      { label: "4개월", value: "4개월" },
+      { label: "5개월", value: "5개월" },
+      { label: "6개월", value: "6개월" },
+      { label: "7개월", value: "7개월" },
+      { label: "8개월", value: "8개월" },
+      { label: "9개월", value: "9개월" },
+      { label: "10개월", value: "10개월" },
+      { label: "11개월", value: "11개월" },
+      { label: "12개월", value: "12개월" },
+    ];
+
+    // 삼성카드나 현대카드일 때만 무이자 옵션 추가
+    if (
+      cardInfo.cardType === "SamsungCard" ||
+      cardInfo.cardType === "HyundaiCard"
+    ) {
+      return baseOptions.map((option) => {
+        if (["1개월", "2개월", "3개월"].includes(option.label)) {
+          return { ...option, label: `${option.label} (무이자)` };
+        }
+        return option;
+      });
+    }
+    return baseOptions;
+  };
+
   return (
     <div className="Purchase">
       <div className="Purchase-container">
@@ -209,6 +242,7 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
                   <option value="KukminCard">국민카드</option>
                   <option value="SinhanCard">신한카드</option>
                   <option value="SamsungCard">삼성카드</option>
+                  <option value="HyundaiCard">현대카드</option>
                   <option value="LotteCard">롯데카드</option>
                   <option value="NHCard">NH카드</option>
                   <option value="HanaCard">하나카드</option>
@@ -224,10 +258,11 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
                   value={cardInfo.installment}
                   onChange={handleCardInfoChange}
                 >
-                  <option value="">일시불</option>
-                  <option value="3개월">3개월</option>
-                  <option value="6개월">6개월</option>
-                  <option value="12개월">12개월</option>
+                  {getInstallmentOptions().map((option, index) => (
+                    <option key={index} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
