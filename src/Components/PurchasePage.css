@@ -89,6 +89,8 @@
   color: black;
   cursor: pointer;
   border: 1px solid gray;
+  background-color: white;
+  font-size: 16px;
 }
 
 .tabs .active {
@@ -162,6 +164,10 @@
     width: 96%;
     margin: 0 8px;
     padding: 0;
+  }
+
+  .Sipping-Request-box {
+    width: 80%;
   }
 
   .tabs {

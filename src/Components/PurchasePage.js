@@ -105,16 +105,16 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
           <thead>
             <tr>
               <th>상품명</th>
-              <th>가격</th>
               <th>수량</th>
+              <th>가격</th>
             </tr>
           </thead>
           <tbody>
             {selectedItems.map((item, index) => (
               <tr key={index}>
                 <td>{item.title}</td>
-                <td>{item.price.toLocaleString()}원</td>
                 <td>{quantities[checkedItemIndexes[index]]}</td>
+                <td>{item.price.toLocaleString()}원</td>
               </tr>
             ))}
           </tbody>
