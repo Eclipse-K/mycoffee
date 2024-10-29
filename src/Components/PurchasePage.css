@@ -47,6 +47,15 @@
   width: 40%;
 }
 
+.Sipping-Request-box select,
+.tabs button,
+.tab-area select,
+.back-button,
+.Purchase-button {
+  color: black;
+  font-family: "Do Hyeon", sans-serif;
+}
+
 .Sipping-Request-box textarea {
   height: 100px;
   margin-top: 8px;
