@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import CoffeeJson from "../Coffee.json";
 import "./CategoryDetail.css";
+import CoffeeAromaRadarChart from "./CoffeeAromaRadarChart";
 
 function CategoryDetail() {
   const { category, id } = useParams();
@@ -75,7 +76,15 @@ function CategoryDetail() {
         <div className="DetailPage-TabContent">
           <h3>상품상세정보</h3>
           {category !== "HandDrip" && category !== "Products" && (
-            <p>아로마노트: {pagedetail.flavor_note}</p>
+            <>
+              <p>아로마노트: {pagedetail.flavor_note}</p>
+              {pagedetail.flavorDetails && (
+                <CoffeeAromaRadarChart
+                  title={pagedetail.title}
+                  flavorDetails={pagedetail.flavorDetails}
+                />
+              )}
+            </>
           )}
           <p>특징: {pagedetail.content}</p>
         </div>
