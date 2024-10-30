@@ -74,7 +74,9 @@ function CategoryDetail() {
       {viewPageTab === 0 && (
         <div className="DetailPage-TabContent">
           <h3>상품상세정보</h3>
-          <p>아로마노트: {pagedetail.flavor_note}</p>
+          {category !== "HandDrip" && category !== "Products" && (
+            <p>아로마노트: {pagedetail.flavor_note}</p>
+          )}
           <p>특징: {pagedetail.content}</p>
         </div>
       )}
