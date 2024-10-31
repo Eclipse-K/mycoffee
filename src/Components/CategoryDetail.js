@@ -29,16 +29,16 @@ function CategoryDetail() {
   return (
     <div className="CategoryDetail">
       <button className="BackButton" onClick={() => navigate(-1)}>
-        뒤로 가기
+        뒤로
       </button>
-      <h1>상세보기</h1>
+      <h1 className="CategoryDetail-title">상세보기</h1>
       <img
         className="CategoryDetail-img"
         src={pagedetail.img}
         alt={pagedetail.title}
       />
-      <h2>{pagedetail.title}</h2>
-      <p>가격: {pagedetail.price}</p>
+      <h2 className="CategoryDetail-img-title">{pagedetail.title}</h2>
+      <p className="CategoryDetail-img-price">가격: {pagedetail.price}원</p>
       <div className="DeliveryInfo">
         <h3>배송정보</h3>
         <p>배송비: 3,000원 (30,000원 이상 구매 시 무료)</p>

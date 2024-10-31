@@ -1,28 +1,45 @@
 .CategoryDetail {
   text-align: center;
-  padding: 20px;
+  padding: 16px 24px;
   position: relative;
+  font-family: "Do Hyeon", sans-serif;
 }
 
 .BackButton {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 16px;
+  left: 24px;
   padding: 10px 15px;
-  font-size: 14px;
-  background-color: #f5f5f5;
+  font-size: 16px;
+  font-family: "Do Hyeon", sans-serif;
+  color: black;
+  background-color: white;
   border: 1px solid #ccc;
   cursor: pointer;
+}
+
+.BackButton:hover {
+  background-color: black;
+  color: white;
+}
+
+.CategoryDetail-title,
+.CategoryDetail-img-title,
+.CategoryDetail-img-price,
+.DeliveryInfo h3,
+.DeliveryInfo p,
+.DetailPage-TabContent h3,
+.DetailPage-TabContent p {
+  margin: 0 0 16px 0;
 }
 
 .CategoryDetail-img {
   width: 300px;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .DeliveryInfo {
-  margin-top: 20px;
   text-align: left;
   padding: 10px;
   border: 1px solid #ddd;
@@ -30,35 +47,49 @@
 }
 
 .DetailPage-Tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
 }
 
 .DetailPage-Tabs button {
   padding: 10px 20px;
-  margin: 0 5px;
+  margin: 0;
   border: 1px solid #ccc;
-  background-color: #f9f9f9;
+  background-color: white;
+  color: black;
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 16px;
   cursor: pointer;
 }
 
 .DetailPage-Tabs button.active {
-  background-color: #ddd;
+  background-color: black;
+  color: white;
   font-weight: bold;
 }
 
 .DetailPage-TabContent {
   text-align: left;
-  margin-top: 20px;
 }
 
 hr {
-  margin: 20px 0;
+  margin: 16px 0;
   border: 1px solid #ccc;
 }
 
 .Flavor-Pentagon {
   width: 300px;
   height: 300px;
+}
+
+@media all and (max-width: 432px) {
+  .DetailPage-Tabs {
+    gap: 4px;
+  }
+
+  .DetailPage-Tabs button {
+    padding: 8px 0;
+    font-size: 12px;
+  }
 }
