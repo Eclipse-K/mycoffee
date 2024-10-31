@@ -40,7 +40,7 @@ function CategoryPage() {
     setTimeout(() => {
       setPageLoading(false); // 로딩 끝
       navigate(`/${category}/${id}`); // 2초 후 해당 URL로 이동
-    }, 2000); // 2초 후 실행
+    }, 1000); // 1초 후 실행
   };
 
   return (
