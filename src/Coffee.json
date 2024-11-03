@@ -73,7 +73,14 @@
       "title": "에티오피아 드립백 10개입",
       "price": "10,000",
       "flavor_note": "꽃 향, 베리류, 시트러스, 복숭아, 감귤, 자스민",
-      "content": "가벼운 바디감, 티같은 부드러운 마무리"
+      "content": "가벼운 바디감, 티같은 부드러운 마무리",
+      "flavorDetails": {
+        "sweetness": 4,
+        "acidity": 5,
+        "body": 3,
+        "aftertaste": 3,
+        "intensity": 4
+      }
     },
     {
       "id": 102,
@@ -82,7 +89,14 @@
       "title": "콜롬비아 드립백 10개입",
       "price": "9,000",
       "flavor_note": "초콜릿, 카라멜, 견과류, 말린 무화과, 바닐라, 토피",
-      "content": "중간 바디감, 균형 잡힌 맛, 달콤한 여운"
+      "content": "중간 바디감, 균형 잡힌 맛, 달콤한 여운",
+      "flavorDetails": {
+        "sweetness": 4,
+        "acidity": 3,
+        "body": 4,
+        "aftertaste": 4,
+        "intensity": 4
+      }
     },
     {
       "id": 103,
@@ -91,7 +105,14 @@
       "title": "브라질 드립백 10개입",
       "price": "8,000",
       "flavor_note": "초콜릿, 견과류, 스파이시",
-      "content": "초콜릿, 견과류, 스파이시, 아몬드, 마카다미아, 다크 카카오"
+      "content": "초콜릿, 견과류, 스파이시, 아몬드, 마카다미아, 다크 카카오",
+      "flavorDetails": {
+        "sweetness": 3,
+        "acidity": 2,
+        "body": 5,
+        "aftertaste": 4,
+        "intensity": 3
+      }
     }
   ],
   "HandDrip": [
