@@ -45,8 +45,7 @@
 }
 
 .CategoryPage-content {
-  padding: 0 8px;
-  margin-bottom: 8px;
+  padding: 0;
 }
 
 .CategoryPage-content h3,
@@ -105,6 +104,6 @@
 
 @media all and (min-width: 700px) and (max-width: 1400px) {
   .CategoryPage-box {
-    width: 95%;
+    width: 96%;
   }
 }
