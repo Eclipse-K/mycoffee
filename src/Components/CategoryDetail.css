@@ -43,26 +43,71 @@
   color: white;
 }
 
-.CategoryDetail-img-title,
-.CategoryDetail-img-price,
 .DeliveryInfo h3,
-.DeliveryInfo p,
 .DetailPage-TabContent h3,
 .DetailPage-TabContent p {
   margin: 0 0 16px 0;
 }
 
+.CategoryDetail-middle {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+}
+
+.CategoryDetail-middle-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .CategoryDetail-img {
-  width: 300px;
+  width: 100%;
   height: auto;
-  margin-bottom: 16px;
+}
+
+.CategoryDetail-img-title {
+  margin: 0 0 8px 0;
+}
+
+.DeliveryInfo {
+  margin: 6px 0;
 }
 
 .DeliveryInfo {
   text-align: left;
-  padding: 10px;
+  padding: 10px 0;
+}
+
+.DeliveryInfo th {
+  width: 60px;
+  padding: 7px 5px 6px 0;
+  text-align: left;
+}
+
+.DeliveryInfo td {
+  padding: 7px 6px 8px 0;
+}
+
+.CategoryDetail-Popup {
+  position: fixed;
+  top: 40%; /* 화면 중앙보다 10% 위로 위치 */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 300px; /* 팝업 창 너비를 300px로 설정 */
+  padding: 16px 24px;
   border: 1px solid #ddd;
-  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.CategoryDetail-Popup button {
+  margin: 10px; /* 버튼 간격을 넓게 */
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  font-family: "Do Hyeon", sans-serif;
+  border-radius: 10px;
 }
 
 .DetailPage-Tabs {
@@ -109,6 +154,17 @@ hr {
 
   .BackButton {
     left: 8px;
+  }
+
+  .CategoryDetail-img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 16px;
+  }
+
+  .CategoryDetail-img-title,
+  .CategoryDetail-img-price {
+    margin: 0 0 16px 0;
   }
 
   .DetailPage-Tabs {
