@@ -90,11 +90,11 @@
 
 .CategoryDetail-Popup {
   position: fixed;
-  top: 40%; /* 화면 중앙보다 10% 위로 위치 */
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  width: 300px; /* 팝업 창 너비를 300px로 설정 */
+  width: 300px;
   padding: 16px 24px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -102,7 +102,7 @@
 }
 
 .CategoryDetail-Popup button {
-  margin: 10px; /* 버튼 간격을 넓게 */
+  margin: 10px;
   padding: 10px 20px;
   background-color: black;
   color: white;
@@ -156,15 +156,25 @@ hr {
     left: 8px;
   }
 
+  .CategoryDetail-middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
   .CategoryDetail-img {
     width: 300px;
     height: auto;
-    margin-bottom: 16px;
   }
 
   .CategoryDetail-img-title,
   .CategoryDetail-img-price {
-    margin: 0 0 16px 0;
+    margin: 0;
+  }
+
+  .DeliveryInfo {
+    margin: 0;
   }
 
   .DetailPage-Tabs {

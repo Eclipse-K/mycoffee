@@ -64,9 +64,7 @@ function CategoryDetail() {
               <tbody>
                 <tr>
                   <th>판매가</th>
-                  <td>
-                    <strong>{pagedetail.price}원</strong>
-                  </td>
+                  <td>{pagedetail.price}원</td>
                 </tr>
                 <tr>
                   <th>배송비</th>
