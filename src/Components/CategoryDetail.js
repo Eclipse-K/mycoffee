@@ -25,6 +25,11 @@ function CategoryDetail() {
     navigate("/Cart");
   };
 
+  const detailBackButton = () => {
+    window.scrollTo(0, 0);
+    navigate(-1);
+  };
+
   // 유효한 category 인지 체크
   if (!CoffeeJson[category]) {
     return <div>존재하지 않는 카테고리입니다. (category: {category})</div>;
@@ -46,7 +51,7 @@ function CategoryDetail() {
     <div className="CategoryDetail">
       <div className="CategoryDetail-container">
         <div className="CategoryDetail-top">
-          <button className="BackButton" onClick={() => navigate(-1)}>
+          <button className="BackButton" onClick={detailBackButton}>
             뒤로
           </button>
           <h1 className="CategoryDetail-top-title">상세보기</h1>

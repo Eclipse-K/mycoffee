@@ -36,6 +36,7 @@ function CategoryPage() {
   }, [category]); // category가 변경될 때마다 실행
 
   const handleViewDetail = (id) => {
+    window.scrollTo(0, 0);
     setPageLoading(true); // 로딩 시작
     setTimeout(() => {
       setPageLoading(false); // 로딩 끝
