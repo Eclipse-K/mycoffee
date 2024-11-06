@@ -47,7 +47,7 @@
 }
 
 .Cart-empty {
-  padding-left: 16px;
+  padding-left: 24px;
   padding-bottom: 16px;
 }
 
@@ -161,6 +161,10 @@
 
   .Cart-list {
     padding: 0 8px;
+  }
+
+  .Cart-empty {
+    padding-left: 8px;
   }
 
   .Cart-img {
