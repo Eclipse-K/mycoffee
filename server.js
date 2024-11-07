@@ -96,6 +96,31 @@ const readCoffeeData = () =>
 const writeCoffeeData = (data) =>
   fs.writeFileSync(coffeeFilePath, JSON.stringify(data, null, 2), "utf-8");
 
+// 회원 정보 저장 파일 경로
+const userDataPath = path.join(__dirname, "user-data.json");
+
+// 회원가입 API 경로
+app.post("/api/signup", (req, res) => {
+  const newUser = req.body;
+
+  // 파일이 없거나 비어 있으면 새 파일 생성 후 빈 배열로 초기화
+  if (
+    !fs.existsSync(userDataPath) ||
+    fs.readFileSync(userDataPath, "utf-8").trim() === ""
+  ) {
+    fs.writeFileSync(userDataPath, JSON.stringify([]));
+  }
+
+  // 기존 데이터 로드 후 새 사용자 추가
+  const existingUsers = JSON.parse(fs.readFileSync(userDataPath, "utf-8"));
+  existingUsers.push(newUser);
+
+  // 파일에 업데이트된 사용자 목록 저장
+  fs.writeFileSync(userDataPath, JSON.stringify(existingUsers, null, 2));
+
+  res.json({ success: true, message: "회원가입이 완료되었습니다." });
+});
+
 // 서버 시작
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

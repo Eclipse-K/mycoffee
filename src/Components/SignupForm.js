@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import StyledLogo from "./StyledLogo";
 import Logo from "../images/Logo_MyCoffee.png";
 
-const SignupForm = () => {
+function SignupForm() {
   const [formData, setFormData] = useState({
     id: "",
     email: "",
@@ -40,12 +40,41 @@ const SignupForm = () => {
     return formErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validate();
+
     if (Object.keys(formErrors).length === 0) {
-      console.log("Form submitted:", formData);
-      // 회원가입 로직 추가 (예: API 호출)
+      try {
+        const response = await fetch("http://localhost:5001/api/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          alert("회원가입이 완료되었습니다.");
+          console.log("Form submitted:", formData);
+          // 필요시 form 초기화
+          setFormData({
+            id: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            username: "",
+            year: "",
+            phone: "",
+          });
+        } else {
+          alert("회원가입 중 문제가 발생했습니다.");
+        }
+      } catch (error) {
+        console.error("회원가입 실패:", error);
+        alert("서버 연결에 문제가 발생했습니다.");
+      }
     } else {
       setErrors(formErrors);
     }
@@ -187,6 +216,6 @@ const SignupForm = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SignupForm;
