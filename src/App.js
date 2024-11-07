@@ -11,6 +11,7 @@ import PrivacyPolicy from "./Components/PrivacyPolicy";
 import Cart from "./Components/Cart";
 import { CartProvider } from "./Components/CartContext";
 import CategoryDetail from "./Components/CategoryDetail";
+import MyPage from "./Components/MyPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/SignupForm" element={<SignupForm />} />
           <Route path="/Login" element={<LoginForm />} />
+          <Route path="/myPage" element={<MyPage />} />
           <Route path="/Find_id" element={<FindIdPage />} />
           <Route path="/Find_pw" element={<FindPwPage />} />
           <Route path="/Cart" element={<Cart />} />

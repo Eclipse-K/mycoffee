@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // useNavigate 추가
 import { useState } from "react";
+import axios from "axios"; // axios도 추가
 import "./LoginForm.css";
 import Logo from "../images/Logo_MyCoffee.png";
 
@@ -7,6 +8,7 @@ function Login() {
   const [LoginId, setLoginId] = useState("");
   const [LoginPassword, setLoginPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); // useNavigate로 navigate 정의
 
   const handleIdChange = (e) => {
     setLoginId(e.target.value);
@@ -16,7 +18,7 @@ function Login() {
     setLoginPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!LoginId) {
       setErrorMessage("아이디를 적어주세요.");
@@ -24,8 +26,24 @@ function Login() {
       setErrorMessage("비밀번호를 입력해주세요.");
     } else {
       setErrorMessage("");
-      console.log("Email:", LoginId);
-      console.log("Password:", LoginPassword);
+
+      try {
+        const response = await axios.post("http://localhost:5001/api/login", {
+          username: LoginId,
+          password: LoginPassword,
+        });
+
+        if (response.data.success) {
+          localStorage.setItem("token", response.data.token);
+          alert("로그인 성공!");
+          navigate("/myPage"); // 로그인 성공 시 myPage로 이동
+        } else {
+          setErrorMessage("로그인 실패: " + response.data.message);
+        }
+      } catch (error) {
+        console.error("로그인 중 오류:", error);
+        setErrorMessage("서버 오류가 발생했습니다.");
+      }
     }
   };
 
@@ -38,14 +56,14 @@ function Login() {
       <form onSubmit={handleSubmit} className="LoginForm-form">
         <input
           className="LoginForm-input"
-          type="LoginId"
+          type="text"
           placeholder="아이디"
           value={LoginId}
           onChange={handleIdChange}
         />
         <input
           className="LoginForm-input"
-          type="LoginPassword"
+          type="password"
           placeholder="비밀번호"
           value={LoginPassword}
           onChange={handlePasswordChange}
