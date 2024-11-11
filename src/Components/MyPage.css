@@ -1,0 +1,37 @@
+.myPage-container {
+  display: flex;
+}
+
+.myPage-sidebar {
+  width: 30%;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-right: 1px solid #ccc;
+}
+
+.myPage-sidebar h3 {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.myPage-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.myPage-sidebar li {
+  margin: 10px 0;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.myPage-sidebar li:hover {
+  background-color: #e0e0e0;
+}
+
+.myPage-content {
+  flex: 1;
+  padding: 20px;
+}

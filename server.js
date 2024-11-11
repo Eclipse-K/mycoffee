@@ -5,45 +5,59 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 
 const app = express();
-const port = 5001; // 포트를 5000으로 변경
+const port = 5001;
 const SECRET_KEY = "your_secret_key";
 
-// 구체적인 CORS 설정
 const corsOptions = {
   origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true, // 쿠키를 포함한 요청을 허용
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 
-// CORS 및 JSON 요청 처리 미들웨어
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// 예제 사용자 정보
-const users = {
-  user1: "password1",
-  user2: "password2",
-};
+const userDataPath = path.join(__dirname, "user-data.json");
 
-// 로그인 처리 및 토큰 발급 API
 app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
-  const storedPassword = users[username];
+  const { id, password } = req.body;
+  console.log("Login attempt:", id); // 디버깅을 위한 로그
 
-  if (storedPassword && storedPassword === password) {
-    const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: "1h" });
-    res.json({ success: true, token });
-  } else {
-    res.status(401).json({
-      success: false,
-      message: "아이디 또는 비밀번호가 일치하지 않습니다.",
-    });
+  try {
+    const existingUsers = JSON.parse(fs.readFileSync(userDataPath, "utf-8"));
+    const user = existingUsers.find(
+      (user) => user.id === id && user.password === password
+    );
+
+    if (user) {
+      const token = jwt.sign(
+        { id: user.id, email: user.email, username: user.username },
+        SECRET_KEY,
+        { expiresIn: "1h" }
+      );
+      res.json({
+        success: true,
+        token,
+        id: user.id,
+        email: user.email,
+        username: user.username,
+      });
+    } else {
+      res.status(401).json({
+        success: false,
+        message: "아이디 또는 비밀번호가 일치하지 않습니다.",
+      });
+    }
+  } catch (error) {
+    console.error("Error during login:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "서버 오류가 발생했습니다." });
   }
 });
 
-// 토큰 검증 API
 app.post("/api/verify-token", (req, res) => {
   const { token } = req.body;
 
@@ -59,7 +73,12 @@ app.post("/api/verify-token", (req, res) => {
         .status(401)
         .json({ success: false, message: "유효하지 않은 토큰입니다." });
     }
-    res.json({ success: true, username: decoded.username });
+    res.json({
+      success: true,
+      id: decoded.id,
+      email: decoded.email,
+      username: decoded.username,
+    });
   });
 });
 
@@ -95,9 +114,6 @@ const readCoffeeData = () =>
   JSON.parse(fs.readFileSync(coffeeFilePath, "utf-8"));
 const writeCoffeeData = (data) =>
   fs.writeFileSync(coffeeFilePath, JSON.stringify(data, null, 2), "utf-8");
-
-// 회원 정보 저장 파일 경로
-const userDataPath = path.join(__dirname, "user-data.json");
 
 // 회원가입 API 경로
 app.post("/api/signup", (req, res) => {

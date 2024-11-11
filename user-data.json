@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "kyu623",
+    "email": "example@example.com",
+    "password": "mycoffee1!",
+    "confirmPassword": "mycoffee1!",
+    "username": "주인",
+    "year": "00000101",
+    "phone": "01012345678"
+  }
+]

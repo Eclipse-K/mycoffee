@@ -1,14 +1,16 @@
-import { Link, useNavigate } from "react-router-dom"; // useNavigate 추가
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios"; // axios도 추가
+import axios from "axios";
 import "./LoginForm.css";
 import Logo from "../images/Logo_MyCoffee.png";
+import LoadingSpinner from "./LoadingSpinner";
 
 function Login() {
   const [LoginId, setLoginId] = useState("");
   const [LoginPassword, setLoginPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate(); // useNavigate로 navigate 정의
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleIdChange = (e) => {
     setLoginId(e.target.value);
@@ -26,29 +28,37 @@ function Login() {
       setErrorMessage("비밀번호를 입력해주세요.");
     } else {
       setErrorMessage("");
+      setConfirmLoading(true);
 
       try {
         const response = await axios.post("http://localhost:5001/api/login", {
-          username: LoginId,
+          id: LoginId,
           password: LoginPassword,
         });
 
         if (response.data.success) {
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("id", response.data.id);
+          localStorage.setItem("email", response.data.email);
+          localStorage.setItem("username", response.data.username);
           alert("로그인 성공!");
-          navigate("/myPage"); // 로그인 성공 시 myPage로 이동
+          navigate("/myPage");
         } else {
           setErrorMessage("로그인 실패: " + response.data.message);
         }
       } catch (error) {
         console.error("로그인 중 오류:", error);
-        setErrorMessage("서버 오류가 발생했습니다.");
+        setErrorMessage("아이디 또는 비밀번호가 일치하지 않습니다.");
+      } finally {
+        setConfirmLoading(false);
       }
     }
   };
 
   return (
     <div className="LoginForm-container">
+      {confirmLoading && <LoadingSpinner />}
+
       <Link to="/">
         <img className="LoginForm-logo" src={Logo} alt="Logo" />
       </Link>
