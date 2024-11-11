@@ -28,39 +28,41 @@ function FindPwPage() {
 
   return (
     <div className="FindPw">
-      <nav className="Find-nav">
-        <Link className="Find-nav-logo-img" to="/">
-          <StyledLogo src={Logo} alt="Logo" />
-          <h4>비밀번호 찾기</h4>
-        </Link>
+      <div className="FindPw-container">
+        <nav className="Find-nav">
+          <Link className="Find-nav-logo-img" to="/">
+            <StyledLogo src={Logo} alt="Logo" />
+            <h4>비밀번호 찾기</h4>
+          </Link>
 
-        <Link className="Find-nav-home" to="/">
-          <h4>MyCoffee Home</h4>
-        </Link>
-      </nav>
-      <div className="FindPwPage">
-        <div className="FindPwPage-container">
-          <h2 className="FindPwPage-title">비밀번호 찾기</h2>
-          <form className="FindPwPage-form" onSubmit={handleFindPwSubmit}>
-            <label className="FindPwPage-label">아이디</label>
-            <input
-              className="FindPwPage-input"
-              type="id"
-              value={findPwId}
-              onChange={(e) => setFindPwId(e.target.value)}
-            />
-            <label className="FindPwPage-label">이메일</label>
-            <input
-              className="FindPwPage-input"
-              type="email"
-              value={emailPw}
-              onChange={(e) => setEmailPw(e.target.value)}
-            />
-            {findPwError && <p>{findPwError}</p>}
-            <button className="FindPwPage-button" type="submit">
-              인증하기
-            </button>
-          </form>
+          <Link className="Find-nav-home" to="/">
+            <h4>MyCoffee Home</h4>
+          </Link>
+        </nav>
+        <div className="FindPwPage">
+          <div className="FindPwPage-container">
+            <h2 className="FindPwPage-title">비밀번호 찾기</h2>
+            <form className="FindPwPage-form" onSubmit={handleFindPwSubmit}>
+              <label className="FindPwPage-label">아이디</label>
+              <input
+                className="FindPwPage-input"
+                type="id"
+                value={findPwId}
+                onChange={(e) => setFindPwId(e.target.value)}
+              />
+              <label className="FindPwPage-label">이메일</label>
+              <input
+                className="FindPwPage-input"
+                type="email"
+                value={emailPw}
+                onChange={(e) => setEmailPw(e.target.value)}
+              />
+              {findPwError && <p>{findPwError}</p>}
+              <button className="FindPwPage-button" type="submit">
+                인증하기
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

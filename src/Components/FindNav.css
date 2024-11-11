@@ -2,7 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 95%;
+  padding: 8px 8px;
+  font-family: "Do Hyeon", sans-serif;
 }
 
 .Find-nav-logo-img {

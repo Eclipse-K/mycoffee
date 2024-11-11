@@ -1,25 +1,29 @@
-.find-id {
+.Find-id {
   display: flex;
   align-items: center;
   flex-direction: column;
   width: 100%;
+  min-height: 600px;
   background-color: white;
 }
 
 .Find-id-container {
+  width: 1440px;
+}
+
+.Find-id-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 .find-id-page {
-  width: 60%;
+  width: 50%;
   margin: 10% auto;
   padding: 1rem;
-  border: 1px solid #ddd;
+  border: 10px double black;
   border-radius: 4px;
-  background-color: #f9f9f9;
+  background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -44,7 +48,7 @@
 .find-id-page input {
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: 1px solid #ddd;
+  border-color: black;
   border-radius: 4px;
 }
 
@@ -72,4 +76,18 @@
 .contact-option label {
   margin-left: 0.5rem;
   margin-right: 1rem;
+}
+
+@media all and (max-width: 432px) {
+  .Find-id-container {
+    width: 100%;
+  }
+
+  .Find-nav {
+    padding: 8px 8px;
+  }
+
+  .find-id-page {
+    width: 80%;
+  }
 }
