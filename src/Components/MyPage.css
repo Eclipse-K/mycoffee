@@ -1,12 +1,22 @@
-.myPage-container {
+.myPage {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.myPage-container {
+  width: 1440px;
+}
+
+.myPage-box {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 24px;
 }
 
 .myPage-sidebar {
-  width: 30%;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border-right: 1px solid #ccc;
+  padding: 20px 0;
 }
 
 .myPage-sidebar h3 {

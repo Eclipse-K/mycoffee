@@ -41,7 +41,6 @@ function Login() {
           localStorage.setItem("id", response.data.id);
           localStorage.setItem("email", response.data.email);
           localStorage.setItem("username", response.data.username);
-          alert("로그인 성공!");
           navigate("/myPage");
         } else {
           setErrorMessage("로그인 실패: " + response.data.message);

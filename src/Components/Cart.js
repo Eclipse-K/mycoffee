@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
-import Logo from "../images/Logo_MyCoffee.png";
 import "./Cart.css";
-import { Link } from "react-router-dom";
 import { MdCancelPresentation } from "react-icons/md";
 import CoffeeJson from "../Coffee.json";
 import PurchasePage from "./PurchasePage";
 import QuantityDropdown from "./QuantityDropdown";
 import LoadingSpinner from "./LoadingSpinner";
+import MiniNavbar from "./MiniNavbar";
 
 function Cart() {
   const { cartItems, setCartItems, removeFromCart } = useContext(CartContext);
@@ -156,12 +155,8 @@ function Cart() {
           />
         ) : (
           <>
-            <div className="Cart-nav">
-              <Link to="/">
-                <img className="Cart-Logo" src={Logo} alt="Cart-Logo" />
-              </Link>
-              <div className="Cart-Logo-title">My Coffee</div>
-            </div>
+            <MiniNavbar />
+
             <h1 className="Cart-title">
               장바구니
               <hr />

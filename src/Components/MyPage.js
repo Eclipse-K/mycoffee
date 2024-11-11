@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./MyPage.css";
+import MiniNavbar from "./MiniNavbar";
 
 function MyPage() {
   const [username, setUsername] = useState("");
@@ -72,43 +73,56 @@ function MyPage() {
   };
 
   return (
-    <div className="myPage-container">
-      <div className="myPage-sidebar">
-        <h3>나의 쇼핑 정보</h3>
-        <ul>
-          <li onClick={() => setSelectedTab("주문/배송")}>주문/배송</li>
-          <li onClick={() => setSelectedTab("취소/반품")}>취소/반품</li>
-        </ul>
+    <div className="myPage">
+      <div className="myPage-container">
+        <MiniNavbar />
 
-        <h3>나의 혜택 정보</h3>
-        <ul>
-          <li onClick={() => setSelectedTab("적립금")}>적립금</li>
-          <li onClick={() => setSelectedTab("쿠폰")}>쿠폰</li>
-          <li onClick={() => setSelectedTab("혜택보기")}>혜택보기</li>
-        </ul>
+        <div className="myPage-box">
+          <div className="myPage-sidebar">
+            <h2>마이페이지</h2>
+            <hr />
+            <h3>나의 쇼핑 정보</h3>
+            <ul>
+              <li onClick={() => setSelectedTab("주문/배송")}>주문/배송</li>
+              <li onClick={() => setSelectedTab("취소/반품")}>취소/반품</li>
+            </ul>
 
-        <h3>나의 활동 정보</h3>
-        <ul>
-          <li onClick={() => setSelectedTab("회원정보 수정")}>회원정보 수정</li>
-          <li onClick={() => setSelectedTab("배송 주소록 관리")}>
-            배송 주소록 관리
-          </li>
-          <li onClick={() => setSelectedTab("나의 게시물 관리")}>
-            나의 게시물 관리
-          </li>
-          <li onClick={() => setSelectedTab("나의 문의")}>나의 문의</li>
-          <li onClick={() => setSelectedTab("위시리스트")}>위시리스트</li>
-          <li onClick={() => setSelectedTab("최근 본 상품")}>최근 본 상품</li>
-          <li onClick={() => setSelectedTab("회원탈퇴")}>회원탈퇴</li>
-        </ul>
-      </div>
+            <h3>나의 혜택 정보</h3>
+            <ul>
+              <li onClick={() => setSelectedTab("적립금")}>적립금</li>
+              <li onClick={() => setSelectedTab("쿠폰")}>쿠폰</li>
+              <li onClick={() => setSelectedTab("혜택보기")}>혜택보기</li>
+            </ul>
 
-      <div className="myPage-content">
-        <h1>My Page</h1>
-        <p>안녕하세요, {username}님!</p>
-        <p>이메일: {email}</p>
-        {renderContent()}
-        <button onClick={handleLogout}>로그아웃</button>
+            <h3>나의 활동 정보</h3>
+            <ul>
+              <li onClick={() => setSelectedTab("회원정보 수정")}>
+                회원정보 수정
+              </li>
+              <li onClick={() => setSelectedTab("배송 주소록 관리")}>
+                배송 주소록 관리
+              </li>
+              <li onClick={() => setSelectedTab("나의 게시물 관리")}>
+                나의 게시물 관리
+              </li>
+              <li onClick={() => setSelectedTab("나의 문의")}>나의 문의</li>
+              <li onClick={() => setSelectedTab("위시리스트")}>위시리스트</li>
+              <li onClick={() => setSelectedTab("최근 본 상품")}>
+                최근 본 상품
+              </li>
+              <li onClick={() => setSelectedTab("회원탈퇴")}>회원탈퇴</li>
+            </ul>
+          </div>
+
+          <div className="myPage-content">
+            <h2>주문처리 현황</h2>
+            <hr />
+            <p>안녕하세요, {username}님!</p>
+            <p>이메일: {email}</p>
+            {renderContent()}
+            <button onClick={handleLogout}>로그아웃</button>
+          </div>
+        </div>
       </div>
     </div>
   );

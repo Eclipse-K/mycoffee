@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px 0 0 0;
+  padding: 8px 0 0 0;
   background-color: white;
   width: 100%;
 }
@@ -21,6 +21,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  padding-top: 8px;
 }
 
 .nav-logo-img {
