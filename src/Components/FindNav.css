@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 8px;
+  padding: 8px 0;
   font-family: "Do Hyeon", sans-serif;
 }
 
@@ -22,6 +22,13 @@
 .Find-nav-home {
   text-decoration: none;
   color: black;
+}
+
+@media all and (max-width: 432px) {
+  .Find-nav,
+  .Sign-nav {
+    padding: 8px 8px;
+  }
 }
 
 @media all and (min-width: 650px) and (max-width: 1200px) {

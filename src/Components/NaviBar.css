@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 24px 0 24px;
+  padding: 8px 0;
 }
 
 .nav-logo-img {
@@ -161,5 +161,9 @@
 @media all and (min-width: 650px) and (max-width: 1200px) {
   .nav-area {
     width: 100%;
+  }
+
+  .nav-top {
+    padding: 8px 24px;
   }
 }

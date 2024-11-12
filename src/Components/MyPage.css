@@ -12,11 +12,16 @@
 .myPage-box {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  grid-template-areas: "sidebar page-content";
   gap: 24px;
+  padding: 16px 0;
 }
 
 .myPage-sidebar {
-  padding: 20px 0;
+  background-color: rgb(255, 228, 185);
+  border-radius: 20px;
+  padding: 20px;
+  grid-area: sidebar;
 }
 
 .myPage-sidebar h3 {
@@ -42,6 +47,31 @@
 }
 
 .myPage-content {
-  flex: 1;
   padding: 20px;
+  background-color: rgb(255, 228, 185);
+  border-radius: 20px;
+  grid-area: page-content;
+}
+
+@media all and (max-width: 432px) {
+  .myPage-container {
+    width: 100%;
+  }
+
+  .myPage-box {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-areas:
+      "page-content"
+      "sidebar";
+    padding: 16px 8px;
+  }
+}
+
+@media all and (min-width: 500px) and (max-width: 1200px) {
+  .myPage-container {
+    width: 100%;
+  }
+  .myPage-box {
+    padding: 16px 24px;
+  }
 }
