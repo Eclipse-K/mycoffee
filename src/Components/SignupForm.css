@@ -7,11 +7,8 @@
   background-color: white;
 }
 
-.Sign-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 95%;
+.Sign-Container {
+  width: 1440px;
 }
 
 .Sign-nav-logo-img {
@@ -22,11 +19,11 @@
 }
 
 .Sign-nav-logo-img h4 {
-  margin-left: 8px;
+  margin-left: 16px;
 }
 
 .Sign-nav-logo-img,
-.Sign-nav-home {
+.Sign-nav-login {
   text-decoration: none;
   color: black;
 }
@@ -39,7 +36,7 @@
   margin: 40px 0;
 }
 
-.Sign-Container {
+.Sign-box {
   display: grid;
   justify-items: center;
   align-items: center;
@@ -117,8 +114,14 @@
   font-family: "Do Hyeon", sans-serif;
 }
 
-@media all and (min-width: 281px) and (max-width: 432px) {
+@media all and (max-width: 432px) {
   .Sign-Container {
-    width: 92%;
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  .Sign-Container {
+    width: 100%;
   }
 }

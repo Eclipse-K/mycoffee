@@ -3,7 +3,7 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
-  min-height: 600px;
+  min-height: 700px;
   background-color: white;
 }
 
@@ -89,5 +89,11 @@
 
   .FindPwPage-form {
     width: 70%;
+  }
+}
+
+@media all and (min-width: 650px) and (max-width: 1200px) {
+  .FindPw-container {
+    width: 100%;
   }
 }

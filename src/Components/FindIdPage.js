@@ -62,8 +62,8 @@ function FindIdPage() {
             <h4>아이디 찾기</h4>
           </Link>
 
-          <Link className="Find-nav-home" to="/">
-            <h4>MyCoffee Home</h4>
+          <Link className="Find-nav-home" to="/Login">
+            <h4>MyCoffee Login</h4>
           </Link>
         </nav>
         <div className="Find-id-box">

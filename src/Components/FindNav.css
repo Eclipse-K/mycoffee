@@ -1,4 +1,5 @@
-.Find-nav {
+.Find-nav,
+.Sign-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,11 +15,18 @@
 }
 
 .Find-nav-logo-img h4 {
-  margin-left: 8px;
+  margin-left: 16px;
 }
 
 .Find-nav-logo-img,
 .Find-nav-home {
   text-decoration: none;
   color: black;
+}
+
+@media all and (min-width: 650px) and (max-width: 1200px) {
+  .Find-nav,
+  .Sign-nav {
+    padding: 8px 24px;
+  }
 }
