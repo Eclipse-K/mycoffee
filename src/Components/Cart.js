@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+//Cart.js
+import { useContext, useState, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import "./Cart.css";
 import { MdCancelPresentation } from "react-icons/md";
@@ -9,14 +10,68 @@ import LoadingSpinner from "./LoadingSpinner";
 import MiniNavbar from "./MiniNavbar";
 
 function Cart() {
-  const { cartItems, setCartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, setCartItems, removeFromCart, updateCartItemQuantity } =
+    useContext(CartContext);
   const [isAllChecked, setIsAllChecked] = useState(true);
   const [checkedItemIndexes, setCheckedItemIndexes] = useState(
     cartItems.map((_, index) => index)
   );
   const [loadingTime, setLoadingTime] = useState(false);
   const [showPurchasePage, setShowPurchasePage] = useState(false);
-  const [quantities, setQuantities] = useState(cartItems.map(() => 1));
+
+  const [totalPrice, setTotalPrice] = useState("0");
+
+  //선택 수량에 따라 가격 업데이트
+  const handleQuantityChange = (index, newQuantity) => {
+    updateCartItemQuantity(index, newQuantity);
+  };
+  // const handleQuantityChange = (index, newQuantity) => {
+  //   updateCartItemQuantity(index, newQuantity);
+  //   setQuantities((prevQuantities) => {
+  //     const newQuantities = [...prevQuantities];
+  //     newQuantities[index] = newQuantity;
+  //     return newQuantities;
+  //   });
+  // };
+
+  //총 가격 계산
+  // const calculateTotalPrice = useCallback(() => {
+  //   return checkedItemIndexes
+  //     .reduce((total, index) => {
+  //       const item = cartItems[index];
+  //       if (item && item.price) {
+  //         const price = parseInt(item.price.replace(/,/g, ""), 10);
+  //         return total + price * (item.quantity || 1);
+  //       }
+  //       return total;
+  //     }, 0)
+  //     .toLocaleString();
+  // }, [checkedItemIndexes, cartItems]);
+
+  // useEffect(() => {
+  //   const newTotalPrice = cartItems.reduce((total, item) => {
+  //     if (item && item.price) {
+  //       return (
+  //         total +
+  //         parseInt(item.price.replace(/,/g, ""), 10) * (item.quantity || 1)
+  //       );
+  //     }
+  //     return total;
+  //   }, 0);
+  //   setTotalPrice(newTotalPrice.toLocaleString());
+  // }, [cartItems]);
+  useEffect(() => {
+    const newTotalPrice = cartItems.reduce((total, item) => {
+      if (item && item.price) {
+        return (
+          total +
+          parseInt(item.price.replace(/,/g, ""), 10) * (item.quantity || 1)
+        );
+      }
+      return total;
+    }, 0);
+    setTotalPrice(newTotalPrice.toLocaleString());
+  }, [cartItems]);
 
   // 전체 선택 체크박스 클릭 핸들러
   const handleAllCheckboxClick = () => {
@@ -83,7 +138,7 @@ function Cart() {
       setShowPurchasePage({
         show: true,
         checkedItemIndexes: cartItems.map((_, index) => index),
-        quantities,
+        // quantities,
       });
     }, 2000);
   };
@@ -105,7 +160,7 @@ function Cart() {
     setLoadingTime(true);
     setTimeout(() => {
       setLoadingTime(false);
-      setShowPurchasePage({ show: true, checkedItemIndexes, quantities });
+      setShowPurchasePage({ show: true, checkedItemIndexes });
     }, 2000);
   };
 
@@ -120,20 +175,6 @@ function Cart() {
       </>
     );
   }
-
-  //선택 수량에 따라 가격 업데이트
-  const handleQuantityChange = (index, quantity) => {
-    const updatedQuantities = [...quantities];
-    updatedQuantities[index] = quantity;
-    setQuantities(updatedQuantities);
-  };
-
-  //총 가격 계산
-  const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => {
-      return total + parseFloat(item.totalPrice);
-    }, 0);
-  };
 
   // 카테고리 확인 함수
   const determineCategory = (id) => {
@@ -199,13 +240,14 @@ function Cart() {
                           <p className="Cart-area-price">
                             {(
                               parseInt(item.price.replace(/,/g, ""), 10) *
-                              quantities[index]
-                            ).toString()}{" "}
+                              item.quantity
+                            ).toLocaleString()}{" "}
+                            원
                           </p>
                           <QuantityDropdown
-                            initialQuantity={item.count} // 장바구니 항목의 count를 초기값으로 넘김
-                            onQuantityChange={(quantity) =>
-                              handleQuantityChange(index, quantity)
+                            initialQuantity={item.quantity || 1}
+                            onQuantityChange={(newQuantity) =>
+                              handleQuantityChange(index, newQuantity)
                             }
                           />
                         </div>
@@ -220,9 +262,7 @@ function Cart() {
                 ))}
               </div>
             )}
-            <p className="Cart-All-Price">
-              총 가격: {calculateTotalPrice()} 원
-            </p>
+            <p className="Cart-All-Price">총 가격: {totalPrice} 원</p>
             <div className="Cart-button-container">
               <button className="Cart-All-button" onClick={handleBuyAll}>
                 전체구매
