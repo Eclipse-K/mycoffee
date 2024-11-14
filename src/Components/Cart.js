@@ -18,59 +18,32 @@ function Cart() {
   );
   const [loadingTime, setLoadingTime] = useState(false);
   const [showPurchasePage, setShowPurchasePage] = useState(false);
-
+  const [quantities, setQuantities] = useState({});
   const [totalPrice, setTotalPrice] = useState("0");
 
   //선택 수량에 따라 가격 업데이트
   const handleQuantityChange = (index, newQuantity) => {
     updateCartItemQuantity(index, newQuantity);
+    setQuantities((prev) => ({ ...prev, [index]: newQuantity }));
   };
-  // const handleQuantityChange = (index, newQuantity) => {
-  //   updateCartItemQuantity(index, newQuantity);
-  //   setQuantities((prevQuantities) => {
-  //     const newQuantities = [...prevQuantities];
-  //     newQuantities[index] = newQuantity;
-  //     return newQuantities;
-  //   });
-  // };
 
-  //총 가격 계산
-  // const calculateTotalPrice = useCallback(() => {
-  //   return checkedItemIndexes
-  //     .reduce((total, index) => {
-  //       const item = cartItems[index];
-  //       if (item && item.price) {
-  //         const price = parseInt(item.price.replace(/,/g, ""), 10);
-  //         return total + price * (item.quantity || 1);
-  //       }
-  //       return total;
-  //     }, 0)
-  //     .toLocaleString();
-  // }, [checkedItemIndexes, cartItems]);
-
-  // useEffect(() => {
-  //   const newTotalPrice = cartItems.reduce((total, item) => {
-  //     if (item && item.price) {
-  //       return (
-  //         total +
-  //         parseInt(item.price.replace(/,/g, ""), 10) * (item.quantity || 1)
-  //       );
-  //     }
-  //     return total;
-  //   }, 0);
-  //   setTotalPrice(newTotalPrice.toLocaleString());
-  // }, [cartItems]);
   useEffect(() => {
-    const newTotalPrice = cartItems.reduce((total, item) => {
+    const newTotalPrice = cartItems.reduce((total, item, index) => {
       if (item && item.price) {
-        return (
-          total +
-          parseInt(item.price.replace(/,/g, ""), 10) * (item.quantity || 1)
-        );
+        const quantity = quantities[index] || 1;
+        return total + parseInt(item.price.replace(/,/g, ""), 10) * quantity;
       }
       return total;
     }, 0);
     setTotalPrice(newTotalPrice.toLocaleString());
+  }, [cartItems, quantities]);
+
+  useEffect(() => {
+    const newQuantities = cartItems.reduce((acc, item, index) => {
+      acc[index] = item.quantity || 1;
+      return acc;
+    }, {});
+    setQuantities(newQuantities);
   }, [cartItems]);
 
   // 전체 선택 체크박스 클릭 핸들러
@@ -121,24 +94,29 @@ function Cart() {
   // 전체 구매 핸들러
   const handleBuyAll = () => {
     if (cartItems.length === 0) {
-      // 목록이 없으면 팝업창을 띄운다.
       alert("목록이 존재하지 않습니다.");
       return;
     }
 
+    const allItemIndexes = cartItems.map((_, index) => index);
+
     cartItems.forEach((item) => {
-      const category = determineCategory(item.id); // 상품의 카테고리를 확인
-      updateCount(item.id, category); // count 업데이트
+      const category = determineCategory(item.id);
+      updateCount(item.id, category);
     });
 
     setLoadingTime(true);
-    setCheckedItemIndexes(cartItems.map((_, index) => index));
+    setCheckedItemIndexes(allItemIndexes);
+
     setTimeout(() => {
       setLoadingTime(false);
       setShowPurchasePage({
         show: true,
-        checkedItemIndexes: cartItems.map((_, index) => index),
-        // quantities,
+        checkedItemIndexes: allItemIndexes,
+        quantities: cartItems.reduce((acc, item, index) => {
+          acc[index] = item.quantity || 1;
+          return acc;
+        }, {}),
       });
     }, 2000);
   };
@@ -146,7 +124,6 @@ function Cart() {
   // 선택 구매 핸들러
   const handleBuySelected = () => {
     if (checkedItemIndexes.length === 0) {
-      // 선택한 항목이 없을 때 팝업창을 띄운다.
       alert("목록이 존재하지 않습니다.");
       return;
     }
@@ -160,7 +137,14 @@ function Cart() {
     setLoadingTime(true);
     setTimeout(() => {
       setLoadingTime(false);
-      setShowPurchasePage({ show: true, checkedItemIndexes });
+      setShowPurchasePage({
+        show: true,
+        checkedItemIndexes,
+        quantities: checkedItemIndexes.reduce((acc, index) => {
+          acc[index] = quantities[index];
+          return acc;
+        }, {}),
+      });
     }, 2000);
   };
 

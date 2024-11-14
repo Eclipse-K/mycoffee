@@ -57,9 +57,9 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
 
   // 총 가격 계산
   const totalPrice = selectedItems.reduce((total, item, index) => {
-    const quantity = quantities[checkedItemIndexes[index]];
+    const quantity = quantities[checkedItemIndexes[index]] || 1;
     const itemPrice = Number(item.price.replace(/,/g, ""));
-    return total + (itemPrice || 0) * (quantity || 0);
+    return total + itemPrice * quantity;
   }, 0);
 
   // 할부 옵션을 조건부로 설정하는 함수
@@ -113,8 +113,14 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
             {selectedItems.map((item, index) => (
               <tr key={index}>
                 <td>{item.title}</td>
-                <td>{quantities[checkedItemIndexes[index]]}</td>
-                <td>{item.price.toLocaleString()}원</td>
+                <td>{quantities[checkedItemIndexes[index]] || 1}</td>
+                <td>
+                  {(
+                    Number(item.price.replace(/,/g, "")) *
+                    (quantities[checkedItemIndexes[index]] || 1)
+                  ).toLocaleString()}
+                  원
+                </td>
               </tr>
             ))}
           </tbody>
