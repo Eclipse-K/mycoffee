@@ -34,17 +34,19 @@ function Banner() {
   return (
     <div className="Banner">
       <div className="Banner-container">
-        <button className="Banner-prev" onClick={PreviousButton}>
-          <SlArrowLeft />
-        </button>
-        <img
-          className="Banner-img"
-          src={BannerImg[slideBanner]}
-          alt={`${slideBanner}`}
-        />
-        <button className="Banner-next" onClick={NextButton}>
-          <SlArrowRight />
-        </button>
+        <div className="Banner-box">
+          <button className="Banner-prev" onClick={PreviousButton}>
+            <SlArrowLeft />
+          </button>
+          <img
+            className="Banner-img"
+            src={BannerImg[slideBanner]}
+            alt={`${slideBanner}`}
+          />
+          <button className="Banner-next" onClick={NextButton}>
+            <SlArrowRight />
+          </button>
+        </div>
       </div>
     </div>
   );

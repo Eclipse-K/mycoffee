@@ -92,7 +92,7 @@
   }
 }
 
-@media all and (min-width: 650px) and (max-width: 1200px) {
+@media all and (min-width: 500px) and (max-width: 1430px) {
   .Find-id-container {
     width: 100%;
   }

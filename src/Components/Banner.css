@@ -5,11 +5,14 @@
 }
 
 .Banner-container {
+  width: 1440px;
+}
+
+.Banner-box {
   display: grid;
   justify-items: center;
   align-items: center;
   grid-template-columns: 10% 80% 10%;
-  width: 1440px;
   padding: 0 24px;
 }
 
@@ -34,6 +37,9 @@
 @media all and (min-width: 281px) and (max-width: 432px) {
   .Banner-container {
     width: 100%;
+  }
+
+  .Banner-box {
     padding: 0 8px;
   }
 

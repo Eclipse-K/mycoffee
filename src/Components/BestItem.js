@@ -24,12 +24,18 @@ function BestItem() {
     <div className="BestItem">
       <div className="BestItem-container">
         <h1>BEST ITEM</h1>
-        <div className="BestItem-area">
-          {bestItem.map((best) => (
-            <div className="Item-area" key={best.id}>
-              <img className="Item-area-img" src={best.img} alt={best.title} />
-            </div>
-          ))}
+        <div className="BestItem-box">
+          <div className="BestItem-area">
+            {bestItem.map((best) => (
+              <div className="Item-area" key={best.id}>
+                <img
+                  className="Item-area-img"
+                  src={best.img}
+                  alt={best.title}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

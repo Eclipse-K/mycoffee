@@ -6,11 +6,14 @@
 }
 
 .BigImg-container {
+  width: 1440px;
+}
+
+.BigImg-box {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
-  width: 1440px;
   padding: 0 24px;
   gap: 0 32px;
 }
@@ -37,6 +40,9 @@
 
   .BigImg-container {
     width: 100%;
+  }
+
+  .BigImg-box {
     padding: 0 8px;
     gap: 0 8px;
   }

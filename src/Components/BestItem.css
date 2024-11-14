@@ -12,11 +12,14 @@
 
 .BestItem-container {
   width: 1440px;
-  padding: 0 24px;
 }
 
 .BestItem-container h1 {
   margin: 0 0 16px 0;
+}
+
+.BestItem-box {
+  padding: 0 24px;
 }
 
 .BestItem-area {
@@ -46,7 +49,7 @@
     margin: 16px 0 0 0;
   }
 
-  .BestItem-container {
+  .BestItem-box {
     padding: 0 8px 16px 8px;
   }
 

@@ -1,6 +1,6 @@
 import Logo from "../images/Logo_MyCoffee.png";
 import StyledLogo from "./StyledLogo";
-import "./NaviBar.css";
+import "./MiniNavbar.css";
 import { Link } from "react-router-dom";
 import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 import { useCart } from "./CartContext";
@@ -9,12 +9,12 @@ function MiniNavbar() {
   const { cartItems } = useCart();
 
   return (
-    <div className="nav-top">
+    <div className="miniNav-top">
       <Link className="nav-logo-img" to="/">
         <StyledLogo src={Logo} alt="Logo" />
       </Link>
 
-      <div className="nav-guest">
+      <div className="miniNav-guest">
         <Link className="Shopping-cart" to="/Cart">
           {cartItems.length === 0 ? (
             <p></p>
@@ -24,7 +24,7 @@ function MiniNavbar() {
 
           <AiOutlineShoppingCart />
         </Link>
-        <Link className="nav-login" to="/Login">
+        <Link className="miniNav-login" to="/Login">
           <AiOutlineUser />
         </Link>
       </div>

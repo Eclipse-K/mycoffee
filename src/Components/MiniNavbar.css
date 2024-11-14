@@ -1,0 +1,59 @@
+.miniNav-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 24px;
+}
+
+.miniNav-logo-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.miniNav-guest {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  width: 100px;
+  margin: 0;
+}
+
+.Shopping-cart,
+.miniNav-login {
+  color: black;
+  cursor: pointer;
+}
+
+.Shopping-cart svg,
+.miniNav-login svg {
+  width: 40px;
+  height: 40px;
+}
+
+.Shopping-cart {
+  display: flex;
+}
+
+.Shopping-cart-length {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 900;
+  width: 24px;
+  height: 24px;
+  top: 1.3rem;
+}
+
+@media all and (max-width: 432px) {
+  .miniNav-top {
+    padding: 8px 8px;
+  }
+}

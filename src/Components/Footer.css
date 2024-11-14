@@ -17,6 +17,10 @@
   margin: 16px 0;
 }
 
+.Footer-box {
+  padding: 0 24px;
+}
+
 .Footer-info-1,
 .Footer-info-2,
 .Footer-info-3 {

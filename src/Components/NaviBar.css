@@ -11,13 +11,13 @@
   justify-content: center;
   flex-direction: column;
   width: 1440px;
+  padding: 8px 24px;
 }
 
 .nav-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
 }
 
 .nav-logo-img {
@@ -130,12 +130,8 @@
   cursor: pointer;
 }
 
-/* .nav-list li:last-child {
-  margin-right: 10px;
-} */
-
 @media all and (min-width: 281px) and (max-width: 432px) {
-  .nav-top {
+  .nav-area {
     padding: 8px 8px;
   }
 
@@ -158,12 +154,8 @@
   }
 }
 
-@media all and (min-width: 650px) and (max-width: 1200px) {
+@media all and (min-width: 500px) and (max-width: 1430px) {
   .nav-area {
     width: 100%;
-  }
-
-  .nav-top {
-    padding: 8px 24px;
   }
 }

@@ -28,11 +28,13 @@ function BigImg() {
   return (
     <div className="BigImg">
       <div className="BigImg-container">
-        <div className="BigImg-1">
-          {bigImg1 ? <img src={bigImg1} alt="Random" /> : <p>Loading...</p>}
-        </div>
-        <div className="BigImg-1">
-          {bigImg2 ? <img src={bigImg2} alt="Random" /> : <p>Loading...</p>}
+        <div className="BigImg-box">
+          <div className="BigImg-1">
+            {bigImg1 ? <img src={bigImg1} alt="Random" /> : <p>Loading...</p>}
+          </div>
+          <div className="BigImg-1">
+            {bigImg2 ? <img src={bigImg2} alt="Random" /> : <p>Loading...</p>}
+          </div>
         </div>
       </div>
     </div>
