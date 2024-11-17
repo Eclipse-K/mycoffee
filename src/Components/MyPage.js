@@ -4,17 +4,17 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./MyPage.css";
 import MiniNavbar from "./MiniNavbar";
+import OrderInquiry from "./MyPageFolder/OrderInquiry";
 
 function MyPage() {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [selectedTab, setSelectedTab] = useState("나의 쇼핑 정보");
+  const [orderActive, setOrderActive] = useState("orderHistory");
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const storedId = localStorage.getItem("id");
-    const storedEmail = localStorage.getItem("email");
     const storedUsername = localStorage.getItem("username");
 
     if (!token) {
@@ -23,24 +23,20 @@ function MyPage() {
       return;
     }
 
-    if (storedId && storedEmail && storedUsername) {
+    if (storedId && storedUsername) {
       setUsername(storedUsername);
-      setEmail(storedEmail);
     } else {
       axios
         .post("http://localhost:5001/api/verify-token", { token })
         .then((response) => {
           if (response.data.success) {
             setUsername(response.data.username);
-            setEmail(response.data.email);
             localStorage.setItem("id", response.data.id);
-            localStorage.setItem("email", response.data.email);
             localStorage.setItem("username", response.data.username);
           } else {
             alert("토큰이 유효하지 않습니다. 다시 로그인 해주세요.");
             localStorage.removeItem("token");
             localStorage.removeItem("id");
-            localStorage.removeItem("email");
             localStorage.removeItem("username");
             navigate("/login");
           }
@@ -55,20 +51,18 @@ function MyPage() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("id");
-    localStorage.removeItem("email");
     localStorage.removeItem("username");
+    alert("로그아웃 되었습니다.");
     navigate("/login");
   };
 
-  const renderContent = () => {
-    switch (selectedTab) {
-      case "주문/배송":
-        return <div>주문 및 배송 정보</div>;
-      case "취소/반품":
-        return <div>취소 및 반품 정보</div>;
-      // 나머지 케이스는 그대로 유지
-      default:
-        return <div>정보를 선택해주세요</div>;
+  // 탭 클릭 핸들러
+  const handleTabClick = (tab) => {
+    setSelectedTab(tab);
+    if (tab === "취소/반품") {
+      setOrderActive("cancelHistory"); // OrderInquiry의 '취소/반품' 탭 활성화
+    } else if (tab === "주문/배송") {
+      setOrderActive("orderHistory"); // OrderInquiry의 '주문/배송' 탭 활성화
     }
   };
 
@@ -77,50 +71,170 @@ function MyPage() {
       <div className="myPage-container">
         <MiniNavbar />
 
+        <h1 className="myPage-title">{username} 님, 환영합니다.</h1>
+
         <div className="myPage-box">
           <div className="myPage-sidebar">
-            <h2>마이페이지</h2>
+            <h2
+              className="myPage-subtitle"
+              onClick={() => handleTabClick("나의 쇼핑 정보")}
+            >
+              마이페이지
+            </h2>
             <hr />
             <h3>나의 쇼핑 정보</h3>
             <ul>
-              <li onClick={() => setSelectedTab("주문/배송")}>주문/배송</li>
-              <li onClick={() => setSelectedTab("취소/반품")}>취소/반품</li>
+              <li
+                className={selectedTab === "주문/배송" ? "active" : ""}
+                onClick={() => handleTabClick("주문/배송")}
+              >
+                주문/배송
+              </li>
+              <li
+                className={selectedTab === "취소/반품" ? "active" : ""}
+                onClick={() => handleTabClick("취소/반품")}
+              >
+                취소/반품
+              </li>
             </ul>
 
             <h3>나의 혜택 정보</h3>
             <ul>
-              <li onClick={() => setSelectedTab("적립금")}>적립금</li>
-              <li onClick={() => setSelectedTab("쿠폰")}>쿠폰</li>
-              <li onClick={() => setSelectedTab("혜택보기")}>혜택보기</li>
+              <li
+                className={selectedTab === "적립금" ? "active" : ""}
+                onClick={() => handleTabClick("적립금")}
+              >
+                적립금
+              </li>
+              <li
+                className={selectedTab === "쿠폰" ? "active" : ""}
+                onClick={() => handleTabClick("쿠폰")}
+              >
+                쿠폰
+              </li>
+              <li
+                className={selectedTab === "혜택보기" ? "active" : ""}
+                onClick={() => handleTabClick("혜택보기")}
+              >
+                혜택보기
+              </li>
             </ul>
 
             <h3>나의 활동 정보</h3>
             <ul>
-              <li onClick={() => setSelectedTab("회원정보 수정")}>
+              <li
+                className={selectedTab === "회원정보 수정" ? "active" : ""}
+                onClick={() => handleTabClick("회원정보 수정")}
+              >
                 회원정보 수정
               </li>
-              <li onClick={() => setSelectedTab("배송 주소록 관리")}>
+              <li
+                className={selectedTab === "배송 주소록 관리" ? "active" : ""}
+                onClick={() => handleTabClick("배송 주소록 관리")}
+              >
                 배송 주소록 관리
               </li>
-              <li onClick={() => setSelectedTab("나의 게시물 관리")}>
+              <li
+                className={selectedTab === "나의 게시물 관리" ? "active" : ""}
+                onClick={() => handleTabClick("나의 게시물 관리")}
+              >
                 나의 게시물 관리
               </li>
-              <li onClick={() => setSelectedTab("나의 문의")}>나의 문의</li>
-              <li onClick={() => setSelectedTab("위시리스트")}>위시리스트</li>
-              <li onClick={() => setSelectedTab("최근 본 상품")}>
+              <li
+                className={selectedTab === "나의 문의" ? "active" : ""}
+                onClick={() => handleTabClick("나의 문의")}
+              >
+                나의 문의
+              </li>
+              <li
+                className={selectedTab === "위시리스트" ? "active" : ""}
+                onClick={() => handleTabClick("위시리스트")}
+              >
+                위시리스트
+              </li>
+              <li
+                className={selectedTab === "최근 본 상품" ? "active" : ""}
+                onClick={() => handleTabClick("최근 본 상품")}
+              >
                 최근 본 상품
               </li>
-              <li onClick={() => setSelectedTab("회원탈퇴")}>회원탈퇴</li>
+              <li
+                className={selectedTab === "회원탈퇴" ? "active" : ""}
+                onClick={() => handleTabClick("회원탈퇴")}
+              >
+                회원탈퇴
+              </li>
+              <button className="myPage-logout-btn" onClick={handleLogout}>
+                로그아웃
+              </button>
             </ul>
           </div>
 
           <div className="myPage-content">
-            <h2>주문처리 현황</h2>
-            <hr />
-            <p>안녕하세요, {username}님!</p>
-            <p>이메일: {email}</p>
-            {renderContent()}
-            <button onClick={handleLogout}>로그아웃</button>
+            {selectedTab === "주문/배송" || selectedTab === "취소/반품" ? (
+              <OrderInquiry
+                orderActive={orderActive}
+                setOrderActive={setOrderActive}
+              />
+            ) : (
+              <div>
+                <div className="myPage-order-status">
+                  <h2>
+                    주문처리 현황 <span>(최근 3개월 기준)</span>
+                  </h2>
+                  <hr />
+                  <div className="myPage-status-summary">
+                    <div className="myPage-status-item">
+                      <span>입금대기</span>
+                      <strong>0</strong>
+                    </div>
+                    <span className="myPage-status-arrow">➔</span>
+                    <div className="myPage-status-item">
+                      <span>상품준비중</span>
+                      <strong>0</strong>
+                    </div>
+                    <span className="myPage-status-arrow">➔</span>
+                    <div className="myPage-status-item">
+                      <span>배송중</span>
+                      <strong>0</strong>
+                    </div>
+                    <span className="myPage-status-arrow">➔</span>
+                    <div className="myPage-status-item">
+                      <span>배송완료</span>
+                      <strong>0</strong>
+                    </div>
+                    <span className="myPage-status-arrow">➔</span>
+                    <div className="myPage-status-item">
+                      <span>취소/교환/반품</span>
+                      <strong>0/0/0</strong>
+                    </div>
+                  </div>
+                </div>
+                <div className="myPage-recent-orders">
+                  <h2>최근 주문내역</h2>
+                  <hr />
+                  <table className="myPage-order-table">
+                    <thead>
+                      <tr>
+                        <th>주문일자 [주문번호]</th>
+                        <th>상품정보</th>
+                        <th>수량</th>
+                        <th>주문금액</th>
+                        <th>주문상태</th>
+                        <th>취소/교환/반품</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colSpan="6" className="myPage-empty-orders">
+                          주문 내역이 없습니다.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

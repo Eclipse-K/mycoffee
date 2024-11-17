@@ -9,6 +9,17 @@
   width: 1440px;
 }
 
+.myPage-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.myPage-subtitle {
+  cursor: pointer;
+}
+
 .myPage-box {
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -18,7 +29,7 @@
 }
 
 .myPage-sidebar {
-  background-color: rgb(255, 228, 185);
+  border: 1px solid gray;
   border-radius: 20px;
   padding: 20px;
   grid-area: sidebar;
@@ -46,11 +57,106 @@
   background-color: #e0e0e0;
 }
 
+.myPage-logout-btn {
+  display: block;
+  width: 100px;
+  margin: 0 auto 30px;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+}
+
+.myPage-logout-btn:hover {
+  background-color: #d32f2f;
+}
+
 .myPage-content {
   padding: 20px;
-  background-color: rgb(255, 228, 185);
+  border: 1px solid gray;
   border-radius: 20px;
   grid-area: page-content;
+}
+
+.myPage-order-status {
+  margin: 20px 0;
+}
+
+.myPage-order-status h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.myPage-order-status h2 span {
+  font-size: 14px;
+  color: gray;
+}
+
+.myPage-status-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.myPage-status-item {
+  text-align: center;
+  flex: 1;
+}
+
+.myPage-status-item span {
+  display: block;
+  font-size: 14px;
+  color: #666;
+}
+
+.myPage-status-item strong {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+}
+
+.myPage-status-arrow {
+  font-size: 18px;
+  color: #999;
+  margin: 0 10px;
+}
+
+.myPage-recent-orders h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.myPage-order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.myPage-order-table th,
+.myPage-order-table td {
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.myPage-order-table th {
+  background-color: #f7f7f7;
+  font-weight: bold;
+}
+
+.myPage-empty-orders {
+  color: #999;
+  font-size: 14px;
 }
 
 @media all and (max-width: 432px) {

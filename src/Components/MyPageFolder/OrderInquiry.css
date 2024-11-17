@@ -1,0 +1,105 @@
+/* OrderInquiry.css */
+
+.order-inquiry {
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+}
+
+.order-inquiry-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.order-inquiry-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.order-inquiry-tabs button {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.order-inquiry-tabs button.active {
+  background: #333;
+  color: #fff;
+}
+
+.order-inquiry-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.order-inquiry-date button {
+  padding: 8px 15px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  cursor: pointer;
+}
+
+.order-inquiry-date-range {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.order-inquiry-date-range input {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+}
+
+.order-inquiry-date-range .search-button {
+  padding: 8px 15px;
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.order-inquiry-info {
+  margin: 20px 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.order-inquiry-info span {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.order-inquiry-table-container {
+  margin-top: 20px;
+}
+
+.order-inquiry-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.order-inquiry-table th,
+.order-inquiry-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.order-inquiry-table .empty-orders {
+  color: #999;
+  text-align: center;
+  font-size: 14px;
+}
