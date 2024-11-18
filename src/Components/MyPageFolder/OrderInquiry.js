@@ -1,8 +1,38 @@
+import { useState } from "react";
 import "./OrderInquiry.css";
+import { useEffect } from "react";
 
 function OrderInquiry({ orderActive, setOrderActive }) {
+  const [dateRange, setDateRange] = useState({ startDate: "", endDate: "" });
+
+  useEffect(() => {
+    // 컴포넌트가 처음 렌더링될 때 기본값을 오늘 날짜로 설정
+    const today = new Date().toISOString().split("T")[0];
+    setDateRange({ startDate: today, endDate: today });
+  }, []);
+
   const handleTabClick = (tab) => {
     setOrderActive(tab);
+  };
+
+  const handleQuickDateSelect = (months) => {
+    const endDate = new Date(); // 오늘 날짜
+    const startDate = new Date();
+    startDate.setMonth(startDate.getMonth() - months);
+
+    // 날짜 범위 설정 및 달력 반영
+    setDateRange({
+      startDate: startDate.toISOString().split("T")[0],
+      endDate: endDate.toISOString().split("T")[0],
+    });
+  };
+
+  const handleDateRangeChange = (e) => {
+    const { name, value } = e.target;
+    setDateRange((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
@@ -33,16 +63,25 @@ function OrderInquiry({ orderActive, setOrderActive }) {
 
       {/* 날짜 선택 */}
       <div className="order-inquiry-date">
-        <button>오늘</button>
-        <button>1주일</button>
-        <button>1개월</button>
-        <button>3개월</button>
-        <button>6개월</button>
+        <button onClick={() => handleQuickDateSelect(0)}>오늘</button>
+        <button onClick={() => handleQuickDateSelect(0.25)}>1주일</button>
+        <button onClick={() => handleQuickDateSelect(1)}>1개월</button>
+        <button onClick={() => handleQuickDateSelect(3)}>3개월</button>
+        <button onClick={() => handleQuickDateSelect(6)}>6개월</button>
         <div className="order-inquiry-date-range">
-          <input type="date" />
+          <input
+            type="date"
+            name="startDate"
+            value={dateRange.startDate}
+            onChange={handleDateRangeChange}
+          />
           <span>~</span>
-          <input type="date" />
-          <button className="search-button">조회</button>
+          <input
+            type="date"
+            name="endDate"
+            value={dateRange.endDate}
+            onChange={handleDateRangeChange}
+          />
         </div>
       </div>
 
