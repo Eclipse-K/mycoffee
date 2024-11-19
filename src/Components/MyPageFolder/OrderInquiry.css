@@ -4,7 +4,6 @@
   font-family: Arial, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
   background: #fff;
 }
 
@@ -15,15 +14,22 @@
   margin-bottom: 20px;
 }
 
+.order-inquiry-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
 .order-inquiry-tabs {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 10px;
-  margin-bottom: 20px;
+  width: 100%;
 }
 
 .order-inquiry-tabs button {
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: 1px solid #ddd;
   background: #f9f9f9;
   cursor: pointer;
@@ -35,16 +41,23 @@
   color: #fff;
 }
 
-.order-inquiry-date {
+.order-inquiry-calendar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
+  width: 100%;
 }
 
-.order-inquiry-date button {
-  padding: 8px 15px;
+.order-inquiry-calendar-date {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.order-inquiry-calendar-date button {
+  padding: 8px 16px;
   border: 1px solid #ddd;
   background: #f9f9f9;
   cursor: pointer;
@@ -52,8 +65,10 @@
 
 .order-inquiry-date-range {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  gap: 5px;
+  gap: 16px;
+  width: 100%;
 }
 
 .order-inquiry-date-range input {
@@ -62,7 +77,7 @@
 }
 
 .order-inquiry-date-range .search-button {
-  padding: 8px 15px;
+  padding: 8px 16px;
   background: #333;
   color: #fff;
   border: none;
@@ -70,10 +85,10 @@
 }
 
 .order-inquiry-info {
-  margin: 20px 0;
   font-size: 14px;
   color: #555;
   line-height: 1.5;
+  width: 100%;
 }
 
 .order-inquiry-info span {
