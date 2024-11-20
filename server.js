@@ -154,7 +154,14 @@ app.get("/api/user-coupons", (req, res) => {
       return res.status(404).json({ error: "유저를 찾을 수 없음" });
     }
 
-    res.json({ coupons: user.coupons || [] });
+    res.json({
+      coupons: user.coupons.map((coupon) => ({
+        id: coupon.id,
+        name: coupon.name,
+        discount: coupon.discount || 0, // 기본 값 설정
+        expiry: coupon.expiry,
+      })),
+    });
   });
 });
 

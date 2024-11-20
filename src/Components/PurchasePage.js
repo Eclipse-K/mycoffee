@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./PurchasePage.css";
 import { CartContext } from "./CartContext";
+import axios from "axios";
 
 function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
   const { cartItems } = useContext(CartContext);
@@ -17,6 +18,19 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
     cardType: "",
     installment: "",
   });
+  const [coupons, setCoupons] = useState([]);
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    const username = localStorage.getItem("username"); // 로그인된 사용자 이름
+    if (username) {
+      axios
+        .get(`/api/user-coupons?username=${username}`)
+        .then((response) => setCoupons(response.data.coupons))
+        .catch((error) => console.error("쿠폰 로드 실패:", error));
+    }
+  }, []);
 
   //요청사항 작동 함수
   const handleCustomRequest = (e) => {
@@ -54,11 +68,43 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
   };
 
   // 총 가격 계산
-  const totalPrice = selectedItems.reduce((total, item, index) => {
-    const quantity = quantities[checkedItemIndexes[index]] || 1;
-    const itemPrice = Number(item.price.replace(/,/g, ""));
-    return total + itemPrice * quantity;
-  }, 0);
+  // const totalPrice = selectedItems.reduce((total, item, index) => {
+  //   const quantity = quantities[checkedItemIndexes[index]] || 1;
+  //   const itemPrice = Number(item.price.replace(/,/g, ""));
+  //   return total + itemPrice * quantity;
+  // }, 0);
+
+  useEffect(() => {
+    const basePrice = selectedItems.reduce((total, item, index) => {
+      const quantity = quantities[checkedItemIndexes[index]] || 1;
+      const itemPrice = Number(item.price.replace(/,/g, ""));
+      return total + itemPrice * quantity;
+    }, 0);
+
+    if (selectedCoupon) {
+      const discount = selectedCoupon.discount;
+      console.log("적용할 할인 값:", discount); // 디버깅 로그
+
+      if (typeof discount === "number" && discount < 100) {
+        // 퍼센트 할인
+        setTotalPrice(basePrice * ((100 - discount) / 100));
+      } else if (typeof discount === "number") {
+        // 정액 할인
+        setTotalPrice(Math.max(basePrice - discount, 0));
+      } else {
+        console.warn("할인 값이 유효하지 않습니다:", discount);
+        setTotalPrice(basePrice); // 유효하지 않은 할인 값일 경우 원래 가격 유지
+      }
+    } else {
+      setTotalPrice(basePrice);
+    }
+  }, [selectedItems, quantities, checkedItemIndexes, selectedCoupon]);
+
+  const handleCouponChange = (couponId) => {
+    const coupon = coupons.find((c) => c.id === parseInt(couponId));
+    console.log("선택된 쿠폰:", coupon); // 디버깅용 로그
+    setSelectedCoupon(coupon || null); // 쿠폰이 없으면 null로 초기화
+  };
 
   // 할부 옵션을 조건부로 설정하는 함수
   const getInstallmentOptions = () => {
@@ -126,6 +172,23 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
 
         <div className="Total-price">
           <h3>총 가격: {totalPrice.toLocaleString()}원</h3>
+        </div>
+
+        <hr />
+
+        <h2>쿠폰 선택</h2>
+        <div className="Coupon-selection">
+          <select
+            onChange={(e) => handleCouponChange(e.target.value)}
+            value={selectedCoupon?.id || ""}
+          >
+            <option value="">쿠폰을 선택하세요</option>
+            {coupons.map((coupon) => (
+              <option key={coupon.id} value={coupon.id}>
+                {coupon.name} (만료: {coupon.expiry})
+              </option>
+            ))}
+          </select>
         </div>
 
         <hr />

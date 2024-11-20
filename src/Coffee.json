@@ -2,7 +2,7 @@
   "WholeBean": [
     {
       "id": 1,
-      "count": 37,
+      "count": 39,
       "img": "../Images/Ethiopia.png",
       "title": "에티오피아 홀빈 500g",
       "price": "22,000",
@@ -18,7 +18,7 @@
     },
     {
       "id": 2,
-      "count": 12,
+      "count": 15,
       "img": "../Images/Colombia.png",
       "title": "콜롬비아 홀빈 500g",
       "price": "20,000",
