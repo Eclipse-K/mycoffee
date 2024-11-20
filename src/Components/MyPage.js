@@ -5,6 +5,7 @@ import axios from "axios";
 import "./MyPage.css";
 import MiniNavbar from "./MiniNavbar";
 import OrderInquiry from "./MyPageFolder/OrderInquiry";
+import CouponList from "./CouponList";
 
 function MyPage() {
   const [username, setUsername] = useState("");
@@ -96,27 +97,11 @@ function MyPage() {
               >
                 취소/반품
               </li>
-            </ul>
-
-            <h3>나의 혜택 정보</h3>
-            <ul>
-              <li
-                className={selectedTab === "적립금" ? "active" : ""}
-                onClick={() => handleTabClick("적립금")}
-              >
-                적립금
-              </li>
               <li
                 className={selectedTab === "쿠폰" ? "active" : ""}
                 onClick={() => handleTabClick("쿠폰")}
               >
                 쿠폰
-              </li>
-              <li
-                className={selectedTab === "혜택보기" ? "active" : ""}
-                onClick={() => handleTabClick("혜택보기")}
-              >
-                혜택보기
               </li>
             </ul>
 
@@ -171,7 +156,9 @@ function MyPage() {
           </div>
 
           <div className="myPage-content">
-            {selectedTab === "주문/배송" || selectedTab === "취소/반품" ? (
+            {selectedTab === "쿠폰" ? (
+              <CouponList />
+            ) : selectedTab === "주문/배송" || selectedTab === "취소/반품" ? (
               <OrderInquiry
                 orderActive={orderActive}
                 setOrderActive={setOrderActive}

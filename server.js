@@ -137,6 +137,27 @@ app.post("/api/signup", (req, res) => {
   res.json({ success: true, message: "회원가입이 완료되었습니다." });
 });
 
+// 쿠폰 조회 API
+app.get("/api/user-coupons", (req, res) => {
+  const username = req.query.username; // 쿼리로 사용자 이름을 받음
+
+  fs.readFile(userDataPath, "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "파일 읽기 실패" });
+    }
+
+    const users = JSON.parse(data);
+    const user = users.find((user) => user.username === username);
+
+    if (!user) {
+      return res.status(404).json({ error: "유저를 찾을 수 없음" });
+    }
+
+    res.json({ coupons: user.coupons || [] });
+  });
+});
+
 // 서버 시작
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

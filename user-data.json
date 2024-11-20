@@ -6,6 +6,18 @@
     "confirmPassword": "mycoffee1!",
     "username": "주인",
     "year": "00000101",
-    "phone": "01012345678"
+    "phone": "01012345678",
+    "coupons": [
+      {
+        "id": 1,
+        "name": "10% 할인 쿠폰",
+        "expiry": "2024-12-31"
+      },
+      {
+        "id": 2,
+        "name": "무료 배송 쿠폰",
+        "expiry": "2024-11-30"
+      }
+    ]
   }
 ]

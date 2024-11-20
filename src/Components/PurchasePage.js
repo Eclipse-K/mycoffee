@@ -6,6 +6,17 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
   const { cartItems } = useContext(CartContext);
   const selectedItems = checkedItemIndexes.map((index) => cartItems[index]);
   const [customRequest, setCustomRequest] = useState("");
+  const [shippingInfo, setShippingInfo] = useState({
+    name: "",
+    address: "",
+    phone: "",
+    request: "",
+  });
+  const [activeTab, setActiveTab] = useState("신용카드");
+  const [cardInfo, setCardInfo] = useState({
+    cardType: "",
+    installment: "",
+  });
 
   //요청사항 작동 함수
   const handleCustomRequest = (e) => {
@@ -15,19 +26,6 @@ function PurchasePage({ checkedItemIndexes, onGoBack, quantities }) {
       setCustomRequest("");
     }
   };
-
-  const [shippingInfo, setShippingInfo] = useState({
-    name: "",
-    address: "",
-    phone: "",
-    request: "",
-  });
-
-  const [activeTab, setActiveTab] = useState("신용카드");
-  const [cardInfo, setCardInfo] = useState({
-    cardType: "",
-    installment: "",
-  });
 
   const handleTabClick = (tab) => setActiveTab(tab);
 
