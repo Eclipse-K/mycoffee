@@ -24,6 +24,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  cursor: pointer;
 }
 
 .BigImg-1 img,
