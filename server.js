@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
@@ -6,8 +8,41 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 const port = 5001;
-const SECRET_KEY = "your_secret_key";
 
+// 환경 변수 확인
+const serialKey = process.env.SECRET_KEY;
+if (!serialKey) {
+  throw new Error("SECRET_KEY is not defined in the .env file");
+}
+
+// 파일 경로 정의
+const userDataPath = path.join(__dirname, "user-data.json");
+const coffeeFilePath = path.join(__dirname, "./src/Coffee.json");
+
+// 파일 초기화
+if (!fs.existsSync(userDataPath)) {
+  fs.writeFileSync(userDataPath, JSON.stringify([]), "utf-8");
+}
+
+// 공통 유틸리티 함수: 파일 읽기/쓰기
+const safeReadFile = (filePath) => {
+  try {
+    return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  } catch (error) {
+    console.error(`Failed to read file: ${filePath}`, error);
+    return [];
+  }
+};
+
+const safeWriteFile = (filePath, data) => {
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
+  } catch (error) {
+    console.error(`Failed to write file: ${filePath}`, error);
+  }
+};
+
+// 미들웨어 설정
 const corsOptions = {
   origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -19,14 +54,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-const userDataPath = path.join(__dirname, "user-data.json");
-
+// API: 로그인
 app.post("/api/login", (req, res) => {
   const { id, password } = req.body;
-  console.log("Login attempt:", id); // 디버깅을 위한 로그
+  console.log("Login attempt:", id);
 
   try {
-    const existingUsers = JSON.parse(fs.readFileSync(userDataPath, "utf-8"));
+    const existingUsers = safeReadFile(userDataPath);
     const user = existingUsers.find(
       (user) => user.id === id && user.password === password
     );
@@ -34,7 +68,7 @@ app.post("/api/login", (req, res) => {
     if (user) {
       const token = jwt.sign(
         { id: user.id, email: user.email, username: user.username },
-        SECRET_KEY,
+        serialKey,
         { expiresIn: "1h" }
       );
       res.json({
@@ -58,6 +92,7 @@ app.post("/api/login", (req, res) => {
   }
 });
 
+// API: JWT 토큰 검증
 app.post("/api/verify-token", (req, res) => {
   const { token } = req.body;
 
@@ -67,8 +102,9 @@ app.post("/api/verify-token", (req, res) => {
       .json({ success: false, message: "토큰이 없습니다." });
   }
 
-  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+  jwt.verify(token, serialKey, (err, decoded) => {
     if (err) {
+      console.error("Token verification failed:", err.message);
       return res
         .status(401)
         .json({ success: false, message: "유효하지 않은 토큰입니다." });
@@ -84,21 +120,21 @@ app.post("/api/verify-token", (req, res) => {
 
 // API: 커피 항목 가져오기
 app.get("/api/coffee-items", (req, res) => {
-  const coffeeItems = readCoffeeData();
+  const coffeeItems = safeReadFile(coffeeFilePath);
   res.json(coffeeItems);
 });
 
-// count 업데이트 API
-app.post("/api/update-count", (req, res) => {
+// API: count 업데이트
+app.post("/api/update-count", async (req, res) => {
   const { id, category } = req.body;
-  const coffeeItems = readCoffeeData();
+  const coffeeItems = safeReadFile(coffeeFilePath);
 
   if (coffeeItems[category]) {
     const item = coffeeItems[category].find((i) => i.id === id);
 
     if (item) {
       item.count += 1;
-      writeCoffeeData(coffeeItems);
+      safeWriteFile(coffeeFilePath, coffeeItems);
       res.json({ success: true, updatedItem: item });
     } else {
       res.status(404).json({ success: false, message: "Item not found" });
@@ -108,64 +144,40 @@ app.post("/api/update-count", (req, res) => {
   }
 });
 
-// JSON 파일 경로 및 읽기/쓰기 함수
-const coffeeFilePath = path.join(__dirname, "./src/Coffee.json");
-const readCoffeeData = () =>
-  JSON.parse(fs.readFileSync(coffeeFilePath, "utf-8"));
-const writeCoffeeData = (data) =>
-  fs.writeFileSync(coffeeFilePath, JSON.stringify(data, null, 2), "utf-8");
-
-// 회원가입 API 경로
+// API: 회원가입
 app.post("/api/signup", (req, res) => {
   const newUser = req.body;
 
-  // 파일이 없거나 비어 있으면 새 파일 생성 후 빈 배열로 초기화
-  if (
-    !fs.existsSync(userDataPath) ||
-    fs.readFileSync(userDataPath, "utf-8").trim() === ""
-  ) {
-    fs.writeFileSync(userDataPath, JSON.stringify([]));
-  }
-
-  // 기존 데이터 로드 후 새 사용자 추가
-  const existingUsers = JSON.parse(fs.readFileSync(userDataPath, "utf-8"));
+  const existingUsers = safeReadFile(userDataPath);
   existingUsers.push(newUser);
 
-  // 파일에 업데이트된 사용자 목록 저장
-  fs.writeFileSync(userDataPath, JSON.stringify(existingUsers, null, 2));
+  safeWriteFile(userDataPath, existingUsers);
 
   res.json({ success: true, message: "회원가입이 완료되었습니다." });
 });
 
-// 쿠폰 조회 API
+// API: 쿠폰 조회
 app.get("/api/user-coupons", (req, res) => {
-  const username = req.query.username; // 쿼리로 사용자 이름을 받음
+  const username = req.query.username;
 
-  fs.readFile(userDataPath, "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "파일 읽기 실패" });
-    }
+  const users = safeReadFile(userDataPath);
+  const user = users.find((user) => user.username === username);
 
-    const users = JSON.parse(data);
-    const user = users.find((user) => user.username === username);
+  if (!user) {
+    return res.status(404).json({ error: "유저를 찾을 수 없음" });
+  }
 
-    if (!user) {
-      return res.status(404).json({ error: "유저를 찾을 수 없음" });
-    }
-
-    res.json({
-      coupons: user.coupons.map((coupon) => ({
-        id: coupon.id,
-        name: coupon.name,
-        discount: coupon.discount || 0, // 기본 값 설정
-        expiry: coupon.expiry,
-      })),
-    });
+  res.json({
+    coupons: (user.coupons || []).map((coupon) => ({
+      id: coupon.id,
+      name: coupon.name,
+      discount: coupon.discount || 0,
+      expiry: coupon.expiry,
+    })),
   });
 });
 
-// 서버 시작
+// 서버 실행
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
