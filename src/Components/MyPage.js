@@ -6,6 +6,7 @@ import "./MyPage.css";
 import MiniNavbar from "./MiniNavbar";
 import OrderInquiry from "./MyPageFolder/OrderInquiry";
 import CouponList from "./CouponList";
+import EditUserInfo from "./MyPageFolder/EditUserInfo";
 
 function MyPage() {
   const [username, setUsername] = useState("");
@@ -156,7 +157,9 @@ function MyPage() {
           </div>
 
           <div className="myPage-content">
-            {selectedTab === "쿠폰" ? (
+            {selectedTab === "회원정보 수정" ? (
+              <EditUserInfo />
+            ) : selectedTab === "쿠폰" ? (
               <CouponList />
             ) : selectedTab === "주문/배송" || selectedTab === "취소/반품" ? (
               <OrderInquiry

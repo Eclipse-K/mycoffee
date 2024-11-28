@@ -177,6 +177,77 @@ app.get("/api/user-coupons", (req, res) => {
   });
 });
 
+// API: 사용자 정보 가져오기
+app.get("/api/get-user-info", (req, res) => {
+  const { id } = req.query; // 요청 쿼리에서 ID 가져오기
+
+  if (!id) {
+    return res.status(400).json({
+      success: false,
+      message: "ID가 필요합니다.",
+    });
+  }
+
+  const users = safeReadFile(userDataPath); // user-data.json 읽기
+  const user = users.find((user) => user.id === id);
+
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "유저를 찾을 수 없습니다.",
+    });
+  }
+
+  res.json({
+    success: true,
+    userInfo: {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      birthdate: user.birthdate,
+      phone: user.phone,
+      address: user.address,
+    },
+  });
+});
+
+// API: 회원정보 필드별 수정
+app.put("/api/update-user", (req, res) => {
+  const { id, phone, address, email } = req.body;
+
+  if (!id) {
+    return res.status(400).json({
+      success: false,
+      message: "ID가 누락되었습니다.",
+    });
+  }
+
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((user) => user.id === id);
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const user = users[userIndex];
+
+  // 필드별 업데이트 처리
+  if (phone !== undefined) user.phone = phone;
+  if (address !== undefined) user.address = address;
+  if (email !== undefined) user.email = email;
+
+  users[userIndex] = user;
+  safeWriteFile(userDataPath, users);
+
+  res.json({
+    success: true,
+    message: "회원정보가 성공적으로 수정되었습니다.",
+    user,
+  });
+});
+
 // 서버 실행
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
