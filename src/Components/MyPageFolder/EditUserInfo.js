@@ -22,9 +22,18 @@ function EditUserInfo() {
   });
 
   useEffect(() => {
-    const userId = "kyu623"; // 실제 로그인된 사용자 ID로 대체
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No logged in user found");
+      return;
+    }
 
-    fetch(`http://localhost:5001/api/get-user-info?id=${userId}`)
+    fetch("http://localhost:5001/api/get-user-info", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

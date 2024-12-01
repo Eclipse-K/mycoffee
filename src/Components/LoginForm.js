@@ -37,10 +37,13 @@ function Login() {
         });
 
         if (response.data.success) {
+          // LocalStorage에 사용자 정보 저장
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("id", response.data.id);
           localStorage.setItem("email", response.data.email);
           localStorage.setItem("username", response.data.username);
+
+          // 페이지 이동
           navigate("/myPage");
         } else {
           setErrorMessage("로그인 실패: " + response.data.message);
@@ -69,13 +72,16 @@ function Login() {
           placeholder="아이디"
           value={LoginId}
           onChange={handleIdChange}
+          autoComplete="username"
         />
+        <input type="hidden" value="dummy-username" autoComplete="username" />
         <input
           className="LoginForm-input"
           type="password"
           placeholder="비밀번호"
           value={LoginPassword}
           onChange={handlePasswordChange}
+          autoComplete="current-password"
         />
         {errorMessage && <div className="LoginForm-error">{errorMessage}</div>}
         <button className="LoginForm-submit" type="submit">
