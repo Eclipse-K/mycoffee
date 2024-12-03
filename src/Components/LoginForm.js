@@ -4,12 +4,14 @@ import axios from "axios";
 import "./LoginForm.css";
 import Logo from "../images/Logo_MyCoffee.png";
 import LoadingSpinner from "./LoadingSpinner";
+import { useLogged } from "./LoggedContext";
 
 function Login() {
   const [LoginId, setLoginId] = useState("");
   const [LoginPassword, setLoginPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const { login } = useLogged();
   const navigate = useNavigate();
 
   const handleIdChange = (e) => {
@@ -38,10 +40,11 @@ function Login() {
 
         if (response.data.success) {
           // LocalStorage에 사용자 정보 저장
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("id", response.data.id);
-          localStorage.setItem("email", response.data.email);
-          localStorage.setItem("username", response.data.username);
+          login(response.data.token, {
+            username: response.data.username,
+            id: response.data.id,
+            email: response.data.email,
+          });
 
           // 페이지 이동
           navigate("/myPage");

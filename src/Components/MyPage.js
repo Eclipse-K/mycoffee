@@ -7,12 +7,14 @@ import MiniNavbar from "./MiniNavbar";
 import OrderInquiry from "./MyPageFolder/OrderInquiry";
 import CouponList from "./CouponList";
 import EditUserInfo from "./MyPageFolder/EditUserInfo";
+import { useLogged } from "./LoggedContext";
 
 function MyPage() {
   const [username, setUsername] = useState("");
   const [selectedTab, setSelectedTab] = useState("나의 쇼핑 정보");
   const [orderActive, setOrderActive] = useState("orderHistory");
   const navigate = useNavigate();
+  const { logout } = useLogged();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -51,9 +53,7 @@ function MyPage() {
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
-    localStorage.removeItem("username");
+    logout();
     alert("로그아웃 되었습니다.");
     navigate("/login");
   };

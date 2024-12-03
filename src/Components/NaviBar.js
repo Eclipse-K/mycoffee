@@ -4,9 +4,11 @@ import "./NaviBar.css";
 import { Link } from "react-router-dom";
 import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 import { useCart } from "./CartContext";
+import { useLogged } from "./LoggedContext";
 
 function NaviBar() {
   const { cartItems } = useCart();
+  const { isLoggedIn } = useLogged();
 
   return (
     <div className="NaviBar">
@@ -26,9 +28,16 @@ function NaviBar() {
 
               <AiOutlineShoppingCart />
             </Link>
-            <Link className="nav-login" to="/Login">
-              <AiOutlineUser />
-            </Link>
+
+            {isLoggedIn ? (
+              <Link className="nav-login" to="/myPage">
+                <AiOutlineUser />
+              </Link>
+            ) : (
+              <Link className="nav-login" to="/Login">
+                <AiOutlineUser />
+              </Link>
+            )}
           </div>
         </div>
 
