@@ -178,46 +178,46 @@ app.get("/api/user-coupons", (req, res) => {
 });
 
 // API: 사용자 정보 가져오기
-// app.get("/api/get-user-info", (req, res) => {
-//   const authHeader = req.headers["authorization"];
-//   const token = authHeader && authHeader.split(" ")[1];
+app.get("/api/get-user-info", (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
-//   if (!token) {
-//     return res
-//       .status(401)
-//       .json({ success: false, message: "인증 토큰이 필요합니다." });
-//   }
+  if (!token) {
+    return res
+      .status(401)
+      .json({ success: false, message: "인증 토큰이 필요합니다." });
+  }
 
-//   jwt.verify(token, serialKey, (err, decoded) => {
-//     if (err) {
-//       return res
-//         .status(403)
-//         .json({ success: false, message: "유효하지 않은 토큰입니다." });
-//     }
+  jwt.verify(token, serialKey, (err, decoded) => {
+    if (err) {
+      return res
+        .status(403)
+        .json({ success: false, message: "유효하지 않은 토큰입니다." });
+    }
 
-//     const users = safeReadFile(userDataPath);
-//     const user = users.find((user) => user.id === decoded.id);
+    const users = safeReadFile(userDataPath);
+    const user = users.find((user) => user.id === decoded.id);
 
-//     if (!user) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "유저를 찾을 수 없습니다.",
-//       });
-//     }
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "유저를 찾을 수 없습니다.",
+      });
+    }
 
-//     res.json({
-//       success: true,
-//       userInfo: {
-//         id: user.id,
-//         username: user.username,
-//         email: user.email,
-//         birthdate: user.birthdate,
-//         phone: user.phone,
-//         address: user.address,
-//       },
-//     });
-//   });
-// });
+    res.json({
+      success: true,
+      userInfo: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        birthdate: user.birthdate,
+        phone: user.phone,
+        address: user.address,
+      },
+    });
+  });
+});
 
 // 사용자 장바구니 가져오기
 app.get("/api/cart", (req, res) => {
