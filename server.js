@@ -318,6 +318,37 @@ app.put("/api/update-user", (req, res) => {
   });
 });
 
+// 비밀번호 검증 API
+app.post("/api/verify-password", (req, res) => {
+  const { id, password } = req.body;
+
+  // user-data.json에서 데이터 읽기
+  fs.readFile(userDataPath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading user data:", err);
+      return res.status(500).json({ success: false, message: "서버 오류" });
+    }
+
+    const users = JSON.parse(data);
+    const user = users.find((u) => u.id === id); // ID로 사용자 찾기
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "사용자를 찾을 수 없습니다." });
+    }
+
+    if (user.password === password) {
+      return res.json({ success: true });
+    } else {
+      return res.json({
+        success: false,
+        message: "비밀번호가 일치하지 않습니다.",
+      });
+    }
+  });
+});
+
 // 서버 실행
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

@@ -13,6 +13,9 @@ function MyPage() {
   const [username, setUsername] = useState("");
   const [selectedTab, setSelectedTab] = useState("나의 쇼핑 정보");
   const [orderActive, setOrderActive] = useState("orderHistory");
+  const [isPasswordVerified, setIsPasswordVerified] = useState(false); // 비밀번호 확인 여부
+  const [userPassword, setUserPassword] = useState(""); // 비밀번호 상태
+  const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
   const { logout } = useLogged();
 
@@ -63,9 +66,32 @@ function MyPage() {
     setSelectedTab(tab);
     if (tab === "취소/반품") {
       setOrderActive("cancelHistory"); // OrderInquiry의 '취소/반품' 탭 활성화
+    }
+    if (tab === "회원정보 수정") {
+      setIsPasswordVerified(false); // 탭 전환 시 초기화
+      setUserPassword(""); // 비밀번호 초기화
+      setPasswordError(""); // 에러 메시지 초기화
     } else if (tab === "주문/배송") {
       setOrderActive("orderHistory"); // OrderInquiry의 '주문/배송' 탭 활성화
     }
+  };
+
+  const handlePasswordCheck = () => {
+    const userId = localStorage.getItem("id"); // 로컬 스토리지에서 사용자 ID 가져오기
+
+    axios
+      .post("http://localhost:5001/api/verify-password", {
+        id: userId,
+        password: userPassword, // 비밀번호 상태 사용
+      })
+      .then((response) => {
+        if (response.data.success) {
+          setIsPasswordVerified(true); // 비밀번호 확인 성공
+        } else {
+          setPasswordError("비밀번호가 일치하지 않습니다."); // 에러 메시지 설정
+        }
+      })
+      .catch(() => setPasswordError("오류가 발생했습니다. 다시 시도해주세요.")); // 에러 메시지 설정
   };
 
   return (
@@ -158,7 +184,31 @@ function MyPage() {
 
           <div className="myPage-content">
             {selectedTab === "회원정보 수정" ? (
-              <EditUserInfo />
+              isPasswordVerified ? (
+                <EditUserInfo />
+              ) : (
+                <div className="password-check">
+                  <h2>비밀번호 확인</h2>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
+                      handlePasswordCheck(); // 비밀번호 확인 로직 호출
+                    }}
+                  >
+                    <input
+                      type="password"
+                      placeholder="비밀번호를 입력하세요"
+                      value={userPassword}
+                      onChange={(e) => setUserPassword(e.target.value)}
+                      autoComplete="new-password" // autocomplete 속성 추가
+                    />
+                    <button type="submit">확인</button>
+                  </form>
+                  {passwordError && (
+                    <p style={{ color: "red" }}>{passwordError}</p>
+                  )}
+                </div>
+              )
             ) : selectedTab === "쿠폰" ? (
               <CouponList />
             ) : selectedTab === "주문/배송" || selectedTab === "취소/반품" ? (
