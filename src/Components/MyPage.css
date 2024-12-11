@@ -76,6 +76,9 @@
 }
 
 .myPage-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   border: 1px solid gray;
   border-radius: 20px;
@@ -83,27 +86,37 @@
 }
 
 .password-check {
-  margin: 20px;
+  margin: 0 auto; /* 가운데 정렬 */
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  max-width: 300px;
+  width: 60%;
+  box-sizing: border-box; /* 패딩 포함하여 크기 계산 */
+  max-width: 400px; /* 최대 너비 제한 */
 }
 
-.password-check input {
-  width: 100%;
+.password-check form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* 모든 자식 요소가 부모 너비에 맞도록 */
+  width: 100%; /* 부모 컨테이너와 동일한 너비 */
+}
+
+.password-check input,
+.password-check button {
+  width: 100%; /* form의 너비에 맞춤 */
   padding: 8px;
   margin-bottom: 10px;
+  box-sizing: border-box; /* 패딩 포함하여 크기 계산 */
 }
 
 .password-check button {
-  width: 100%;
-  padding: 8px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .password-check button:hover {

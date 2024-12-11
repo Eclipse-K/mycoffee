@@ -188,19 +188,29 @@ function MyPage() {
                 <EditUserInfo />
               ) : (
                 <div className="password-check">
-                  <h2>비밀번호 확인</h2>
                   <form
                     onSubmit={(e) => {
-                      e.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
+                      e.preventDefault(); // 폼 제출 시 기본 동작 방지
                       handlePasswordCheck(); // 비밀번호 확인 로직 호출
                     }}
                   >
                     <input
+                      type="hidden" // 화면에 표시되지 않음
+                      name="username"
+                      value={localStorage.getItem("username") || ""} // 로컬 스토리지에서 사용자 이름 가져오기
+                      autoComplete="username" // 브라우저 자동완성 충족
+                    />
+                    <label htmlFor="password">
+                      <h2>비밀번호 확인</h2>
+                    </label>
+                    <input
                       type="password"
+                      id="password"
+                      name="password"
                       placeholder="비밀번호를 입력하세요"
                       value={userPassword}
                       onChange={(e) => setUserPassword(e.target.value)}
-                      autoComplete="new-password" // autocomplete 속성 추가
+                      autoComplete="current-password" // 기존 비밀번호 입력
                     />
                     <button type="submit">확인</button>
                   </form>
