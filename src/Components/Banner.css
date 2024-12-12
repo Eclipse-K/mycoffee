@@ -9,29 +9,32 @@
 }
 
 .Banner-box {
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  grid-template-columns: 10% 80% 10%;
   padding: 0 24px;
 }
 
-.Banner-container button {
+.dots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: burlywood;
   border: none;
-  padding: 0;
-  background-color: white;
   cursor: pointer;
 }
 
-.Banner-prev svg,
-.Banner-next svg {
-  width: 48px;
-  height: 48px;
-  color: black;
+.dot.active {
+  background-color: black;
 }
 
 .Banner-img {
   width: 100%;
+  height: 400px;
 }
 
 @media all and (min-width: 281px) and (max-width: 432px) {
@@ -43,9 +46,7 @@
     padding: 0 8px;
   }
 
-  .Banner-prev svg,
-  .Banner-next svg {
-    width: 24px;
-    height: 24px;
+  .Banner-img {
+    height: 300px;
   }
 }
