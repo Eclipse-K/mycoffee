@@ -5,7 +5,7 @@ import axios from "axios";
 import "./MyPage.css";
 import MiniNavbar from "./MiniNavbar";
 import OrderInquiry from "./MyPageFolder/OrderInquiry";
-import CouponList from "./CouponList";
+import CouponList from "./MyPageFolder/CouponList";
 import EditUserInfo from "./MyPageFolder/EditUserInfo";
 import { useLogged } from "./LoggedContext";
 
@@ -227,7 +227,7 @@ function MyPage() {
                 setOrderActive={setOrderActive}
               />
             ) : (
-              <div>
+              <div className="myPage-orders">
                 <div className="myPage-order-status">
                   <h2>
                     주문처리 현황 <span>(최근 3개월 기준)</span>

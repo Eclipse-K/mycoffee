@@ -78,7 +78,7 @@
 .myPage-content {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
   border: 1px solid gray;
   border-radius: 20px;
@@ -86,7 +86,7 @@
 }
 
 .password-check {
-  margin: 0 auto; /* 가운데 정렬 */
+  margin: auto auto; /* 가운데 정렬 */
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -121,6 +121,10 @@
 
 .password-check button:hover {
   background-color: #0056b3;
+}
+
+.myPage-orders {
+  width: 100%;
 }
 
 .myPage-order-status {
