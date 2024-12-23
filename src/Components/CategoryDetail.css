@@ -147,6 +147,39 @@ hr {
   height: 300px;
 }
 
+.ReviewForm {
+  margin: 20px 0;
+}
+.ReviewForm textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.ReviewForm button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #0078ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.ReviewList {
+  margin-top: 20px;
+}
+.ReviewItem {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+.ReviewItem span {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
 @media all and (max-width: 432px) {
   .CategoryDetail {
     padding: 16px 8px;
