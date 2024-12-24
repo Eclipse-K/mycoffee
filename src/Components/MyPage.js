@@ -20,9 +20,9 @@ function MyPage() {
   const { logout } = useLogged();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const storedId = localStorage.getItem("id");
-    const storedUsername = localStorage.getItem("username");
+    const token = sessionStorage.getItem("token");
+    const storedId = sessionStorage.getItem("id");
+    const storedUsername = sessionStorage.getItem("username");
 
     if (!token) {
       alert("로그인이 필요합니다.");
@@ -38,13 +38,11 @@ function MyPage() {
         .then((response) => {
           if (response.data.success) {
             setUsername(response.data.username);
-            localStorage.setItem("id", response.data.id);
-            localStorage.setItem("username", response.data.username);
+            sessionStorage.setItem("id", response.data.id);
+            sessionStorage.setItem("username", response.data.username);
           } else {
             alert("토큰이 유효하지 않습니다. 다시 로그인 해주세요.");
-            localStorage.removeItem("token");
-            localStorage.removeItem("id");
-            localStorage.removeItem("username");
+            sessionStorage.clear(); // 세션 스토리지 초기화
             navigate("/login");
           }
         })
@@ -77,7 +75,7 @@ function MyPage() {
   };
 
   const handlePasswordCheck = () => {
-    const userId = localStorage.getItem("id"); // 로컬 스토리지에서 사용자 ID 가져오기
+    const userId = sessionStorage.getItem("id"); // 세션 스토리지에서 사용자 ID 가져오기
 
     axios
       .post("http://localhost:5001/api/verify-password", {

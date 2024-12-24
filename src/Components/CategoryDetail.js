@@ -1,10 +1,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import CoffeeJson from "../Coffee.json";
 import "./CategoryDetail.css";
 import CoffeeAromaRadarChart from "./CoffeeAromaRadarChart";
 import { CartContext } from "./CartContext";
 import axios from "axios";
+import { CiEdit } from "react-icons/ci";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 function CategoryDetail() {
   const { category, id } = useParams();
@@ -20,27 +22,48 @@ function CategoryDetail() {
   const [editReviewContent, setEditReviewContent] = useState(""); // 수정할 내용
 
   useEffect(() => {
-    axios.get(`/api/reviews/${id}`).then((res) => {
-      setReviews(res.data || []); // 해당 상품 ID의 후기 리스트 설정
-    });
+    const token = sessionStorage.getItem("token");
+    let isMounted = true; // 컴포넌트 언마운트를 방지하기 위한 플래그
 
-    const token = localStorage.getItem("token");
+    // 초기 리뷰 로드
+    axios
+      .get(`/api/reviews/${id}`)
+      .then((res) => {
+        if (isMounted) {
+          setReviews(res.data || []); // 서버에서 가져온 리뷰 데이터 설정
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load reviews:", err);
+      });
+
+    // 사용자 인증 상태 확인
     if (token) {
       axios
         .post("/api/verify-token", { token })
         .then((res) => {
-          setReviewLoggedIn(true);
-          reviewUser.current = res.data.username;
+          if (isMounted) {
+            setReviewLoggedIn(true);
+            reviewUser.current = res.data.username;
+          }
         })
-        .catch(() => setReviewLoggedIn(false));
+        .catch(() => {
+          if (isMounted) {
+            setReviewLoggedIn(false);
+          }
+        });
     }
+
+    return () => {
+      isMounted = false; // 컴포넌트가 언마운트될 때 플래그 해제
+    };
   }, [id]);
 
   const handleAddReview = () => {
     if (!newReview.trim()) return alert("후기를 입력해주세요!");
     if (!reviewLoggedIn) return alert("로그인이 필요합니다.");
 
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const reviewToAdd = {
       productId: id,
       reviewContent: newReview,
@@ -51,7 +74,7 @@ function CategoryDetail() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        setReviews(res.data); // 서버 응답 데이터를 상태로 설정
+        setReviews((prevReviews) => [...prevReviews, ...res.data]); // 새 리뷰 추가
         setNewReview(""); // 입력 필드 초기화
       })
       .catch((err) => {
@@ -61,15 +84,14 @@ function CategoryDetail() {
   };
 
   const handleDeleteReview = (reviewIndex) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token"); // sessionStorage로 변경
 
     // 삭제 요청
     axios
       .delete(`/api/reviews/${id}/${reviewIndex}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` }, // sessionStorage 사용
       })
       .then(() => {
-        // 상태를 즉시 업데이트 (삭제된 후기 제거)
         setReviews((prevReviews) =>
           prevReviews.filter((_, index) => index !== reviewIndex)
         );
@@ -86,13 +108,13 @@ function CategoryDetail() {
   };
 
   const handleSaveEditReview = () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token"); // sessionStorage로 변경
 
     axios
       .put(
         `/api/reviews/${id}/${editingIndex}`,
         { reviewContent: editReviewContent },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } } // sessionStorage 사용
       )
       .then((res) => {
         setReviews(res.data); // 수정 후 최신 리뷰 리스트 업데이트
@@ -314,41 +336,57 @@ function CategoryDetail() {
               </div>
             ) : (
               <p>
-                후기를 작성하려면 <a href="/login">로그인</a> 해주세요.
+                후기를 작성하려면 <Link to="/Login">로그인</Link> 해주세요.
               </p>
             )}
 
             <div className="ReviewList">
               {reviews.length > 0 ? (
                 reviews.map((review, index) => (
-                  <div key={index} className="ReviewItem">
-                    {editingIndex === index ? (
-                      <div>
-                        <textarea
-                          value={editReviewContent}
-                          onChange={(e) => setEditReviewContent(e.target.value)}
-                        />
-                        <button onClick={handleSaveEditReview}>저장</button>
-                        <button onClick={() => setEditingIndex(null)}>
-                          취소
-                        </button>
-                      </div>
-                    ) : (
-                      <p>{review.content}</p>
-                    )}
-                    <span>
-                      {review.user} | {review.date}
-                    </span>
-                    {review.user === reviewUser.current && (
-                      <div>
-                        <button onClick={() => handleEditReview(index)}>
-                          수정
-                        </button>
-                        <button onClick={() => handleDeleteReview(index)}>
-                          삭제
-                        </button>
-                      </div>
-                    )}
+                  <div key={index}>
+                    <div className="ReviewItem">
+                      {editingIndex === index ? (
+                        <div className="ReviewItem-Editarea">
+                          <textarea
+                            value={editReviewContent}
+                            onChange={(e) =>
+                              setEditReviewContent(e.target.value)
+                            }
+                          />
+                          <div className="ReviewItem-Editarea-buttons">
+                            <button
+                              className="ReviewItem-Save"
+                              onClick={handleSaveEditReview}
+                            >
+                              저장
+                            </button>
+                            <button
+                              className="ReviewItem-Cancer"
+                              onClick={() => setEditingIndex(null)}
+                            >
+                              취소
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="ReviewContent">
+                          <p>{review.content}</p>
+                          <span>
+                            {review.user} | {review.date}
+                          </span>
+                        </div>
+                      )}
+                      {review.user === reviewUser.current && (
+                        <div className="ReviewButton-EditDelete">
+                          <CiEdit onClick={() => handleEditReview(index)} />
+                          <RiDeleteBin5Line
+                            onClick={() => handleDeleteReview(index)}
+                          />
+                        </div>
+                      )}
+                    </div>
+                    {/* 마지막 항목이 아닌 경우에만 구분선 추가 */}
+                    {index < reviews.length - 1 && <hr />}
                   </div>
                 ))
               ) : (

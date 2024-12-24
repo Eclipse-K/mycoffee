@@ -150,13 +150,16 @@ hr {
 .ReviewForm {
   margin: 20px 0;
 }
+
 .ReviewForm textarea {
   width: 100%;
   height: 100px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-sizing: border-box;
 }
+
 .ReviewForm button {
   margin-top: 10px;
   padding: 10px 20px;
@@ -166,18 +169,80 @@ hr {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .ReviewList {
   margin-top: 20px;
 }
+
 .ReviewItem {
-  margin-bottom: 10px;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
 }
+
+.ReviewItem-Editarea {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 8px;
+}
+
+.ReviewItem-Editarea-buttons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.ReviewItem-Save,
+.ReviewItem-Cancer {
+  background-color: #0078ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.ReviewItem-Save:hover,
+.ReviewItem-Cancer:hover {
+  background-color: #0056c2;
+}
+
+.ReviewItem-Save:disabled,
+.ReviewItem-Cancer:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.ReviewContent {
+  margin: 0;
+}
+
 .ReviewItem span {
   display: block;
   font-size: 12px;
   color: #666;
+}
+
+.ReviewButton-EditDelete {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 8px;
+}
+
+.ReviewButton-EditDelete svg {
+  width: 24px;
+  height: 100%;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+
+.ReviewButton-EditDelete svg:hover {
+  cursor: pointer;
 }
 
 @media all and (max-width: 432px) {
