@@ -22,7 +22,7 @@ function EditUserInfo() {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token"); // 세션스토리지에서 토큰 가져오기
     if (!token) {
       console.error("No logged in user found");
       return;
@@ -31,7 +31,7 @@ function EditUserInfo() {
     fetch("http://localhost:5001/api/get-user-info", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`, // 토큰 포함
       },
     })
       .then((response) => {
@@ -73,7 +73,10 @@ function EditUserInfo() {
       // 수정 요청
       fetch("http://localhost:5001/api/update-user", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`, // 세션스토리지에서 토큰 가져오기
+        },
         body: JSON.stringify(updateData),
       })
         .then((response) => response.json())

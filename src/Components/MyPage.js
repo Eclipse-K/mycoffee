@@ -21,8 +21,6 @@ function MyPage() {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-    const storedId = sessionStorage.getItem("id");
-    const storedUsername = sessionStorage.getItem("username");
 
     if (!token) {
       alert("로그인이 필요합니다.");
@@ -30,27 +28,23 @@ function MyPage() {
       return;
     }
 
-    if (storedId && storedUsername) {
-      setUsername(storedUsername);
-    } else {
-      axios
-        .post("http://localhost:5001/api/verify-token", { token })
-        .then((response) => {
-          if (response.data.success) {
-            setUsername(response.data.username);
-            sessionStorage.setItem("id", response.data.id);
-            sessionStorage.setItem("username", response.data.username);
-          } else {
-            alert("토큰이 유효하지 않습니다. 다시 로그인 해주세요.");
-            sessionStorage.clear(); // 세션 스토리지 초기화
-            navigate("/login");
-          }
-        })
-        .catch((error) => {
-          console.error("데이터 불러오기 오류:", error);
-          alert("정보 불러오는 중 오류가 발생했습니다.");
-        });
-    }
+    axios
+      .get("http://localhost:5001/api/get-user-info", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        if (response.data.success) {
+          setUsername(response.data.userInfo.username); // 상태 업데이트
+        } else {
+          alert("회원 정보를 가져오지 못했습니다. 다시 로그인 해주세요.");
+          sessionStorage.clear();
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        console.error("회원정보 불러오기 실패:", error);
+        alert("정보를 가져오는 중 오류가 발생했습니다.");
+      });
   }, [navigate]);
 
   const handleLogout = () => {

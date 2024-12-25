@@ -4,20 +4,24 @@ import "./CouponList.css";
 
 function CouponList() {
   const [coupons, setCoupons] = useState([]);
-  const username = localStorage.getItem("username"); // 로그인된 유저 이름 가져오기
+  const username = sessionStorage.getItem("username"); // 세션스토리지에서 유저 이름 가져오기
 
   useEffect(() => {
-    if (username) {
-      // 쿠폰 데이터 요청
-      axios
-        .get(`http://localhost:5001/api/user-coupons?username=${username}`)
-        .then((response) => {
-          setCoupons(response.data.coupons);
-        })
-        .catch((error) => {
-          console.error("쿠폰 데이터 가져오기 실패:", error);
-        });
+    if (!username) {
+      console.error("Username is not found in sessionStorage.");
+      return;
     }
+
+    axios
+      .get("http://localhost:5001/api/user-coupons", {
+        params: { username },
+      })
+      .then((response) => {
+        setCoupons(response.data.coupons || []);
+      })
+      .catch((error) => {
+        console.error("쿠폰 데이터 불러오기 실패:", error);
+      });
   }, [username]);
 
   return (

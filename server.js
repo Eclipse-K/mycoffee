@@ -189,21 +189,24 @@ app.post("/api/signup", (req, res) => {
 app.get("/api/user-coupons", (req, res) => {
   const username = req.query.username;
 
-  const users = safeReadFile(userDataPath);
-  const user = users.find((user) => user.username === username);
-
-  if (!user) {
-    return res.status(404).json({ error: "유저를 찾을 수 없음" });
+  if (!username) {
+    return res.status(400).json({ error: "Username is required" });
   }
 
-  res.json({
-    coupons: (user.coupons || []).map((coupon) => ({
-      id: coupon.id,
-      name: coupon.name,
-      discount: coupon.discount || 0,
-      expiry: coupon.expiry,
-    })),
-  });
+  console.log("쿠폰 요청 사용자:", username);
+
+  const users = safeReadFile(userDataPath);
+  const user = users.find((u) => u.username === username);
+
+  if (!user) {
+    console.error("유저를 찾을 수 없습니다:", username);
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  const coupons = user.coupons || [];
+  console.log("사용자 쿠폰 목록:", coupons);
+
+  res.json({ coupons });
 });
 
 // API: 사용자 정보 가져오기
@@ -211,7 +214,10 @@ app.get("/api/get-user-info", (req, res) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
+  console.log("받은 토큰:", token); // 디버깅용 로그
+
   if (!token) {
+    console.error("토큰이 없습니다.");
     return res
       .status(401)
       .json({ success: false, message: "인증 토큰이 필요합니다." });
@@ -219,20 +225,26 @@ app.get("/api/get-user-info", (req, res) => {
 
   jwt.verify(token, serialKey, (err, decoded) => {
     if (err) {
+      console.error("토큰 검증 실패:", err.message);
       return res
         .status(403)
         .json({ success: false, message: "유효하지 않은 토큰입니다." });
     }
 
+    console.log("디코딩된 사용자 정보:", decoded); // 디버깅용 로그
+
     const users = safeReadFile(userDataPath);
     const user = users.find((user) => user.id === decoded.id);
 
     if (!user) {
+      console.error("유저를 찾을 수 없습니다. ID:", decoded.id);
       return res.status(404).json({
         success: false,
         message: "유저를 찾을 수 없습니다.",
       });
     }
+
+    console.log("찾은 유저:", user); // 디버깅용 로그
 
     res.json({
       success: true,
@@ -465,6 +477,8 @@ app.put(
     res.json({ success: true, reviews: reviews[productId] });
   }
 );
+
+//쿠폰 API 엔드 포인트 확인
 
 // 서버 실행
 app.listen(port, () => {
