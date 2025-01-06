@@ -478,7 +478,129 @@ app.put(
   }
 );
 
-//쿠폰 API 엔드 포인트 확인
+// API: 기본 배송지 설정
+app.put("/api/addresses/:id/default", authenticateUser, (req, res) => {
+  const { id } = req.params;
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((user) => user.id === req.user.id);
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const user = users[userIndex];
+  user.addresses.forEach((addr) => (addr.isDefault = false)); // 모든 배송지 기본값 해제
+  const addressIndex = user.addresses.findIndex(
+    (addr) => addr.id === parseInt(id)
+  );
+
+  if (addressIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "배송지를 찾을 수 없습니다." });
+  }
+
+  user.addresses[addressIndex].isDefault = true; // 새로운 기본 배송지 설정
+  users[userIndex] = user;
+  safeWriteFile(userDataPath, users);
+
+  res.json({ success: true, addresses: user.addresses });
+});
+
+// API: 배송지 목록 조회
+app.get("/api/addresses", authenticateUser, (req, res) => {
+  const users = safeReadFile(userDataPath);
+  const user = users.find((user) => user.id === req.user.id);
+
+  if (!user) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  res.json({ success: true, addresses: user.addresses || [] });
+});
+
+// API: 배송지 추가
+app.post("/api/addresses", authenticateUser, (req, res) => {
+  const { address } = req.body;
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((user) => user.id === req.user.id);
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const user = users[userIndex];
+  if (!user.addresses) {
+    user.addresses = [];
+  }
+
+  const newAddress = { id: Date.now(), address };
+  user.addresses.push(newAddress);
+
+  users[userIndex] = user;
+  safeWriteFile(userDataPath, users);
+
+  res.json({ success: true, addresses: user.addresses });
+});
+
+// API: 배송지 수정
+app.put("/api/addresses/:id", authenticateUser, (req, res) => {
+  const { id } = req.params;
+  const { address } = req.body;
+
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((user) => user.id === req.user.id);
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const user = users[userIndex];
+  const addressIndex = user.addresses.findIndex((a) => a.id === parseInt(id));
+
+  if (addressIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "배송지를 찾을 수 없습니다." });
+  }
+
+  user.addresses[addressIndex].address = address;
+
+  users[userIndex] = user;
+  safeWriteFile(userDataPath, users);
+
+  res.json({ success: true, addresses: user.addresses });
+});
+
+// API: 배송지 삭제
+app.delete("/api/addresses/:id", authenticateUser, (req, res) => {
+  const { id } = req.params;
+
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((user) => user.id === req.user.id);
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const user = users[userIndex];
+  user.addresses = user.addresses.filter((a) => a.id !== parseInt(id));
+
+  users[userIndex] = user;
+  safeWriteFile(userDataPath, users);
+
+  res.json({ success: true, addresses: user.addresses });
+});
 
 // 서버 실행
 app.listen(port, () => {

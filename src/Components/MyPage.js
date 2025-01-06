@@ -8,6 +8,7 @@ import OrderInquiry from "./MyPageFolder/OrderInquiry";
 import CouponList from "./MyPageFolder/CouponList";
 import EditUserInfo from "./MyPageFolder/EditUserInfo";
 import { useLogged } from "./LoggedContext";
+import AddressManagement from "./MyPageFolder/AddressManagement";
 
 function MyPage() {
   const [username, setUsername] = useState("");
@@ -218,6 +219,8 @@ function MyPage() {
                 orderActive={orderActive}
                 setOrderActive={setOrderActive}
               />
+            ) : selectedTab === "배송 주소록 관리" ? (
+              <AddressManagement />
             ) : (
               <div className="myPage-orders">
                 <div className="myPage-order-status">
