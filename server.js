@@ -525,7 +525,7 @@ app.get("/api/addresses", authenticateUser, (req, res) => {
 
 // API: 배송지 추가
 app.post("/api/addresses", authenticateUser, (req, res) => {
-  const { address } = req.body;
+  const { addressName, name, phone, address, request } = req.body;
   const users = safeReadFile(userDataPath);
   const userIndex = users.findIndex((user) => user.id === req.user.id);
 
@@ -540,9 +540,21 @@ app.post("/api/addresses", authenticateUser, (req, res) => {
     user.addresses = [];
   }
 
-  const newAddress = { id: Date.now(), address };
-  user.addresses.push(newAddress);
+  // 필요한 경우 crypto 모듈 사용
+  const { v4: uuidv4 } = require("uuid");
 
+  // ID 생성 방식 변경
+  const newAddress = {
+    id: uuidv4(), // UUID로 고유 ID 생성
+    addressName,
+    name,
+    phone,
+    address,
+    request,
+    isDefault: user.addresses.length === 0,
+  };
+
+  user.addresses.push(newAddress);
   users[userIndex] = user;
   safeWriteFile(userDataPath, users);
 
