@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./AddressManagement.css";
 import AddressAdd from "./AddressAdd";
+import AddressEdit from "./AddressEdit";
 
 function AddressManagement() {
   const [addresses, setAddresses] = useState([]); // 배송지 목록
   const [defaultAddress, setDefaultAddress] = useState(null); // 기본 배송지 ID
   const [selectedAddress, setSelectedAddress] = useState(null); // 원 체크된 배송지 ID
   const [addCurrentPage, setAddCurrentPage] = useState("manage");
+  const [editingAddressId, setEditingAddressId] = useState(null);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -96,7 +98,7 @@ function AddressManagement() {
 
   return (
     <div className="address-management">
-      {addCurrentPage === "manage" ? (
+      {addCurrentPage === "manage" && (
         <>
           <h2 className="address-management-title">배송지 관리</h2>
           <hr className="address-divider" /> {/* 구분선 추가 */}
@@ -120,22 +122,44 @@ function AddressManagement() {
                     />
                   </div>
                   <div className="address-box">
-                    {defaultAddress === address.id && (
-                      <span className="address-default-label">
-                        기본배송
-                      </span> /* 기본 배송지 표시 */
-                    )}
-                    <span
-                      className="address-text"
-                      style={{ fontWeight: "bold" }}
-                    >
-                      {address.addressName}
-                    </span>
+                    <div className="address-box-list">
+                      {defaultAddress === address.id && (
+                        <span className="address-default-label">
+                          기본배송
+                        </span> /* 기본 배송지 표시 */
+                      )}
+                      <span
+                        className="address-text"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        {address.addressName}
+                      </span>
 
-                    <span className="address-text">{address.name}</span>
-                    <span className="address-text">{address.phone}</span>
-                    <span className="address-text">{address.address}</span>
-                    <span className="address-text">{address.request}</span>
+                      <span className="address-text">{address.name}</span>
+                      <span className="address-text">{address.phone}</span>
+                      <span className="address-text">{address.address}</span>
+                      <span className="address-text">{address.request}</span>
+                    </div>
+                    <div className="address-bottom-buttons">
+                      <button
+                        className="address-edit-btn"
+                        onClick={() => {
+                          setEditingAddressId(String(address.id)); // ID를 문자열로 변환
+                          setAddCurrentPage("edit");
+                        }}
+                      >
+                        수정
+                      </button>
+                      <button
+                        className="address-delete-btn"
+                        onClick={() =>
+                          selectedAddress &&
+                          handleDeleteAddress(selectedAddress)
+                        }
+                      >
+                        삭제
+                      </button>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -156,22 +180,19 @@ function AddressManagement() {
                 기본배송 설정
               </button>
             </div>
-            <div className="address-bottom-buttons">
-              <button className="address-edit-btn">수정</button>
-              <button
-                className="address-delete-btn"
-                onClick={() =>
-                  selectedAddress && handleDeleteAddress(selectedAddress)
-                }
-              >
-                삭제
-              </button>
-            </div>
           </div>
         </>
-      ) : (
+      )}
+      {addCurrentPage === "add" && (
         <AddressAdd
           setAddCurrentPage={setAddCurrentPage}
+          refreshAddresses={refreshAddresses}
+        />
+      )}
+      {addCurrentPage === "edit" && (
+        <AddressEdit
+          setAddCurrentPage={setAddCurrentPage}
+          addressId={editingAddressId}
           refreshAddresses={refreshAddresses}
         />
       )}

@@ -1,0 +1,66 @@
+.address-edit {
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.address-eidt-title {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.address-edit-form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.address-edit-form input,
+.address-edit-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.address-edit-form textarea {
+  resize: none;
+  height: 80px;
+}
+
+.address-edit-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.back-btn,
+.submit-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-btn {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.back-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.submit-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}

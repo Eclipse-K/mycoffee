@@ -561,10 +561,34 @@ app.post("/api/addresses", authenticateUser, (req, res) => {
   res.json({ success: true, addresses: user.addresses });
 });
 
+// API: 특정 배송지 정보 조회
+app.get("/api/addresses/:id", authenticateUser, (req, res) => {
+  const { id } = req.params;
+  const users = safeReadFile(userDataPath);
+  const user = users.find((user) => user.id === req.user.id);
+
+  if (!user) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  // ID를 문자열로 비교
+  const address = user.addresses.find((addr) => String(addr.id) === String(id));
+
+  if (!address) {
+    return res
+      .status(404)
+      .json({ success: false, message: "배송지를 찾을 수 없습니다." });
+  }
+
+  res.json(address);
+});
+
 // API: 배송지 수정
 app.put("/api/addresses/:id", authenticateUser, (req, res) => {
   const { id } = req.params;
-  const { address } = req.body;
+  const { addressName, name, phone, address, request } = req.body; // 모든 필드 받기
 
   const users = safeReadFile(userDataPath);
   const userIndex = users.findIndex((user) => user.id === req.user.id);
@@ -576,7 +600,9 @@ app.put("/api/addresses/:id", authenticateUser, (req, res) => {
   }
 
   const user = users[userIndex];
-  const addressIndex = user.addresses.findIndex((a) => a.id === parseInt(id));
+  const addressIndex = user.addresses.findIndex(
+    (a) => String(a.id) === String(id)
+  ); // 문자열로 비교
 
   if (addressIndex === -1) {
     return res
@@ -584,8 +610,15 @@ app.put("/api/addresses/:id", authenticateUser, (req, res) => {
       .json({ success: false, message: "배송지를 찾을 수 없습니다." });
   }
 
-  user.addresses[addressIndex].address = address;
+  // 필드 업데이트
+  const addressToUpdate = user.addresses[addressIndex];
+  addressToUpdate.addressName = addressName || addressToUpdate.addressName;
+  addressToUpdate.name = name || addressToUpdate.name;
+  addressToUpdate.phone = phone || addressToUpdate.phone;
+  addressToUpdate.address = address || addressToUpdate.address;
+  addressToUpdate.request = request || addressToUpdate.request;
 
+  // 파일 저장
   users[userIndex] = user;
   safeWriteFile(userDataPath, users);
 
