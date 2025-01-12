@@ -647,6 +647,120 @@ app.delete("/api/addresses/:id", authenticateUser, (req, res) => {
   res.json({ success: true, addresses: user.addresses });
 });
 
+// API: 나의 문의 목록 조회
+app.get("/api/my-inquiries", authenticateUser, (req, res) => {
+  const users = safeReadFile(userDataPath);
+  const user = users.find((user) => user.id === req.user.id);
+
+  if (!user) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const inquiries = user.inquiries || []; // 문의 데이터
+  res.json({ success: true, inquiries });
+});
+
+const { v4: uuidv4 } = require("uuid"); // 파일 상단에 추가
+
+// API: 문의 추가
+app.post("/api/my-inquiries", authenticateUser, (req, res) => {
+  const { title, content } = req.body;
+
+  // 입력값 확인
+  if (!title || !content) {
+    console.error("문의 추가 실패: 제목 또는 내용이 비어 있음");
+    return res
+      .status(400)
+      .json({ success: false, message: "제목과 내용을 입력해주세요." });
+  }
+
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((user) => user.id === req.user.id);
+
+  if (userIndex === -1) {
+    console.error("문의 추가 실패: 유저를 찾을 수 없음");
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const user = users[userIndex];
+  if (!user.inquiries) {
+    user.inquiries = [];
+  }
+
+  // UUID로 고유 ID 생성
+  let newInquiry;
+  try {
+    console.log("UUID 생성 시도...");
+    const generatedUuid = uuidv4(); // UUID 생성
+    console.log("생성된 UUID:", generatedUuid);
+
+    newInquiry = {
+      id: generatedUuid, // 고유한 UUID 사용
+      title,
+      content,
+      date: new Date().toISOString(),
+    };
+    console.log("새 문의 데이터 생성 성공:", newInquiry);
+  } catch (error) {
+    console.error("UUID 생성 실패:", error);
+    return res.status(500).json({
+      success: false,
+      message: "문의 ID 생성 중 오류가 발생했습니다.",
+    });
+  }
+
+  // 문의 데이터 추가
+  try {
+    user.inquiries.push(newInquiry);
+    users[userIndex] = user;
+    safeWriteFile(userDataPath, users);
+    console.log("문의 데이터 저장 성공");
+    res.json({ success: true, inquiries: user.inquiries });
+  } catch (error) {
+    console.error("문의 저장 실패:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "문의 저장 중 오류가 발생했습니다." });
+  }
+});
+
+// API: 문의 삭제
+app.delete("/api/my-inquiries/:id", authenticateUser, (req, res) => {
+  const { id } = req.params;
+
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((user) => user.id === req.user.id);
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const user = users[userIndex];
+  if (!user.inquiries) {
+    user.inquiries = [];
+  }
+
+  // 문의 삭제
+  const inquiryIndex = user.inquiries.findIndex((inquiry) => inquiry.id === id);
+  if (inquiryIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "문의가 존재하지 않습니다." });
+  }
+
+  user.inquiries.splice(inquiryIndex, 1); // 해당 문의 삭제
+  users[userIndex] = user;
+  safeWriteFile(userDataPath, users);
+
+  res.json({ success: true, inquiries: user.inquiries }); // 갱신된 목록 반환
+});
+
 // 서버 실행
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

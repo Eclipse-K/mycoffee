@@ -1,0 +1,126 @@
+.my-inquiries {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.my-inquiries-title {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.inquiries-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.inquiry-item {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  position: relative;
+}
+
+.inquiry-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.inquiry-content {
+  margin-bottom: 10px;
+}
+
+.inquiry-date {
+  font-size: 12px;
+  color: #666;
+}
+
+.inquiry-delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.inquiry-delete-btn:hover {
+  background-color: #d9363e;
+}
+
+.inquiry-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inquiry-form-title {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+.inquiry-input,
+.inquiry-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.inquiry-textarea {
+  height: 100px;
+  resize: none;
+}
+
+.inquiry-buttons {
+  text-align: right;
+}
+
+.inquiry-submit-btn,
+.add-inquiry-btn,
+.back-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.inquiry-submit-btn,
+.add-inquiry-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.inquiry-submit-btn:hover,
+.add-inquiry-btn:hover {
+  background-color: #0056b3;
+}
+
+.back-btn {
+  background-color: #f5f5f5;
+  color: #333;
+  margin-right: 0;
+}
+
+.back-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.inquiries-divider {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: 20px 0;
+}

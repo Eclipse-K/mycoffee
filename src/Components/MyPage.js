@@ -9,6 +9,7 @@ import CouponList from "./MyPageFolder/CouponList";
 import EditUserInfo from "./MyPageFolder/EditUserInfo";
 import { useLogged } from "./LoggedContext";
 import AddressManagement from "./MyPageFolder/AddressManagement";
+import MyInquiries from "./MyPageFolder/MyInquiries";
 
 function MyPage() {
   const [username, setUsername] = useState("");
@@ -221,6 +222,8 @@ function MyPage() {
               />
             ) : selectedTab === "배송 주소록 관리" ? (
               <AddressManagement />
+            ) : selectedTab === "나의 문의" ? (
+              <MyInquiries />
             ) : (
               <div className="myPage-orders">
                 <div className="myPage-order-status">
