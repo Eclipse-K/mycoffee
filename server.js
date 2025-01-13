@@ -390,91 +390,125 @@ app.post("/api/verify-password", (req, res) => {
   });
 });
 
+const getTitleById = (id) => {
+  const coffeeData = safeReadFile(coffeeFilePath);
+  for (const category in coffeeData) {
+    const product = coffeeData[category].find(
+      (item) => item.id === parseInt(id)
+    );
+    if (product) return product.title;
+  }
+  return null;
+};
+
 //특정 상품의 후기 가져오기
-app.get("/api/reviews/:productId", (req, res) => {
-  const { productId } = req.params;
+app.get("/api/reviews/:productTitle", (req, res) => {
+  const { productTitle } = req.params;
   const reviews = safeReadFile(reviewsFilePath);
 
-  // 상품 ID에 해당하는 리뷰 반환
-  const productReviews = reviews[productId] || [];
+  // 상품 제목으로 리뷰 검색
+  const productReviews = reviews[decodeURIComponent(productTitle)] || [];
   res.json(productReviews);
 });
+
+//상품 구매 이력 저장/조회
+const purchaseHistoryPath = path.join(__dirname, "./src/PurchaseHistory.json");
+
+if (!fs.existsSync(purchaseHistoryPath)) {
+  fs.writeFileSync(purchaseHistoryPath, JSON.stringify([]), "utf-8");
+}
+
+const hasPurchaseHistory = (userId, productId) => {
+  const purchaseHistory = safeReadFile(purchaseHistoryPath);
+  return purchaseHistory.some(
+    (entry) => entry.userId === userId && entry.productId === productId
+  );
+};
 
 //상품 후기를 저장
 app.post("/api/reviews", authenticateUser, (req, res) => {
   const { productId, reviewContent } = req.body;
   const reviews = safeReadFile(reviewsFilePath);
 
-  if (!reviews[productId]) {
-    reviews[productId] = []; // 해당 상품 ID가 없으면 초기화
+  const productTitle = getTitleById(productId);
+  if (!productTitle) {
+    return res.status(404).json({ message: "상품을 찾을 수 없습니다." });
+  }
+
+  if (!reviews[productTitle]) {
+    reviews[productTitle] = []; // 해당 상품 타이틀이 없으면 초기화
   }
 
   const newReview = {
-    user: req.user.username, // 토큰에서 가져온 사용자 이름
+    user: req.user.username,
     content: reviewContent,
     date: new Date().toISOString().split("T")[0],
   };
 
-  reviews[productId].push(newReview);
+  reviews[productTitle].push(newReview);
   safeWriteFile(reviewsFilePath, reviews);
 
-  res.json(reviews[productId]); // 해당 상품 ID의 후기 리스트 반환
+  res.json(reviews[productTitle]); // 해당 상품 타이틀의 리뷰 반환
 });
 
 //후기 삭제
 app.delete(
-  "/api/reviews/:productId/:reviewIndex",
+  "/api/reviews/:productTitle/:reviewIndex",
   authenticateUser,
   (req, res) => {
-    const { productId, reviewIndex } = req.params;
+    const { productTitle, reviewIndex } = req.params;
     const reviews = safeReadFile(reviewsFilePath);
 
-    if (!reviews[productId] || !reviews[productId][reviewIndex]) {
+    const decodedTitle = decodeURIComponent(productTitle); // 제목 디코딩
+    if (!reviews[decodedTitle] || !reviews[decodedTitle][reviewIndex]) {
       return res
         .status(404)
         .json({ success: false, message: "리뷰를 찾을 수 없습니다." });
     }
 
-    const review = reviews[productId][reviewIndex];
+    const review = reviews[decodedTitle][reviewIndex];
     if (review.user !== req.user.username) {
       return res
         .status(403)
         .json({ success: false, message: "삭제 권한이 없습니다." });
     }
 
-    reviews[productId].splice(reviewIndex, 1); // 해당 리뷰 삭제
+    // 해당 리뷰 삭제
+    reviews[decodedTitle].splice(reviewIndex, 1);
     safeWriteFile(reviewsFilePath, reviews);
 
-    res.json({ success: true, reviews: reviews[productId] }); // 해당 상품 ID의 리뷰 반환
+    res.json({ success: true, reviews: reviews[decodedTitle] });
   }
 );
 
 //후기 수정
 app.put(
-  "/api/reviews/:productId/:reviewIndex",
+  "/api/reviews/:productTitle/:reviewIndex",
   authenticateUser,
   (req, res) => {
-    const { productId, reviewIndex } = req.params;
+    const { productTitle, reviewIndex } = req.params;
     const { reviewContent } = req.body;
     const reviews = safeReadFile(reviewsFilePath);
 
-    if (!reviews[productId] || !reviews[productId][reviewIndex]) {
+    const decodedTitle = decodeURIComponent(productTitle); // 제목 디코딩
+    if (!reviews[decodedTitle] || !reviews[decodedTitle][reviewIndex]) {
       return res
         .status(404)
         .json({ success: false, message: "리뷰를 찾을 수 없습니다." });
     }
 
-    const review = reviews[productId][reviewIndex];
+    const review = reviews[decodedTitle][reviewIndex];
     if (review.user !== req.user.username) {
       return res
         .status(403)
         .json({ success: false, message: "수정 권한이 없습니다." });
     }
 
-    reviews[productId][reviewIndex].content = reviewContent; // 리뷰 수정
+    // 리뷰 내용 수정
+    reviews[decodedTitle][reviewIndex].content = reviewContent;
     safeWriteFile(reviewsFilePath, reviews);
 
-    res.json({ success: true, reviews: reviews[productId] });
+    res.json({ success: true, reviews: reviews[decodedTitle] });
   }
 );
 

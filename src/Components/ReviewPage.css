@@ -1,0 +1,121 @@
+.ReviewPage {
+  padding: 0 0 16px 0;
+}
+
+.ReviewPage h3 {
+  margin: 0;
+}
+
+.ReviewForm {
+  margin: 16px 0;
+}
+
+.ReviewForm textarea {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.ReviewForm button {
+  margin-top: 8px;
+  padding: 10px 20px;
+  background-color: #0078ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ReviewList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  min-height: 64px;
+}
+
+.ReviewItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  gap: 8px;
+}
+
+.ReviewItem-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.ReviewItem-textarea {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.ReviewActions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.ReviewContent {
+  margin: 0;
+}
+
+.ReviewItem span {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
+.ReviewItem-Save,
+.ReviewItem-Cancer {
+  background-color: #0078ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.ReviewItem-Save:hover,
+.ReviewItem-Cancer:hover {
+  background-color: #0056c2;
+}
+
+.ReviewItem-Save:disabled,
+.ReviewItem-Cancer:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.ReviewButton-EditDelete {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 8px;
+}
+
+.ReviewButton-EditDelete svg {
+  width: 24px;
+  height: 100%;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+
+.ReviewButton-EditDelete svg:hover {
+  cursor: pointer;
+}

@@ -1,131 +1,30 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import CoffeeJson from "../Coffee.json";
 import "./CategoryDetail.css";
 import CoffeeAromaRadarChart from "./CoffeeAromaRadarChart";
 import { CartContext } from "./CartContext";
-import axios from "axios";
-import { CiEdit } from "react-icons/ci";
-import { RiDeleteBin5Line } from "react-icons/ri";
+import ReviewPage from "./ReviewPage"; // ReviewPage 추가
 
 function CategoryDetail() {
   const { category, id } = useParams();
   const navigate = useNavigate();
   const [viewPageTab, setViewPageTab] = useState(0);
   const { addToCart } = useContext(CartContext);
-  const [showCartPopup, setShowCartPopup] = useState(false); //팝업 상태 관리
-  const [reviews, setReviews] = useState([]);
-  const [newReview, setNewReview] = useState("");
-  const [reviewLoggedIn, setReviewLoggedIn] = useState(false);
-  const reviewUser = useRef(""); // 상태 대신 로컬 변수로 처리
-  const [editingIndex, setEditingIndex] = useState(null); // 수정 중인 리뷰 인덱스
-  const [editReviewContent, setEditReviewContent] = useState(""); // 수정할 내용
+  const [showCartPopup, setShowCartPopup] = useState(false);
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    let isMounted = true; // 컴포넌트 언마운트를 방지하기 위한 플래그
+  // 유효한 category 인지 체크
+  if (!CoffeeJson[category]) {
+    return <div>존재하지 않는 카테고리입니다. (category: {category})</div>;
+  }
 
-    // 초기 리뷰 로드
-    axios
-      .get(`/api/reviews/${id}`)
-      .then((res) => {
-        if (isMounted) {
-          setReviews(res.data || []); // 서버에서 가져온 리뷰 데이터 설정
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to load reviews:", err);
-      });
+  const pagedetail = CoffeeJson[category].find(
+    (pagedetail) => pagedetail.id === parseInt(id)
+  );
 
-    // 사용자 인증 상태 확인
-    if (token) {
-      axios
-        .post("/api/verify-token", { token })
-        .then((res) => {
-          if (isMounted) {
-            setReviewLoggedIn(true);
-            reviewUser.current = res.data.username;
-          }
-        })
-        .catch(() => {
-          if (isMounted) {
-            setReviewLoggedIn(false);
-          }
-        });
-    }
-
-    return () => {
-      isMounted = false; // 컴포넌트가 언마운트될 때 플래그 해제
-    };
-  }, [id]);
-
-  const handleAddReview = () => {
-    if (!newReview.trim()) return alert("후기를 입력해주세요!");
-    if (!reviewLoggedIn) return alert("로그인이 필요합니다.");
-
-    const token = sessionStorage.getItem("token");
-    const reviewToAdd = {
-      productId: id,
-      reviewContent: newReview,
-    };
-
-    axios
-      .post("/api/reviews", reviewToAdd, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        setReviews((prevReviews) => [...prevReviews, ...res.data]); // 새 리뷰 추가
-        setNewReview(""); // 입력 필드 초기화
-      })
-      .catch((err) => {
-        console.error("Error adding review:", err);
-        alert("후기 작성 중 오류가 발생했습니다. 다시 시도해주세요.");
-      });
-  };
-
-  const handleDeleteReview = (reviewIndex) => {
-    const token = sessionStorage.getItem("token"); // sessionStorage로 변경
-
-    // 삭제 요청
-    axios
-      .delete(`/api/reviews/${id}/${reviewIndex}`, {
-        headers: { Authorization: `Bearer ${token}` }, // sessionStorage 사용
-      })
-      .then(() => {
-        setReviews((prevReviews) =>
-          prevReviews.filter((_, index) => index !== reviewIndex)
-        );
-      })
-      .catch((err) => {
-        console.error("Error deleting review:", err);
-        alert("리뷰 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
-      });
-  };
-
-  const handleEditReview = (reviewIndex) => {
-    setEditingIndex(reviewIndex);
-    setEditReviewContent(reviews[reviewIndex].content); // 기존 리뷰 내용 가져오기
-  };
-
-  const handleSaveEditReview = () => {
-    const token = sessionStorage.getItem("token"); // sessionStorage로 변경
-
-    axios
-      .put(
-        `/api/reviews/${id}/${editingIndex}`,
-        { reviewContent: editReviewContent },
-        { headers: { Authorization: `Bearer ${token}` } } // sessionStorage 사용
-      )
-      .then((res) => {
-        setReviews(res.data); // 수정 후 최신 리뷰 리스트 업데이트
-        setEditingIndex(null); // 수정 모드 종료
-        setEditReviewContent(""); // 수정 내용 초기화
-      })
-      .catch((err) => {
-        console.error("Error editing review:", err);
-        alert("리뷰 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
-      });
-  };
+  if (!pagedetail) {
+    return <div>상품을 찾을 수 없습니다. (id: {id})</div>;
+  }
 
   const detailAddToCart = () => {
     addToCart(pagedetail);
@@ -144,19 +43,6 @@ function CategoryDetail() {
     window.scrollTo(0, 0);
     navigate(-1);
   };
-
-  // 유효한 category 인지 체크
-  if (!CoffeeJson[category]) {
-    return <div>존재하지 않는 카테고리입니다. (category: {category})</div>;
-  }
-
-  const pagedetail = CoffeeJson[category].find(
-    (pagedetail) => pagedetail.id === parseInt(id)
-  );
-
-  if (!pagedetail) {
-    return <div>상품을 찾을 수 없습니다. (id: {id})</div>;
-  }
 
   const handleViewPageClick = (index) => {
     setViewPageTab(index);
@@ -196,7 +82,6 @@ function CategoryDetail() {
                 <tr>
                   <th>적립금</th>
                   <td>
-                    {" "}
                     구매금액의 1% (회원 구매시) | 네이버페이 비회원 주문 건은
                     네이버페이 포인트로 적립됩니다.
                   </td>
@@ -277,25 +162,6 @@ function CategoryDetail() {
               기본으로 배송해 드립니다. 배송 메시지에 분쇄 요청해 주셔도
               홀빈으로 발송되는 점 양해 부탁드립니다.
             </p>
-            <p>
-              정해진 용량으로만 제공해 드리고 있으며, 소분은 해드리고 있지
-              않습니다.
-            </p>
-            <p>
-              주문하신 상품은 로젠택배를 통해 배송됩니다. 기본 배송비는
-              3,000원이며, 3만 원 이상 주문 시 무료 배송됩니다. 제주도 및
-              도서산간 지역은 기본 배송비에 3,000원이 추가됩니다. 방문 픽업은
-              지원하지 않고 있습니다.
-            </p>
-            <p>
-              일요일~목요일 주문은 익일 순차적으로 출고됩니다(택배사 휴무일
-              제외). 금/토요일 주문은 차주 월요일에 출고됩니다. 택배사 사정에
-              따라 배송 지연이 있을 수 있습니다.
-            </p>
-            <p>
-              선물하기의 경우, 선물 받은 분께서 48시간 이내로 배송지를
-              입력하시면 배송이 시작됩니다.
-            </p>
           </div>
         )}
         {viewPageTab === 2 && (
@@ -303,98 +169,11 @@ function CategoryDetail() {
             <h3>교환 및 반품안내</h3>
             <p>
               받아보신 물품에 문제가 있을 경우, 배송 완료일로부터 7일 이내에
-              교환 또는 반품을 요청하실 수 있습니다. 우측 하단의 채팅 상담을
-              통해서 알려주세요.
-            </p>
-            <p>
-              이용자에게 책임 있는 사유로 상품(포장 제외, 그외 부속 물품 포함)이
-              훼손 또는 분실됐을 경우와, 단순 변심 또는 주문 착오에 의한 반품 및
-              환불은 도와드리고 있지 않습니다.
-            </p>
-            <p>
-              선물하기의 경우, 선물 받은 분께서 배송지 입력 전에 동일한 가격의
-              옵션으로 변경할 수 있습니다.
-            </p>
-            <p>
-              선물하기의 경우, 선물 받은 분께서 48시간 이내로 배송지를 입력하지
-              않으시면 선물하신 분께 자동으로 환불 처리됩니다. 무통장입금으로
-              주문하셨을 경우에는 적립금으로 환급됩니다.
+              교환 또는 반품을 요청하실 수 있습니다.
             </p>
           </div>
         )}
-        {viewPageTab === 3 && (
-          <div className="DetailPage-TabContent">
-            <h3>상품후기</h3>
-            {reviewLoggedIn ? (
-              <div className="ReviewForm">
-                <textarea
-                  placeholder="후기를 작성해주세요"
-                  value={newReview}
-                  onChange={(e) => setNewReview(e.target.value)}
-                />
-                <button onClick={handleAddReview}>작성</button>
-              </div>
-            ) : (
-              <p>
-                후기를 작성하려면 <Link to="/Login">로그인</Link> 해주세요.
-              </p>
-            )}
-
-            <div className="ReviewList">
-              {reviews.length > 0 ? (
-                reviews.map((review, index) => (
-                  <div key={index}>
-                    <div className="ReviewItem">
-                      {editingIndex === index ? (
-                        <div className="ReviewItem-Editarea">
-                          <textarea
-                            value={editReviewContent}
-                            onChange={(e) =>
-                              setEditReviewContent(e.target.value)
-                            }
-                          />
-                          <div className="ReviewItem-Editarea-buttons">
-                            <button
-                              className="ReviewItem-Save"
-                              onClick={handleSaveEditReview}
-                            >
-                              저장
-                            </button>
-                            <button
-                              className="ReviewItem-Cancer"
-                              onClick={() => setEditingIndex(null)}
-                            >
-                              취소
-                            </button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="ReviewContent">
-                          <p>{review.content}</p>
-                          <span>
-                            {review.user} | {review.date}
-                          </span>
-                        </div>
-                      )}
-                      {review.user === reviewUser.current && (
-                        <div className="ReviewButton-EditDelete">
-                          <CiEdit onClick={() => handleEditReview(index)} />
-                          <RiDeleteBin5Line
-                            onClick={() => handleDeleteReview(index)}
-                          />
-                        </div>
-                      )}
-                    </div>
-                    {/* 마지막 항목이 아닌 경우에만 구분선 추가 */}
-                    {index < reviews.length - 1 && <hr />}
-                  </div>
-                ))
-              ) : (
-                <p>이 상품에 대한 후기가 없습니다.</p>
-              )}
-            </div>
-          </div>
-        )}
+        {viewPageTab === 3 && <ReviewPage productTitle={pagedetail.title} />}
       </div>
     </div>
   );
