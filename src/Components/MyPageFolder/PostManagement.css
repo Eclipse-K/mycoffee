@@ -1,0 +1,42 @@
+.post-management {
+  padding: 20px;
+}
+
+.post-list {
+  margin-top: 20px;
+}
+
+.post-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.post-content {
+  margin-left: 10px;
+}
+
+.post-content h3 {
+  margin: 0 0 5px;
+}
+
+.post-content p {
+  margin: 0;
+}
+
+.delete-posts-btn {
+  background-color: #ff4d4f;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.delete-posts-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

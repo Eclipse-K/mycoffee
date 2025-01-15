@@ -17,23 +17,50 @@ function ReviewPage({ productTitle }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
 
-    // 리뷰 가져오기
-    axios
-      .get(`/api/reviews/${encodeURIComponent(productTitle)}`)
-      .then((res) => setReviews(res.data || []))
-      .catch((err) => console.error("Failed to load reviews:", err));
+    if (token) {
+      axios
+        .get(`/api/reviews/${encodeURIComponent(productTitle)}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          const reviewsArray = res.data.reviews || [];
+          setReviews(
+            Array.isArray(reviewsArray)
+              ? reviewsArray
+              : Object.values(reviewsArray).flat()
+          );
+        })
+        .catch((err) => {
+          console.error("Failed to load reviews:", err);
+          alert("리뷰를 불러오는 중 오류가 발생했습니다.");
+        });
+    } else {
+      alert("로그인이 필요합니다.");
+    }
+  }, [productTitle]);
 
-    // 로그인 상태 확인
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+
     if (token) {
       axios
         .post("/api/verify-token", { token })
         .then((res) => {
-          setReviewLoggedIn(true);
-          reviewUser.current = res.data.username;
+          if (res.data.success) {
+            setReviewLoggedIn(true);
+            reviewUser.current = res.data.username; // 사용자 이름 저장
+          } else {
+            setReviewLoggedIn(false);
+          }
         })
-        .catch(() => setReviewLoggedIn(false));
+        .catch((err) => {
+          console.error("Token verification failed:", err);
+          setReviewLoggedIn(false);
+        });
+    } else {
+      setReviewLoggedIn(false);
     }
-  }, [productTitle]);
+  }, []);
 
   // 리뷰 작성
   const handleAddReview = () => {
@@ -48,8 +75,13 @@ function ReviewPage({ productTitle }) {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
-        setReviews(res.data);
-        setNewReview("");
+        const updatedReviews = res.data.reviews || [];
+        setReviews(
+          Array.isArray(updatedReviews)
+            ? updatedReviews
+            : Object.values(updatedReviews).flat()
+        );
+        setNewReview(""); // 입력 필드 초기화
       })
       .catch((err) => {
         console.error("Error adding review:", err);
@@ -60,11 +92,19 @@ function ReviewPage({ productTitle }) {
   // 리뷰 삭제
   const handleDeleteReview = (index) => {
     const token = sessionStorage.getItem("token");
+
     axios
       .delete(`/api/reviews/${encodeURIComponent(productTitle)}/${index}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setReviews(res.data))
+      .then((res) => {
+        const updatedReviews = res.data.reviews || [];
+        setReviews(
+          Array.isArray(updatedReviews)
+            ? updatedReviews
+            : Object.values(updatedReviews).flat()
+        );
+      })
       .catch((err) => {
         console.error("Error deleting review:", err);
         alert("리뷰 삭제 중 오류가 발생했습니다.");
@@ -80,6 +120,7 @@ function ReviewPage({ productTitle }) {
   // 리뷰 수정 저장
   const handleSaveEditReview = () => {
     const token = sessionStorage.getItem("token");
+
     axios
       .put(
         `/api/reviews/${encodeURIComponent(productTitle)}/${editingIndex}`,
@@ -87,9 +128,14 @@ function ReviewPage({ productTitle }) {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
-        setReviews(res.data);
-        setEditingIndex(null);
-        setEditReviewContent("");
+        const updatedReviews = res.data.reviews || [];
+        setReviews(
+          Array.isArray(updatedReviews)
+            ? updatedReviews
+            : Object.values(updatedReviews).flat()
+        );
+        setEditingIndex(null); // 수정 모드 종료
+        setEditReviewContent(""); // 입력 필드 초기화
       })
       .catch((err) => {
         console.error("Error editing review:", err);

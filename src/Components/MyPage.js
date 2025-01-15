@@ -1,4 +1,3 @@
-// myPage.js
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,6 +9,7 @@ import EditUserInfo from "./MyPageFolder/EditUserInfo";
 import { useLogged } from "./LoggedContext";
 import AddressManagement from "./MyPageFolder/AddressManagement";
 import MyInquiries from "./MyPageFolder/MyInquiries";
+import PostManagement from "./MyPageFolder/PostManagement";
 
 function MyPage() {
   const [username, setUsername] = useState("");
@@ -224,6 +224,8 @@ function MyPage() {
               <AddressManagement />
             ) : selectedTab === "나의 문의" ? (
               <MyInquiries />
+            ) : selectedTab === "나의 게시물 관리" ? (
+              <PostManagement />
             ) : (
               <div className="myPage-orders">
                 <div className="myPage-order-status">
