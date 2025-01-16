@@ -260,6 +260,79 @@ app.get("/api/get-user-info", (req, res) => {
   });
 });
 
+// API: 만료된 쿠폰 제거
+app.get("/api/user-coupons", (req, res) => {
+  const { username } = req.query;
+  if (!username) {
+    return res.status(400).json({ error: "Username is required" });
+  }
+
+  const users = safeReadFile(userDataPath);
+  const user = users.find((u) => u.username === username);
+
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  const now = new Date();
+  user.coupons = (user.coupons || []).filter((coupon) => {
+    const expiryDate = new Date(coupon.expiry);
+    return expiryDate >= now; // 만료되지 않은 쿠폰만 유지
+  });
+
+  safeWriteFile(userDataPath, users);
+  res.json({ coupons: user.coupons });
+});
+
+// API: 쿠폰 받기
+app.post("/api/claim-coupon", authenticateUser, (req, res) => {
+  const { couponId } = req.body;
+
+  const availableCoupons = [
+    { id: 1, name: "10% 할인 쿠폰", discount: 10 },
+    { id: 2, name: "무료 배송 쿠폰" },
+  ];
+
+  const coupon = availableCoupons.find((c) => c.id === couponId);
+  if (!coupon) {
+    return res.status(404).json({ error: "Coupon not found" });
+  }
+
+  const now = new Date();
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((u) => u.id === req.user.id);
+
+  if (userIndex === -1) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  const user = users[userIndex];
+  user.coupons = user.coupons || [];
+
+  // 중복 확인
+  if (
+    user.coupons.some((existingCoupon) => existingCoupon.name === coupon.name)
+  ) {
+    return res
+      .status(400)
+      .json({ error: `"${coupon.name}" 쿠폰은 이미 발급받았습니다.` });
+  }
+
+  const newCoupon = {
+    id: uuidv4(),
+    name: coupon.name,
+    discount: coupon.discount,
+    expiry: endOfMonth.toISOString().split("T")[0],
+  };
+
+  user.coupons.push(newCoupon);
+
+  safeWriteFile(userDataPath, users);
+  res.json({ success: true, coupons: user.coupons });
+});
+
 // 사용자 장바구니 가져오기
 app.get("/api/cart", (req, res) => {
   const authHeader = req.headers["authorization"];
