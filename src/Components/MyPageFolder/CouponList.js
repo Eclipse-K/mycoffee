@@ -74,7 +74,9 @@ function CouponList() {
         <p>사용 가능한 쿠폰이 없습니다.</p>
       )}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <button onClick={fetchAvailableCoupons}>쿠폰 받기</button>
+      <button className="gettingCoupons" onClick={fetchAvailableCoupons}>
+        쿠폰 받기
+      </button>
       {showPopup && (
         <div className="popup">
           <h3>사용 가능한 쿠폰</h3>

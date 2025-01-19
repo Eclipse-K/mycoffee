@@ -96,8 +96,11 @@ function CategoryDetail() {
                 </tr>
               </tbody>
             </table>
-            <div className="Basket-Button" onClick={detailAddToCart}>
-              장바구니 담기
+            <div className="CategoryDetail-Buttons">
+              <div className="Wishlist-Button">위시리스트 담기</div>
+              <div className="Deatil-Basket-Button" onClick={detailAddToCart}>
+                장바구니 담기
+              </div>
             </div>
             {showCartPopup && (
               <div className="CategoryDetail-Popup">
