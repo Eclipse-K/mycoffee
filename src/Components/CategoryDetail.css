@@ -87,6 +87,11 @@
   padding: 8px 16px;
   width: 100%;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.Wishlist-Button.active {
+  color: red;
 }
 
 .DeliveryInfo {

@@ -10,6 +10,7 @@ import { useLogged } from "./LoggedContext";
 import AddressManagement from "./MyPageFolder/AddressManagement";
 import MyInquiries from "./MyPageFolder/MyInquiries";
 import PostManagement from "./MyPageFolder/PostManagement";
+import MyWhislist from "./MyPageFolder/MyWishlist";
 
 function MyPage() {
   const [username, setUsername] = useState("");
@@ -226,6 +227,8 @@ function MyPage() {
               <MyInquiries />
             ) : selectedTab === "나의 게시물 관리" ? (
               <PostManagement />
+            ) : selectedTab === "위시리스트" ? (
+              <MyWhislist />
             ) : (
               <div className="myPage-orders">
                 <div className="myPage-order-status">

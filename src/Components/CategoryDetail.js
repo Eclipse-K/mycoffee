@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import CoffeeJson from "../Coffee.json";
 import "./CategoryDetail.css";
 import CoffeeAromaRadarChart from "./CoffeeAromaRadarChart";
 import { CartContext } from "./CartContext";
 import ReviewPage from "./ReviewPage"; // ReviewPage 추가
+import axios from "axios";
 
 function CategoryDetail() {
   const { category, id } = useParams();
@@ -12,15 +13,111 @@ function CategoryDetail() {
   const [viewPageTab, setViewPageTab] = useState(0);
   const { addToCart } = useContext(CartContext);
   const [showCartPopup, setShowCartPopup] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false); // 위시리스트 상태
+  const [uuid, setUuid] = useState(null);
+
+  // const pagedetail = CoffeeJson[category]?.find(
+  //   (item) => item.id === parseInt(id)
+  // );
+  const pagedetail = CoffeeJson[category].find(
+    (pagedetail) => pagedetail.id === parseInt(id)
+  );
+
+  // 위시리스트 상태 확인
+  useEffect(() => {
+    if (pagedetail) {
+      const token = sessionStorage.getItem("token");
+      axios
+        .get("/api/wishlist", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          // 위시리스트에서 현재 상품의 uuid 찾기
+          const itemInWishlist = response.data.find(
+            (item) => item.title === pagedetail.title // 상품 제목으로 비교
+          );
+
+          if (itemInWishlist) {
+            setUuid(itemInWishlist.uuid); // UUID 상태 설정
+            setIsInWishlist(true); // 위시리스트 상태 설정
+          } else {
+            setUuid(null); // UUID 초기화
+            setIsInWishlist(false);
+          }
+        })
+        .catch((error) => console.error("위시리스트 상태 확인 오류:", error));
+    }
+  }, [pagedetail]);
+
+  const addToWishlist = () => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+      return;
+    }
+
+    const url = "/api/wishlist/add";
+    const payload = { productId: pagedetail.id, category };
+
+    axios
+      .post(url, payload, { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          // 배열인 경우 UUID를 설정
+          const addedItem = response.data.find(
+            (item) => item.title === pagedetail.title
+          );
+          if (addedItem) {
+            setUuid(addedItem.uuid);
+            setIsInWishlist(true);
+          }
+        } else {
+          console.error("예상치 못한 응답 형식:", response.data);
+          alert("서버 응답이 올바르지 않습니다. 다시 시도해주세요.");
+        }
+      })
+      .catch((error) => {
+        console.error("위시리스트 추가 오류:", error);
+        alert("위시리스트 추가 중 오류가 발생했습니다. 다시 시도해주세요.");
+      });
+  };
+
+  const removeWishlist = () => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+      return;
+    }
+
+    if (!uuid) {
+      alert(
+        "현재 상품의 UUID를 찾을 수 없습니다. 새로고침 후 다시 시도해주세요."
+      );
+      return;
+    }
+
+    axios
+      .post(
+        "/api/wishlist/remove",
+        { uuid }, // UUID 전달
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then(() => {
+        setUuid(null); // UUID 초기화
+        setIsInWishlist(false); // 상태 업데이트
+      })
+      .catch((error) => {
+        console.error("위시리스트 제거 오류:", error);
+        alert("위시리스트 제거 중 오류가 발생했습니다. 다시 시도해주세요.");
+      });
+  };
 
   // 유효한 category 인지 체크
   if (!CoffeeJson[category]) {
     return <div>존재하지 않는 카테고리입니다. (category: {category})</div>;
   }
-
-  const pagedetail = CoffeeJson[category].find(
-    (pagedetail) => pagedetail.id === parseInt(id)
-  );
 
   if (!pagedetail) {
     return <div>상품을 찾을 수 없습니다. (id: {id})</div>;
@@ -97,7 +194,12 @@ function CategoryDetail() {
               </tbody>
             </table>
             <div className="CategoryDetail-Buttons">
-              <div className="Wishlist-Button">위시리스트 담기</div>
+              <div
+                className={`Wishlist-Button ${isInWishlist ? "active" : ""}`}
+                onClick={isInWishlist ? removeWishlist : addToWishlist}
+              >
+                {isInWishlist ? "위시리스트" : "위시리스트"}
+              </div>
               <div className="Deatil-Basket-Button" onClick={detailAddToCart}>
                 장바구니 담기
               </div>

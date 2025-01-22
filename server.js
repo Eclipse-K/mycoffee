@@ -933,6 +933,98 @@ app.delete("/api/my-inquiries/:id", authenticateUser, (req, res) => {
   res.json({ success: true, inquiries: user.inquiries }); // 갱신된 목록 반환
 });
 
+// 위시리스트 가져오기
+app.get("/api/wishlist", authenticateUser, (req, res) => {
+  try {
+    const users = safeReadFile(userDataPath);
+    const user = users.find((u) => u.id === req.user.id);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "유저를 찾을 수 없습니다." });
+    }
+
+    user.wishlist = user.wishlist || []; // wishlist가 없으면 빈 배열로 초기화
+    res.json(user.wishlist);
+  } catch (error) {
+    console.error("위시리스트 로드 오류:", error.message);
+    res.status(500).json({ success: false, message: "서버 내부 오류" });
+  }
+});
+
+// 위시리스트 추가
+app.post("/api/wishlist/add", authenticateUser, (req, res) => {
+  const { productId, category } = req.body;
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((u) => u.id === req.user.id);
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const coffeeItems = safeReadFile(coffeeFilePath);
+  const product = coffeeItems[category]?.find((item) => item.id === productId);
+
+  if (product) {
+    const user = users[userIndex];
+    user.wishlist = user.wishlist || [];
+    if (!user.wishlist.some((item) => item.id === productId)) {
+      const newItem = {
+        uuid: uuidv4(), // 고유 식별자 생성
+        img: product.img,
+        title: product.title,
+        price: product.price,
+      };
+      user.wishlist.push(newItem);
+      safeWriteFile(userDataPath, users);
+      return res.json(user.wishlist); // 전체 위시리스트 배열 반환
+    } else {
+      return res
+        .status(400)
+        .json({ success: false, message: "이미 추가된 상품입니다." });
+    }
+  }
+
+  res.status(404).json({ success: false, message: "상품을 찾을 수 없습니다." });
+});
+
+// 위시리스트 삭제
+app.post("/api/wishlist/remove", authenticateUser, (req, res) => {
+  const { uuid } = req.body;
+
+  if (!uuid) {
+    console.error("삭제 요청에서 uuid가 누락되었습니다.");
+    return res
+      .status(400)
+      .json({ success: false, message: "uuid가 필요합니다." });
+  }
+
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((u) => u.id === req.user.id);
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  const user = users[userIndex];
+  const initialLength = user.wishlist.length;
+  user.wishlist = user.wishlist.filter((item) => item.uuid !== uuid);
+
+  if (user.wishlist.length === initialLength) {
+    console.error("위시리스트에서 uuid에 해당하는 항목을 찾을 수 없습니다.");
+    return res
+      .status(404)
+      .json({ success: false, message: "항목을 찾을 수 없습니다." });
+  }
+
+  safeWriteFile(userDataPath, users);
+  return res.json({ success: true, wishlist: user.wishlist });
+});
+
 // 서버 실행
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

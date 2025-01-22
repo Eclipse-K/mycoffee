@@ -1,0 +1,33 @@
+.MyWishlist {
+  padding: 20px;
+}
+
+.Wishlist-Empty {
+  text-align: center;
+  font-size: 18px;
+  color: gray;
+}
+
+.Wishlist-Item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.Wishlist-Item img {
+  width: 80px;
+  height: 80px;
+  margin-right: 15px;
+}
+
+.Remove-Button {
+  margin-left: auto;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.Remove-Button:hover {
+  opacity: 0.8;
+}
