@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./MyWishlist.css";
 import { Navigate } from "react-router-dom";
+import { MdOutlineCancel } from "react-icons/md";
 
 function MyWishlist() {
   const [wishlist, setWishlist] = useState([]);
@@ -45,21 +46,21 @@ function MyWishlist() {
 
   return (
     <div className="MyWishlist">
-      <h1>나의 위시리스트</h1>
-      <ul>
+      <h2 className="MyWishlist-title">나의 위시리스트</h2>
+      <hr />
+      <ul className="Wishlist-Item-Container">
         {wishlist.map((item) => (
           <li key={item.uuid} className="Wishlist-Item">
             <img src={item.img} alt={item.title} />
-            <div>
+            <div className="Wishlist-Item-Content">
               <h2>{item.title}</h2>
               <p>{item.price}원</p>
             </div>
-            <button
+
+            <MdOutlineCancel
               className="Remove-Button"
               onClick={() => removeFromWishlist(item.uuid)}
-            >
-              삭제
-            </button>
+            />
           </li>
         ))}
       </ul>

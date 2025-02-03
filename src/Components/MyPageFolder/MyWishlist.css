@@ -1,5 +1,10 @@
 .MyWishlist {
-  padding: 20px;
+  width: 100%;
+}
+
+.MyWishlist-title {
+  font-size: 24px;
+  text-align: center;
 }
 
 .Wishlist-Empty {
@@ -8,24 +13,41 @@
   color: gray;
 }
 
+.Wishlist-Item-Container {
+  padding: 0;
+}
+
 .Wishlist-Item {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 15px;
+  padding: 0;
 }
 
 .Wishlist-Item img {
   width: 80px;
   height: 80px;
-  margin-right: 15px;
+}
+
+.Wishlist-Item-Content {
+  padding: 0 16px;
+}
+
+.Wishlist-Item-Content h2 {
+  margin: 0 0 8px 0;
+}
+
+.Wishlist-Item-Content p {
+  margin: 0;
 }
 
 .Remove-Button {
   margin-left: auto;
-  background-color: red;
-  color: white;
-  border: none;
+  color: black;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
 
 .Remove-Button:hover {
