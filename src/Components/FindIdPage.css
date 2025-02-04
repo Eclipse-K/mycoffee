@@ -79,8 +79,15 @@
 }
 
 @media all and (max-width: 432px) {
+  .Find-id {
+    min-height: 640px;
+  }
+
   .Find-id-container {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .Find-nav {
@@ -88,7 +95,7 @@
   }
 
   .find-id-page {
-    width: 80%;
+    width: 84%;
   }
 }
 

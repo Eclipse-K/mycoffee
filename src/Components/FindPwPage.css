@@ -15,8 +15,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  width: 100%;
+  min-height: 610px;
 }
 
 .FindPwPage-container {
@@ -79,12 +78,19 @@
 }
 
 @media all and (max-width: 432px) {
+  .FindPw {
+    align-items: normal;
+  }
+
   .FindPw-container {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .FindPwPage-container {
-    width: 80%;
+    width: 84%;
   }
 
   .FindPwPage-form {
