@@ -11,6 +11,10 @@
   width: 1440px;
 }
 
+.CategoryDetail-box {
+  padding: 0 24px;
+}
+
 .CategoryDetail-top {
   display: flex;
   align-items: center;
@@ -175,6 +179,10 @@ hr {
 @media all and (max-width: 432px) {
   .CategoryDetail {
     padding: 16px 8px;
+  }
+
+  .CategoryDetail-box {
+    padding: 0;
   }
 
   .BackButton {

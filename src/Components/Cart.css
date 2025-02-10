@@ -2,7 +2,6 @@
   background-color: white;
   font-family: "Do Hyeon", sans-serif;
   min-height: calc(100vh - 300px);
-  width: 100%;
 }
 
 .Cart-container {
@@ -23,6 +22,7 @@
 .Cart-title {
   margin-bottom: 0;
   font-size: 300%;
+  padding-left: 24px;
 }
 
 .Cart-list {
@@ -150,6 +150,7 @@
 
   .Cart-title {
     padding: 0 8px;
+    margin-top: 8px;
   }
 
   .Cart-list {
