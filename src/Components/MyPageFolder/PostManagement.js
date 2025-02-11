@@ -58,11 +58,12 @@ function PostManagement() {
   };
 
   return (
-    <div>
-      <h2>나의 게시물 관리</h2>
-      <ul>
+    <div className="PostManagement">
+      <h2 className="PostManagement-title">나의 게시물 관리</h2>
+      <hr className="PostManagement-hr" />
+      <ul className="PostManagement-box">
         {posts.map((post, index) => (
-          <li key={index}>
+          <li className="PostManagement-list" key={index}>
             <input
               type="checkbox"
               checked={selectedPosts.includes(index)}
@@ -74,15 +75,25 @@ function PostManagement() {
                 )
               }
             />
-            <div>
-              <h3>{post.productTitle}</h3>
-              <p>{post.content}</p>
-              <span>{post.date}</span>
+            <div className="PostManagement-content">
+              <div className="PostManagement-content-img-text">
+                <img
+                  src={post.imgUrl}
+                  alt={post.productTitle}
+                  className="PostManagement-img"
+                />
+                <p>{post.content}</p>
+              </div>
+              <div className="PostManagement-content-date">{post.date}</div>
             </div>
           </li>
         ))}
       </ul>
-      <button onClick={handleDeletePosts} disabled={selectedPosts.length === 0}>
+      <button
+        className="PostManagement-delete-button"
+        onClick={handleDeletePosts}
+        disabled={selectedPosts.length === 0}
+      >
         선택 삭제
       </button>
     </div>

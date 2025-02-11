@@ -11,104 +11,103 @@ function ReviewPage({ productTitle }) {
   const [reviewLoggedIn, setReviewLoggedIn] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
   const [editReviewContent, setEditReviewContent] = useState("");
+  const [productImgUrl, setProductImgUrl] = useState(""); // 상품 이미지 URL 저장
   const reviewUser = useRef("");
+  const token = sessionStorage.getItem("token");
 
-  // 리뷰 불러오기 및 로그인 상태 확인
+  // 현재 상품의 이미지 URL 가져오기
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    if (!token) return;
 
-    if (token) {
-      axios
-        .get(`/api/reviews/${encodeURIComponent(productTitle)}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => {
-          const reviewsArray = res.data.reviews || [];
-          setReviews(
-            Array.isArray(reviewsArray)
-              ? reviewsArray
-              : Object.values(reviewsArray).flat()
-          );
-        })
-        .catch((err) => {
-          console.error("Failed to load reviews:", err);
-          alert("리뷰를 불러오는 중 오류가 발생했습니다.");
-        });
-    } else {
-      alert("로그인이 필요합니다.");
-    }
-  }, [productTitle]);
+    axios
+      .get("/api/wishlist", { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => {
+        const wishlist = res.data || [];
+        const product = wishlist.find((item) => item.title === productTitle);
+        if (product) {
+          setProductImgUrl(product.img);
+        }
+      })
+      .catch((err) => console.error("상품 이미지 불러오기 실패:", err));
+  }, [productTitle, token]);
 
+  // 리뷰 불러오기
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    if (!token) return;
 
-    if (token) {
-      axios
-        .post("/api/verify-token", { token })
-        .then((res) => {
-          if (res.data.success) {
-            setReviewLoggedIn(true);
-            reviewUser.current = res.data.username; // 사용자 이름 저장
-          } else {
-            setReviewLoggedIn(false);
-          }
-        })
-        .catch((err) => {
-          console.error("Token verification failed:", err);
-          setReviewLoggedIn(false);
-        });
-    } else {
-      setReviewLoggedIn(false);
-    }
-  }, []);
+    axios
+      .get(`/api/reviews/${encodeURIComponent(productTitle)}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const reviewsArray = res.data.reviews || [];
+        setReviews(
+          Array.isArray(reviewsArray)
+            ? reviewsArray
+            : Object.values(reviewsArray).flat()
+        );
+      })
+      .catch((err) => console.error("Failed to load reviews:", err));
+  }, [productTitle, token]);
+
+  // 로그인 상태 확인
+  useEffect(() => {
+    if (!token) return;
+
+    axios
+      .post("/api/verify-token", { token })
+      .then((res) => {
+        if (res.data.success) {
+          setReviewLoggedIn(true);
+          reviewUser.current = res.data.username;
+        }
+      })
+      .catch(() => setReviewLoggedIn(false));
+  }, [token]);
 
   // 리뷰 작성
   const handleAddReview = () => {
     if (!newReview.trim()) return alert("후기를 입력해주세요!");
     if (!reviewLoggedIn) return alert("로그인이 필요합니다.");
+    if (!productImgUrl) return alert("상품 이미지를 찾을 수 없습니다.");
+    if (!token) return alert("로그인이 필요합니다.");
 
-    const token = sessionStorage.getItem("token");
+    const newReviewData = {
+      user: reviewUser.current,
+      content: newReview,
+      date: new Date().toISOString().split("T")[0], // 현재 날짜 추가
+      imgUrl: productImgUrl,
+    };
+
     axios
       .post(
         "/api/reviews",
-        { productId: productTitle, reviewContent: newReview },
+        {
+          productId: productTitle,
+          reviewContent: newReview,
+          imgUrl: productImgUrl,
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       )
-      .then((res) => {
-        const updatedReviews = res.data.reviews || [];
-        setReviews(
-          Array.isArray(updatedReviews)
-            ? updatedReviews
-            : Object.values(updatedReviews).flat()
-        );
+      .then(() => {
+        setReviews((prevReviews) => [...prevReviews, newReviewData]); // 새 리뷰를 기존 목록에 추가
         setNewReview(""); // 입력 필드 초기화
       })
-      .catch((err) => {
-        console.error("Error adding review:", err);
-        alert("후기 작성 중 오류가 발생했습니다.");
-      });
+      .catch(() => alert("후기 작성 중 오류가 발생했습니다."));
   };
 
   // 리뷰 삭제
   const handleDeleteReview = (index) => {
-    const token = sessionStorage.getItem("token");
+    if (!token) return alert("로그인이 필요합니다.");
 
     axios
       .delete(`/api/reviews/${encodeURIComponent(productTitle)}/${index}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => {
-        const updatedReviews = res.data.reviews || [];
-        setReviews(
-          Array.isArray(updatedReviews)
-            ? updatedReviews
-            : Object.values(updatedReviews).flat()
-        );
+      .then(() => {
+        setReviews((prevReviews) => prevReviews.filter((_, i) => i !== index));
       })
-      .catch((err) => {
-        console.error("Error deleting review:", err);
-        alert("리뷰 삭제 중 오류가 발생했습니다.");
-      });
+      .catch(() => alert("리뷰 삭제 중 오류가 발생했습니다."));
   };
 
   // 리뷰 수정 시작
@@ -119,7 +118,7 @@ function ReviewPage({ productTitle }) {
 
   // 리뷰 수정 저장
   const handleSaveEditReview = () => {
-    const token = sessionStorage.getItem("token");
+    if (!token) return alert("로그인이 필요합니다.");
 
     axios
       .put(
@@ -127,20 +126,18 @@ function ReviewPage({ productTitle }) {
         { reviewContent: editReviewContent },
         { headers: { Authorization: `Bearer ${token}` } }
       )
-      .then((res) => {
-        const updatedReviews = res.data.reviews || [];
-        setReviews(
-          Array.isArray(updatedReviews)
-            ? updatedReviews
-            : Object.values(updatedReviews).flat()
+      .then(() => {
+        setReviews((prevReviews) =>
+          prevReviews.map((review, index) =>
+            index === editingIndex
+              ? { ...review, content: editReviewContent }
+              : review
+          )
         );
-        setEditingIndex(null); // 수정 모드 종료
-        setEditReviewContent(""); // 입력 필드 초기화
+        setEditingIndex(null);
+        setEditReviewContent("");
       })
-      .catch((err) => {
-        console.error("Error editing review:", err);
-        alert("리뷰 수정 중 오류가 발생했습니다.");
-      });
+      .catch(() => alert("리뷰 수정 중 오류가 발생했습니다."));
   };
 
   return (
@@ -165,46 +162,53 @@ function ReviewPage({ productTitle }) {
         {reviews.length > 0 ? (
           reviews.map((review, index) => (
             <div key={index} className="ReviewItem">
-              {editingIndex === index ? (
-                <div className="ReviewItem-box">
-                  <textarea
-                    className="ReviewItem-textarea"
-                    value={editReviewContent}
-                    onChange={(e) => setEditReviewContent(e.target.value)}
-                  />
-                  <div className="ReviewActions">
-                    <button
-                      className="ReviewItem-Save"
-                      onClick={handleSaveEditReview}
-                    >
-                      저장
-                    </button>
-                    <button
-                      className="ReviewItem-Cancer"
-                      onClick={() => setEditingIndex(null)}
-                    >
-                      취소
-                    </button>
+              {review.imgUrl && (
+                <img
+                  src={review.imgUrl}
+                  alt="리뷰 이미지"
+                  className="ReviewImage"
+                />
+              )}
+              <div className="ReviewItem-box">
+                {editingIndex === index ? (
+                  <div className="ReviewItem-edit">
+                    <textarea
+                      className="ReviewItem-textarea"
+                      value={editReviewContent}
+                      onChange={(e) => setEditReviewContent(e.target.value)}
+                    />
+                    <div className="ReviewActions">
+                      <button
+                        className="ReviewItem-Save"
+                        onClick={handleSaveEditReview}
+                      >
+                        저장
+                      </button>
+                      <button
+                        className="ReviewItem-Cancel"
+                        onClick={() => setEditingIndex(null)}
+                      >
+                        취소
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <>
-                  <div className="ReviewItem-box">
+                ) : (
+                  <>
                     <p className="ReviewContent">{review.content}</p>
                     <span>
                       {review.user} | {review.date}
                     </span>
-                  </div>
-                  {review.user === reviewUser.current && (
-                    <div className="ReviewActions">
-                      <CiEdit onClick={() => handleEditReview(index)} />
-                      <RiDeleteBin5Line
-                        onClick={() => handleDeleteReview(index)}
-                      />
-                    </div>
-                  )}
-                </>
-              )}
+                    {review.user === reviewUser.current && (
+                      <div className="ReviewActions">
+                        <CiEdit onClick={() => handleEditReview(index)} />
+                        <RiDeleteBin5Line
+                          onClick={() => handleDeleteReview(index)}
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           ))
         ) : (

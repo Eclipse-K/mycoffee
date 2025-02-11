@@ -1,42 +1,66 @@
-.post-management {
-  padding: 20px;
+.PostManagement {
+  width: 100%;
 }
 
-.post-list {
-  margin-top: 20px;
+.PostManagement-hr {
+  margin: 16px 0 8px 0;
 }
 
-.post-item {
+.PostManagement-title {
+  text-align: center;
+}
+
+.PostManagement-box {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  padding: 0;
+  margin: 8px 0;
+}
+
+.PostManagement-list {
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
 }
 
-.post-content {
-  margin-left: 10px;
+.PostManagement-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.post-content h3 {
-  margin: 0 0 5px;
+.PostManagement-content-img-text {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  width: 100%;
 }
 
-.post-content p {
-  margin: 0;
+.PostManagement-img {
+  width: 56px;
+  height: 56px;
 }
 
-.delete-posts-btn {
+.PostManagement-content-img-text p {
+  margin: 0 0 0 8px;
+}
+
+.PostManagement-content-date {
+  width: 30%;
+  text-align: right;
+}
+
+.PostManagement-delete-button {
   background-color: #ff4d4f;
   color: #fff;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 8px;
 }
 
-.delete-posts-btn:disabled {
+.PostManagement-delete-button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }

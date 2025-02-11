@@ -518,7 +518,7 @@ const hasPurchaseHistory = (userId, productId) => {
 
 //상품 후기를 저장
 app.post("/api/reviews", authenticateUser, (req, res) => {
-  const { productId, reviewContent } = req.body;
+  const { productId, reviewContent, imgUrl } = req.body;
 
   const users = safeReadFile(userDataPath);
   const userIndex = users.findIndex((u) => u.id === req.user.id);
@@ -535,6 +535,7 @@ app.post("/api/reviews", authenticateUser, (req, res) => {
     user: req.user.username,
     content: reviewContent,
     date: new Date().toISOString().split("T")[0],
+    imgUrl: imgUrl || "", // imgUrl이 없을 경우 빈 문자열로 저장
   };
 
   user.reviews[productId].push(newReview);

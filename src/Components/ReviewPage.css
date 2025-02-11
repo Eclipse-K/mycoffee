@@ -51,9 +51,15 @@
 .ReviewItem-box {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
   width: 100%;
+}
+
+.ReviewImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .ReviewItem-textarea {
