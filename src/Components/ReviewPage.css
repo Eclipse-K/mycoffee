@@ -50,9 +50,15 @@
 
 .ReviewItem-box {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
+}
+
+.ReviewItem-Content {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
 }
 
 .ReviewImage {
@@ -64,48 +70,57 @@
 
 .ReviewItem-textarea {
   width: 100%;
-  margin: 8px 0;
   padding: 8px;
   box-sizing: border-box;
 }
 
 .ReviewActions {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 8px;
+  margin-left: 8px;
+}
+
+.ReviewActions svg {
+  width: 24px;
+  height: 24px;
 }
 
 .ReviewContent {
   margin: 0;
 }
 
-.ReviewItem span {
+.ReviewItem-Content span {
   display: block;
   font-size: 12px;
   color: #666;
 }
 
+.ReviewItem-Edit,
 .ReviewItem-Save,
-.ReviewItem-Cancer {
-  background-color: #0078ff;
-  color: white;
+.ReviewItem-Cancel {
+  background-color: white;
+  color: black;
   border: none;
   border-radius: 4px;
-  padding: 6px 12px;
+  padding: 4px 8px;
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s ease;
 }
 
+.ReviewItem-Edit:hover,
 .ReviewItem-Save:hover,
-.ReviewItem-Cancer:hover {
-  background-color: #0056c2;
+.ReviewItem-Cancel:hover {
+  background-color: black;
+  color: white;
 }
 
+.ReviewItem-Edit:disabled,
 .ReviewItem-Save:disabled,
-.ReviewItem-Cancer:disabled {
-  background-color: #ccc;
+.ReviewItem-Cancel:disabled {
+  background-color: white;
   cursor: not-allowed;
 }
 

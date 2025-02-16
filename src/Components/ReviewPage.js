@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { FaCheck } from "react-icons/fa";
+import { MdOutlineCancel } from "react-icons/md";
 import "./ReviewPage.css";
 
 function ReviewPage({ productTitle }) {
@@ -169,46 +171,48 @@ function ReviewPage({ productTitle }) {
                   className="ReviewImage"
                 />
               )}
-              <div className="ReviewItem-box">
-                {editingIndex === index ? (
-                  <div className="ReviewItem-edit">
-                    <textarea
-                      className="ReviewItem-textarea"
-                      value={editReviewContent}
-                      onChange={(e) => setEditReviewContent(e.target.value)}
+              {editingIndex === index ? (
+                <div className="ReviewItem-box">
+                  <textarea
+                    className="ReviewItem-textarea"
+                    value={editReviewContent}
+                    onChange={(e) => setEditReviewContent(e.target.value)}
+                  />
+
+                  <div className="ReviewActions">
+                    <FaCheck
+                      className="ReviewItem-Save"
+                      onClick={handleSaveEditReview}
                     />
-                    <div className="ReviewActions">
-                      <button
-                        className="ReviewItem-Save"
-                        onClick={handleSaveEditReview}
-                      >
-                        저장
-                      </button>
-                      <button
-                        className="ReviewItem-Cancel"
-                        onClick={() => setEditingIndex(null)}
-                      >
-                        취소
-                      </button>
-                    </div>
+
+                    <MdOutlineCancel
+                      className="ReviewItem-Cancel"
+                      onClick={() => setEditingIndex(null)}
+                    />
                   </div>
-                ) : (
-                  <>
+                </div>
+              ) : (
+                <div className="ReviewItem-box">
+                  <div className="ReviewItem-Content">
                     <p className="ReviewContent">{review.content}</p>
                     <span>
                       {review.user} | {review.date}
                     </span>
-                    {review.user === reviewUser.current && (
-                      <div className="ReviewActions">
-                        <CiEdit onClick={() => handleEditReview(index)} />
-                        <RiDeleteBin5Line
-                          onClick={() => handleDeleteReview(index)}
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+                  </div>
+                  {review.user === reviewUser.current && (
+                    <div className="ReviewActions">
+                      <CiEdit
+                        className="ReviewItem-Edit"
+                        onClick={() => handleEditReview(index)}
+                      />
+                      <RiDeleteBin5Line
+                        className="ReviewItem-Cancel"
+                        onClick={() => handleDeleteReview(index)}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ))
         ) : (
