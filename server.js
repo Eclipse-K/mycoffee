@@ -474,20 +474,59 @@ const getTitleById = (id) => {
   return null;
 };
 
+//상품 정보 조회
+app.get("/api/product/:title", (req, res) => {
+  const { title } = req.params;
+  const coffeeData = safeReadFile(coffeeFilePath);
+
+  let foundProduct = null;
+
+  for (const category in coffeeData) {
+    const product = coffeeData[category].find((item) => item.title === title);
+    if (product) {
+      foundProduct = product;
+      break;
+    }
+  }
+
+  if (foundProduct) {
+    res.json({ success: true, product: foundProduct });
+  } else {
+    res
+      .status(404)
+      .json({ success: false, message: "상품을 찾을 수 없습니다." });
+  }
+});
+
 //특정 상품의 후기 가져오기
-app.get("/api/reviews/:productTitle", authenticateUser, (req, res) => {
+// app.get("/api/reviews/:productTitle", authenticateUser, (req, res) => {
+//   const { productTitle } = req.params;
+
+//   const users = safeReadFile(userDataPath);
+//   const user = users.find((u) => u.id === req.user.id);
+//   if (!user) {
+//     return res
+//       .status(404)
+//       .json({ success: false, message: "유저를 찾을 수 없습니다." });
+//   }
+
+//   const reviews = user.reviews[productTitle] || [];
+//   res.json({ success: true, reviews });
+// });
+// 특정 상품의 후기 가져오기 (모든 사용자 접근 가능)
+app.get("/api/reviews/:productTitle", (req, res) => {
   const { productTitle } = req.params;
 
   const users = safeReadFile(userDataPath);
-  const user = users.find((u) => u.id === req.user.id);
-  if (!user) {
-    return res
-      .status(404)
-      .json({ success: false, message: "유저를 찾을 수 없습니다." });
-  }
+  let allReviews = [];
 
-  const reviews = user.reviews[productTitle] || [];
-  res.json({ success: true, reviews });
+  users.forEach((user) => {
+    if (user.reviews && user.reviews[productTitle]) {
+      allReviews = allReviews.concat(user.reviews[productTitle]);
+    }
+  });
+
+  res.json({ success: true, reviews: allReviews });
 });
 
 // API: 사용자 후기 가져오기

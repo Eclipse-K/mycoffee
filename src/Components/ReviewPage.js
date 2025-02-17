@@ -19,28 +19,20 @@ function ReviewPage({ productTitle }) {
 
   // 현재 상품의 이미지 URL 가져오기
   useEffect(() => {
-    if (!token) return;
-
     axios
-      .get("/api/wishlist", { headers: { Authorization: `Bearer ${token}` } })
+      .get(`/api/product/${encodeURIComponent(productTitle)}`)
       .then((res) => {
-        const wishlist = res.data || [];
-        const product = wishlist.find((item) => item.title === productTitle);
-        if (product) {
-          setProductImgUrl(product.img);
+        if (res.data.success && res.data.product) {
+          setProductImgUrl(res.data.product.img);
         }
       })
       .catch((err) => console.error("상품 이미지 불러오기 실패:", err));
-  }, [productTitle, token]);
+  }, [productTitle]);
 
-  // 리뷰 불러오기
+  // 리뷰 불러오기 (로그인 여부와 상관없이 접근 가능)
   useEffect(() => {
-    if (!token) return;
-
     axios
-      .get(`/api/reviews/${encodeURIComponent(productTitle)}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(`/api/reviews/${encodeURIComponent(productTitle)}`)
       .then((res) => {
         const reviewsArray = res.data.reviews || [];
         setReviews(
@@ -50,7 +42,7 @@ function ReviewPage({ productTitle }) {
         );
       })
       .catch((err) => console.error("Failed to load reviews:", err));
-  }, [productTitle, token]);
+  }, [productTitle]);
 
   // 로그인 상태 확인
   useEffect(() => {
@@ -178,13 +170,11 @@ function ReviewPage({ productTitle }) {
                     value={editReviewContent}
                     onChange={(e) => setEditReviewContent(e.target.value)}
                   />
-
                   <div className="ReviewActions">
                     <FaCheck
                       className="ReviewItem-Save"
                       onClick={handleSaveEditReview}
                     />
-
                     <MdOutlineCancel
                       className="ReviewItem-Cancel"
                       onClick={() => setEditingIndex(null)}
