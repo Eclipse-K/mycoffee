@@ -27,21 +27,24 @@ function CategoryDetail() {
   useEffect(() => {
     if (pagedetail) {
       const token = sessionStorage.getItem("token");
+      if (!token) {
+        return; // 토큰이 없으면 API 요청하지 않음
+      }
+
       axios
         .get("/api/wishlist", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          // 위시리스트에서 현재 상품의 uuid 찾기
           const itemInWishlist = response.data.find(
-            (item) => item.title === pagedetail.title // 상품 제목으로 비교
+            (item) => item.title === pagedetail.title
           );
 
           if (itemInWishlist) {
-            setUuid(itemInWishlist.uuid); // UUID 상태 설정
-            setIsInWishlist(true); // 위시리스트 상태 설정
+            setUuid(itemInWishlist.uuid);
+            setIsInWishlist(true);
           } else {
-            setUuid(null); // UUID 초기화
+            setUuid(null);
             setIsInWishlist(false);
           }
         })

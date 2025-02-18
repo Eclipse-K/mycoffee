@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "./LoginForm.css";
@@ -13,6 +13,7 @@ function Login() {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const { login } = useLogged();
   const navigate = useNavigate();
+  const location = useLocation(); // 현재 URL 정보를 가져오기 위한 훅
 
   const handleIdChange = (e) => {
     setLoginId(e.target.value);
@@ -39,15 +40,16 @@ function Login() {
         });
 
         if (response.data.success) {
-          // LocalStorage에 사용자 정보 저장
           login(response.data.token, {
             username: response.data.username,
             id: response.data.id,
             email: response.data.email,
           });
 
-          // 페이지 이동
-          navigate("/myPage");
+          // 🔹 로그인 후 리디렉트할 경로 설정 (이전 페이지 URL이 있으면 해당 페이지로 이동)
+          const redirectPath =
+            new URLSearchParams(location.search).get("redirect") || "/";
+          navigate(redirectPath, { replace: true });
         } else {
           setErrorMessage("로그인 실패: " + response.data.message);
         }

@@ -148,7 +148,15 @@ function ReviewPage({ productTitle }) {
         </div>
       ) : (
         <p>
-          후기를 작성하려면 <Link to="/Login">로그인</Link> 해주세요.
+          후기를 작성하려면{" "}
+          <Link
+            to={`/Login?redirect=${encodeURIComponent(
+              window.location.pathname
+            )}`}
+          >
+            로그인
+          </Link>{" "}
+          해주세요.
         </p>
       )}
       <hr />
