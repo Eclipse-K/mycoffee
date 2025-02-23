@@ -22,7 +22,9 @@
 .ReviewForm button {
   margin-top: 8px;
   padding: 10px 20px;
-  background-color: #0078ff;
+  background-color: black;
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 16px;
   color: #fff;
   border: none;
   border-radius: 5px;

@@ -108,6 +108,8 @@ function SignupForm() {
           </Link>
         </nav>
         <div className="Sign-body">
+          <h2 className="Sign-body-title">작성</h2>
+          <hr className="Sign-body-divide" />
           <form className="Sign-box" onSubmit={handleSubmit}>
             {/* 아이디 */}
             <div className="Sign-area">
