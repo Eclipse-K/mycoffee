@@ -27,6 +27,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-top: 8px;
 }
 
 .PostManagement-content-img-text {
@@ -52,6 +53,7 @@
 
 .PostManagement-delete-button {
   background-color: #ff4d4f;
+  font-family: "Do Hyeon", sans-serif;
   color: #fff;
   padding: 8px 16px;
   border: none;
@@ -63,4 +65,10 @@
 .PostManagement-delete-button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+@media all and (max-width: 432px) {
+  .PostManagement-content-date {
+    width: 20%;
+  }
 }

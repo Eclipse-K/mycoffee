@@ -58,11 +58,11 @@
 }
 
 .myPage-logout-btn {
-  display: block;
   width: 100px;
   margin: 0 auto 30px;
   padding: 10px 20px;
   background-color: #f44336;
+  font-family: "Do Hyeon", sans-serif;
   color: #fff;
   border: none;
   border-radius: 5px;

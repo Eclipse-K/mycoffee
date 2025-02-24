@@ -159,12 +159,12 @@ function MyPage() {
               >
                 위시리스트
               </li>
-              <li
+              {/* <li
                 className={selectedTab === "최근 본 상품" ? "active" : ""}
                 onClick={() => handleTabClick("최근 본 상품")}
               >
                 최근 본 상품
-              </li>
+              </li> */}
               <li
                 className={selectedTab === "회원탈퇴" ? "active" : ""}
                 onClick={() => handleTabClick("회원탈퇴")}
