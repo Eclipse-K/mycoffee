@@ -147,6 +147,24 @@ app.post("/api/verify-token", (req, res) => {
   });
 });
 
+// 회원 탈퇴 API
+app.delete("/api/delete-user", authenticateUser, (req, res) => {
+  const users = safeReadFile(userDataPath);
+  const userIndex = users.findIndex((u) => u.id === req.user.id);
+
+  if (userIndex === -1) {
+    return res
+      .status(404)
+      .json({ success: false, message: "유저를 찾을 수 없습니다." });
+  }
+
+  // 사용자 정보 삭제
+  users.splice(userIndex, 1);
+  safeWriteFile(userDataPath, users);
+
+  res.json({ success: true, message: "회원 탈퇴가 완료되었습니다." });
+});
+
 // API: 커피 항목 가져오기
 app.get("/api/coffee-items", (req, res) => {
   const coffeeItems = safeReadFile(coffeeFilePath);

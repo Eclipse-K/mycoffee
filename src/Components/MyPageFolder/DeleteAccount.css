@@ -1,0 +1,115 @@
+/* DeleteAccount.css */
+
+.delete-account-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.delete-account-page-container h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.delete-account-confirm-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.delete-account-confirm-btn:hover {
+  background-color: #c82333;
+}
+
+.delete-account-confirm-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.delete-account-confirm-popup p {
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.delete-account-confirm-popup button {
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.delete-account-confirm-popup button:first-of-type {
+  background-color: #28a745;
+  color: white;
+}
+
+.delete-account-confirm-popup button:first-of-type:hover {
+  background-color: #218838;
+}
+
+.delete-account-confirm-popup button:last-of-type {
+  background-color: #6c757d;
+  color: white;
+}
+
+.delete-account-confirm-popup button:last-of-type:hover {
+  background-color: #5a6268;
+}
+
+.delete-account-success-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.delete-account-success-popup p {
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.delete-account-success-popup button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.delete-account-success-popup button:hover {
+  background-color: #0056b3;
+}

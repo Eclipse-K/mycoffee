@@ -11,6 +11,7 @@ import AddressManagement from "./MyPageFolder/AddressManagement";
 import MyInquiries from "./MyPageFolder/MyInquiries";
 import PostManagement from "./MyPageFolder/PostManagement";
 import MyWhislist from "./MyPageFolder/MyWishlist";
+import DeleteAccount from "./MyPageFolder/DeleteAccount";
 
 function MyPage() {
   const [username, setUsername] = useState("");
@@ -229,6 +230,8 @@ function MyPage() {
               <PostManagement />
             ) : selectedTab === "위시리스트" ? (
               <MyWhislist />
+            ) : selectedTab === "회원탈퇴" ? (
+              <DeleteAccount />
             ) : (
               <div className="myPage-orders">
                 <div className="myPage-order-status">
