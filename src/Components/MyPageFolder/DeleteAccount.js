@@ -1,7 +1,7 @@
-// DeleteAccount.js (React Component)
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./DeleteAccount.css";
 
 const DeleteAccount = () => {
   const [showConfirm, setShowConfirm] = useState(false);

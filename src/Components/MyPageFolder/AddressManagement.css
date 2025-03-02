@@ -1,7 +1,7 @@
 /* 컨테이너 스타일 */
 .address-management {
   width: 100%;
-  font-family: Arial, sans-serif;
+  font-family: "Do Hyeon", sans-serif;
 }
 
 /* 제목 */
@@ -116,6 +116,7 @@
 .address-delete-btn {
   padding: 10px 15px;
   font-size: 14px;
+  font-family: "Do Hyeon", sans-serif;
   border: none;
   border-radius: 8px;
   cursor: pointer;
